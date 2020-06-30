@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:prestaQi/Screens/Login/login.dart';
+import 'package:prestaQi/Screens/RecoveryPassword/recovery_password.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/HexColor.dart';
 
-class LoginContent extends StatelessWidget {
-  
-  final LoginState state;
+class RecoveryPasswordContent extends StatelessWidget {
 
-  LoginContent({Key key, @required this.state});
+  final RecoveryPasswordState state;
+
+  RecoveryPasswordContent({Key key, @required this.state});
 
   @override
   Widget build(BuildContext context) {
-    
     return new Container(
       height: this.state.screen.height,
       width: this.state.screen.width,
@@ -40,7 +39,7 @@ class LoginContent extends StatelessWidget {
           Center(
             child: Container(
               width: this.state.screen.width * .8,
-              child: Text('Bienvenido', 
+              child: Text('Recuperar contraseña', 
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,
@@ -55,7 +54,7 @@ class LoginContent extends StatelessWidget {
           Center(
             child: Container(
               width: this.state.screen.width * .8,
-              child: Text('Ingresa tus datos para continuar', 
+              child: Text('Ingresa tus correo electrónico', 
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 21
@@ -89,74 +88,25 @@ class LoginContent extends StatelessWidget {
           Center(
             child: Container(
               width: this.state.screen.width * .8,
-              child: TextFormField(
-                style: TextStyle(color: Colors.white),
-                textCapitalization: TextCapitalization.none,
-                decoration: InputDecoration(
-                  labelText: 'Contraseña',
-                  labelStyle: TextStyle(color: Colors.white),
-                  contentPadding: EdgeInsets.all(0),
-                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-                  focusColor: Colors.white,
-                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
-                )
-              )
-            ),
-          ),
-          SizedBox(
-            height: 35,
-          ),
-          Center(
-            child: Container(
-              width: (this.state.screen.width * .8) + 30,
-              padding: EdgeInsets.only(right: 14),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Checkbox(
-                          checkColor: HexColor.fromHex('#000066'),
-                          activeColor: Colors.white,
-                          onChanged: (bool value) {},
-                          value: true,
-                        ),
-                        Container(
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Text('Recordar mis datos', style: TextStyle(color: Colors.white)),
-                          ),
-                        )
-                      ],
-                    ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  width: 55,
+                  padding: EdgeInsets.only(
+                    bottom: 2, // space between underline and text
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      appService<NavigationService>().navigateTo('/recovery-password');
-                    },
-                    child: Container(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 10),
-                            child: SvgPicture.asset(
-                              'assets/icons/ico-candado.svg',
-                              color: Colors.white,
-                              width: 23,
-                            ),
-                          ),
-                          Container(
-                            child: Text('Recuperar contraseña', style: TextStyle(color: Colors.white)),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+                  decoration: BoxDecoration(
+                    border: Border(bottom: BorderSide(
+                      color: Colors.white,  // Text colour here
+                      width: 1.0, // Underline width
+                    ))
+                  ),
+                  child: Text('Regresar', style: 
+                    TextStyle(
+                      color: Colors.white
+                    )
+                  ),
+                ),
               ),
             ),
           ),
@@ -167,7 +117,9 @@ class LoginContent extends StatelessWidget {
             child: Container(
               width: this.state.screen.width * .8,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  appService<NavigationService>().navigateTo('/change-password');
+                },
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 25),
                   decoration: BoxDecoration(
@@ -176,7 +128,7 @@ class LoginContent extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      'INGRESAR', 
+                      'ENVIAR', 
                       style: TextStyle(
                         color: Colors.white,
                         fontFamily: 'Montserrat',
@@ -193,4 +145,4 @@ class LoginContent extends StatelessWidget {
       ),
     );
   }
-} 
+}

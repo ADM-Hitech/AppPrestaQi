@@ -1,0 +1,233 @@
+import 'package:flutter/material.dart';
+import 'package:prestaQi/Screens/ConfirmRequestAdvance/confirm_request_advance.dart';
+import 'package:prestaQi/Services/NavigationService.dart';
+import 'package:prestaQi/Services/SetupService.dart';
+
+class ConfirmRequestAdvanceContent extends StatelessWidget {
+
+  final ConfirmRequestAdvanceState state;
+
+  ConfirmRequestAdvanceContent({Key key, @required this.state});
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      height: this.state.screen.height,
+      width: this.state.screen.width,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(60)
+        )
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            top: 60,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(239, 244, 255, 1),
+                  borderRadius: BorderRadius.circular(17),
+                  border: Border.all(
+                    color: Color.fromRGBO(222, 227, 237, 1),
+                    width: 2
+                  )
+                ),
+                padding: EdgeInsets.all(40),
+                width: this.state.screen.width * .65,
+                child: Column(
+                  children: [
+                    Container(
+                      child: Text('Cantidad solicitada',
+                        style: TextStyle(
+                          fontSize: 20, 
+                          color: Color.fromRGBO(142, 145, 162, 1),
+                          fontWeight: FontWeight.w600
+                        )
+                      ),
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    Container(
+                      width: this.state.screen.width * .65,
+                      child: FittedBox(
+                        fit: BoxFit.contain,
+                        child: Text(
+                          '\$3,000.00',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromRGBO(0, 0, 102, 1)
+                          )
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Container(
+                      height: 7,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(202, 206, 230, 1),
+                        borderRadius: BorderRadius.circular(3.5)
+                      ),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            left: 0,
+                            child: Container(
+                              height: 7,
+                              width: ((this.state.screen.width * .65) - 80) * .5,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(51, 51, 255, 1),
+                                borderRadius: BorderRadius.circular(3.5)
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 320,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                width: this.state.screen.width * .8,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Color.fromRGBO(222, 227, 237, 1),
+                            width: 1
+                          ),
+                        )
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(child: Text('Banco', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
+                          Container(child: Text('Citybanamex', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                        ],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Color.fromRGBO(222, 227, 237, 1),
+                            width: 1
+                          ),
+                        )
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(child: Text('Cuenta', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
+                          Container(child: Text('**** **** 1234', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                        ],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Color.fromRGBO(222, 227, 237, 1),
+                            width: 1
+                          ),
+                        )
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(child: Text('Total a descontar', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
+                          Container(child: Text('\$3,150.00', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(child: Text('Fecha de cobro', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
+                          Container(child: Text('15/06/2020', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                width: this.state.screen.width * .8,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: (this.state.screen.width * .8) / 2,
+                      padding: EdgeInsets.only(right: 10),
+                      child: GestureDetector(
+                        onTap: () {
+                          appService<NavigationService>().showCartaMandato(context);
+                        },
+                        child: Container(
+                          height: 70,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(0, 0, 102, 1),
+                            borderRadius: BorderRadius.all(Radius.circular(50))
+                          ),
+                          child: Center(
+                            child: Text('ACEPTAR', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: (this.state.screen.width * .8) / 2,
+                      padding: EdgeInsets.only(left: 10),
+                      child: GestureDetector(
+                        onTap: () {
+                          appService<NavigationService>().showAlertSuccess(context);
+                        },
+                        child: Container(
+                          height: 70,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(198, 200, 208, 1),
+                            borderRadius: BorderRadius.all(Radius.circular(50))
+                          ),
+                          child: Center(
+                            child: Text('RECHAZAR', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          )
+        ],
+      )
+    );
+  }
+}
