@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prestaQi/Models/CalculateAdvance.dart';
 import 'package:prestaQi/Screens/RequestAdvance/request_advance_content.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
+import 'package:prestaQi/Services/RequestAdvance.dart';
 import 'package:prestaQi/Services/SetupService.dart';
+import 'package:prestaQi/Utils/HexColor.dart';
 import 'package:prestaQi/Widgets/DrawerMenu.dart';
 
 import '../../Utils/ScreenResponsive.dart';
@@ -19,17 +22,53 @@ class RequestAdvanceState extends State<RequestAdvance> {
   ScreenResponsive screen;
 
   double valueAdvance = 0;
+  double maxValue = 1;
+  Color colorAmount = Color.fromRGBO(77, 77, 77, 1);
 
   @override
   void initState() {
     super.initState();
     this.screen = new ScreenResponsive(context);
+    this.fetchMaxMount();
   }
 
   void updateValueAdvance(double value) {
     setState(() {
-      this.valueAdvance = value;
+      this.valueAdvance = value.floorToDouble();
+      if (this.valueAdvance > 0 ) {
+        this.colorAmount = Color.fromRGBO(77, 77, 77, 1);
+      } else {
+        this.colorAmount = HexColor.fromHex('#ff2626');
+      }
     });
+  }
+
+  void fetchMaxMount() {
+    appService<RequestAdvanceService>().calculateAdvance().then((value) {
+      setState(() {
+        this.maxValue = value;
+      });
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
+
+  void requestAdvance() {
+    setState(() {
+      this.colorAmount = Color.fromRGBO(77, 77, 77, 1);
+    });
+
+    if (this.valueAdvance <= 0) {
+      setState(() {
+        this.colorAmount = HexColor.fromHex('#ff2626');
+      });
+    } else {
+      var calculateAdvance = new CalculateAdvance();
+      calculateAdvance.amount = this.valueAdvance;
+      calculateAdvance.maximumAmount = this.maxValue;
+
+      appService<NavigationService>().navigateTo('/confirm-request-advance', arguments: calculateAdvance);
+    }
   }
 
   void showSlide() {

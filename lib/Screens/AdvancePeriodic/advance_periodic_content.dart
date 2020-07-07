@@ -66,77 +66,29 @@ class AdvancePeriodicContent extends StatelessWidget {
                       )),
                       DataColumn(label: Center(child: Text('FOLIO', textAlign: TextAlign.center,)))
                     ],
-                    rows: [
+                    rows: this.state.childs.map((advance) => 
                       DataRow(
                         cells: [
                           DataCell(
-                            Container(child: Center(child: Text('03/06/20')))
+                            Container(child: Center(child: Text(this.state.formatDate.format(advance.dateAdvance))))
                           ),
                           DataCell(
                             GestureDetector(
                               onTap: () {
-                                appService<NavigationService>().showDetailsAdvancePeriodic(context);
+                                appService<NavigationService>().showDetailsAdvancePeriodic(context, advance);
                               },
-                              child: Container(child: Center(child: Text('\$100'))),  
+                              child: Container(child: Center(child: Text('\$${advance.amount}', style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline)))),  
                             )
                           ),
                           DataCell(
-                            Container(child: Center(child: Text('\$120')))
+                            Container(child: Center(child: Text('\$${advance.totalWithhold}')))
                           ),
                           DataCell(
-                            Container(child: Center(child: Text('0045')))
-                          )
-                        ]
-                      ),
-                      DataRow(
-                        cells: [
-                          DataCell(
-                            Container(child: Center(child: Text('06/06/20')))
-                          ),
-                          DataCell(
-                            Container(child: Center(child: Text('\$200')))
-                          ),
-                          DataCell(
-                            Container(child: Center(child: Text('\$230')))
-                          ),
-                          DataCell(
-                            Container(child: Center(child: Text('0067')))
-                          )
-                        ]
-                      ),
-                      DataRow(
-                        cells: [
-                          DataCell(
-                            Container(child: Center(child: Text('10/06/20')))
-                          ),
-                          DataCell(
-                            Container(child: Center(child: Text('\$250')))
-                          ),
-                          DataCell(
-                            Container(child: Center(child: Text('\$275')))
-                          ),
-                          DataCell(
-                            Container(child: Center(child: Text('0189')))
-                          )
-                        ]
-                      ),
-                      DataRow(
-                        cells: [
-                          DataCell(
-                            Container(child: Center(child: Text('12/06/20')))
-                          ),
-                          DataCell(
-                            Container(child: Center(child: Text('\$400')))
-                          ),
-                          DataCell(
-                            Container(child: Center(child: Text('\$435')))
-                          ),
-                          DataCell(
-                            Container(child: Center(child: Text('0234')))
+                            Container(child: Center(child: Text('${advance.id.toString().padLeft(4, '0')}')))
                           )
                         ]
                       )
-                    ],
+                    ).toList()
                   ),
                 ),
               ),
@@ -156,11 +108,11 @@ class AdvancePeriodicContent extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 15),
-                      child: Text('\$950', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+                      child: Text('\$${this.state.numberFormat.format(this.state.totalAdvance)}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 15),
-                      child: Text('\$1,060', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+                      child: Text('\$${this.state.numberFormat.format(this.state.totalRetencion)}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
                     ),
                     Container(
                       width: 50,

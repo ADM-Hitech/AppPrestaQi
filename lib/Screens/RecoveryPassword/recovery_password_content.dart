@@ -86,25 +86,30 @@ class RecoveryPasswordContent extends StatelessWidget {
             height: 35,
           ),
           Center(
-            child: Container(
-              width: this.state.screen.width * .8,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  width: 55,
-                  padding: EdgeInsets.only(
-                    bottom: 2, // space between underline and text
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border(bottom: BorderSide(
-                      color: Colors.white,  // Text colour here
-                      width: 1.0, // Underline width
-                    ))
-                  ),
-                  child: Text('Regresar', style: 
-                    TextStyle(
-                      color: Colors.white
-                    )
+            child: GestureDetector(
+              onTap:() {
+                appService<NavigationService>().navigateTo('/auth');
+              },
+              child: Container(
+                width: this.state.screen.width * .8,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    width: 55,
+                    padding: EdgeInsets.only(
+                      bottom: 2, // space between underline and text
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(
+                        color: Colors.white,  // Text colour here
+                        width: 1.0, // Underline width
+                      ))
+                    ),
+                    child: Text('Regresar', style: 
+                      TextStyle(
+                        color: Colors.white
+                      )
+                    ),
                   ),
                 ),
               ),

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:prestaQi/Models/InfoBank.dart';
 
 class CartaMandatoModal extends ModalRoute<void> {
+
+  final InfoBank infoBank;
+
+  CartaMandatoModal({this.infoBank});
 
   @override
   Duration get transitionDuration => Duration(milliseconds: 100);
@@ -38,7 +43,7 @@ class CartaMandatoModal extends ModalRoute<void> {
 
   Widget _buildOverlayContent(BuildContext context) {
 
-    return CartaMandato();
+    return CartaMandato(infoBank: this.infoBank);
   }
 
   @override
@@ -56,6 +61,10 @@ class CartaMandatoModal extends ModalRoute<void> {
 }
 
 class CartaMandato extends StatefulWidget {
+
+  final InfoBank infoBank;
+
+  CartaMandato({this.infoBank});
     
   @override
   CartaMandatoState createState() => CartaMandatoState();
@@ -65,6 +74,8 @@ class CartaMandatoState extends State<CartaMandato> {
 
   bool accept = false;
   bool decline = false;
+  DateTime date = DateTime.now();
+  List month = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
   @override
   void initState() {
@@ -111,7 +122,7 @@ class CartaMandatoState extends State<CartaMandato> {
                             height: 50,
                           ),
                           Container(
-                            child: Text('Código: XX22XX44', 
+                            child: Text('Código: ${this.widget.infoBank.accountNumber}', 
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22
@@ -125,7 +136,7 @@ class CartaMandatoState extends State<CartaMandato> {
                             alignment: Alignment.centerLeft,
                             margin: EdgeInsets.only(bottom: 25),
                             child: Text(
-                              'Yo, el señor Juan Pérez, en mi calidad de Acreditado del programa de adelanto de nóminas PrestaQi S.A.P.I de C.V., por medio de esta Carta Mandato...',
+                              'Yo, el señor ${this.widget.infoBank.firstName} ${this.widget.infoBank.lastName}, en mi calidad de Beneficiario del programa de adelanto de nóminas PrestaQi S.A.P.I de C.V., por medio de esta Carta Mandato reconozco que solicité al día de hoy ${this.date.day} de ${this.month[this.date.month + 1]} del año ${this.date.year}, la cantidad de MXN \$${this.widget.infoBank.amount.toStringAsFixed(2)} a la campañia PrestaQi S.A.P.I de C.V., adhiriendo esta operación a la regulación de las cláusulas establecidas en el contrato número ${this.widget.infoBank.contractNumber} que llevaron a cabo ${this.widget.infoBank.companyName} y PrestaQi S.A.P.I de C.V., al cual me adherí en sus términos al suscribirme a dicho programa a tráves de la Carta de Aviso General, por lo que instruyo a ${this.widget.infoBank.companyName} a retener dicha cantidad más los intereses y comisiones generados a partir de la aplicación de la siguiente fórmula:',
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 fontSize: 16,
@@ -137,7 +148,7 @@ class CartaMandatoState extends State<CartaMandato> {
                             alignment: Alignment.centerLeft,
                             margin: EdgeInsets.only(bottom: 25),
                             child: Text(
-                              'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti delectus autem, repudiandae reiciendis consequatur adipisci laudantium optio odit debitis ratione quaerat eum recusandae ea laboriosam id quibusdam pariatur modi corporis.',
+                              'Incluir fórmula o tabla de amortización:',
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 fontSize: 16,
@@ -149,7 +160,7 @@ class CartaMandatoState extends State<CartaMandato> {
                             margin: EdgeInsets.only(bottom: 25),
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti delectus autem, repudiandae reiciendis consequatur adipisci laudantium optio odit debitis ratione quaerat eum recusandae ea laboriosam id quibusdam pariatur modi corporis.',
+                              'XXXXXXXXXXXXXXXXXXXXXXXX',
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Color.fromRGBO(142, 145, 162, 1)
@@ -159,7 +170,7 @@ class CartaMandatoState extends State<CartaMandato> {
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              'Dicha retención de \$3000.00 se deberá llevar a cabo al término del presente periodo de pago de quincena y se le deberá entregar integro a PrestaQi S.A.P.I. de C.V.',
+                              'Dicha retención de \$${this.widget.infoBank.amount.toStringAsFixed(2)} se deberá llevar a cabo al término del presente periodo de pago de quincena y se le deberá entregar integro a PrestaQi S.A.P.I. de C.V.',
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 fontSize: 16,
@@ -181,7 +192,7 @@ class CartaMandatoState extends State<CartaMandato> {
                                       setState(() {
                                         this.accept = value;
                                         this.decline = !value;
-                                        Navigator.pop(context, this.accept);
+                                        Navigator.pop(context, true);
                                       });
                                     },
                                     value: this.accept
@@ -205,7 +216,7 @@ class CartaMandatoState extends State<CartaMandato> {
                                       setState(() {
                                         this.decline = value;
                                         this.accept = !value;
-                                        Navigator.pop(context, this.accept);
+                                        Navigator.pop(context, false);
                                       });
                                     },
                                     value: this.decline

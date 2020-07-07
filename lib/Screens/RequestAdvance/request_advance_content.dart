@@ -139,7 +139,7 @@ class RequestAdvanceContent extends StatelessWidget{
                             Container(
                               child: Text('\$${this.state.valueAdvance.toStringAsFixed(2)}', 
                               style: TextStyle(
-                                  color: Color.fromRGBO(77, 77, 77, 1),
+                                  color: this.state.colorAmount,
                                   fontFamily: 'Montserrat',
                                   fontWeight: FontWeight.bold,
                                   fontSize: 30
@@ -172,7 +172,7 @@ class RequestAdvanceContent extends StatelessWidget{
                           child: Slider(
                             value: this.state.valueAdvance,
                             min: 0.0,
-                            max: 7500.0,
+                            max: this.state.maxValue,
                             activeColor: Color.fromRGBO(51, 51, 254, 1),
                             inactiveColor: Color.fromRGBO(202, 206, 230, 1),
                             onChanged: this.state.updateValueAdvance
@@ -196,7 +196,7 @@ class RequestAdvanceContent extends StatelessWidget{
                                 ),
                               ),
                               Container(
-                                child: Text('\$7,500',
+                                child: Text('\$${this.state.maxValue}',
                                 style: TextStyle(
                                     color: Color.fromRGBO(77, 77, 77, 1),
                                     fontFamily: 'Montserrat',
@@ -216,9 +216,7 @@ class RequestAdvanceContent extends StatelessWidget{
                         child: Container(
                           width: this.state.screen.width * .8,
                           child: GestureDetector(
-                            onTap: () {
-                              appService<NavigationService>().navigateTo('/confirm-request-advance');
-                            },
+                            onTap: this.state.requestAdvance,
                             child: Container(
                               padding: EdgeInsets.symmetric(vertical: 25),
                               decoration: BoxDecoration(
