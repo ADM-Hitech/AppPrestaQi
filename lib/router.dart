@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prestaQi/Models/CalculateAdvance.dart';
+import 'package:prestaQi/Models/DetailsInvestmentModel.dart';
+import 'package:prestaQi/Models/MyAdvanceModel.dart';
 import 'package:prestaQi/Models/UserToken.dart';
 import 'package:prestaQi/Screens/AdvancePeriodic/advance_periodic.dart';
 import 'package:prestaQi/Screens/ChangePassword/change_password.dart';
@@ -39,13 +42,17 @@ Route<dynamic> generateRoute(RouteSettings settings, UserToken userToken) {
       return MaterialPageRoute<void>(builder: (context) => RequestAdvance(), settings: settings);
     break;
     case '/confirm-request-advance':
-      return MaterialPageRoute<void>(builder: (context) => ConfirmRequestAdvance(), settings: settings);
+      var canculateAdvance = settings.arguments is CalculateAdvance ? settings.arguments : new CalculateAdvance(amount: 0, maximumAmount: 0);
+
+      return MaterialPageRoute<void>(builder: (context) => ConfirmRequestAdvance(calculateAdvance: canculateAdvance), settings: settings);
     break;
     case '/my-advances':
       return MaterialPageRoute<void>(builder: (context) => MyAdvances(), settings: settings);
     break;
     case '/advance-periodic':
-      return MaterialPageRoute<void>(builder: (context) => AdvancePeriodic(), settings: settings);
+      var childs = settings.arguments is List<MyAdvanceModel> ? settings.arguments : new List<MyAdvanceModel>();
+
+      return MaterialPageRoute<void>(builder: (context) => AdvancePeriodic(childs: childs), settings: settings);
     break;
     case '/my-profile':
       return MaterialPageRoute<void>(builder: (context) => MyProfile(), settings: settings);
@@ -75,7 +82,9 @@ Route<dynamic> generateRoute(RouteSettings settings, UserToken userToken) {
       return MaterialPageRoute<void>(builder: (context) => MyInvestments(), settings: settings);
     break;
     case '/details-investments':
-      return MaterialPageRoute<void>(builder: (ontext) => DetailsInvestments(), settings: settings);
+      var childs = settings.arguments is List<DetailsInvestmentModel> ? settings.arguments : new List<DetailsInvestmentModel>();
+
+      return MaterialPageRoute<void>(builder: (ontext) => DetailsInvestments(childs: childs), settings: settings);
     break;
     default:
       return MaterialPageRoute<void>(builder: (context) => Container(child: Text(settings.name)), settings: settings);

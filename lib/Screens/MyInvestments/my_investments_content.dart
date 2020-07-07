@@ -49,7 +49,11 @@ class MyInvestmentsContent extends StatelessWidget {
                   )
                 ]
               ),
-              child: Column(
+              child: this.state.loading ?
+              Center(
+                child: CircularProgressIndicator(),
+              ) :
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -84,113 +88,23 @@ class MyInvestmentsContent extends StatelessWidget {
                         Container(
                           padding: EdgeInsets.only(top: 10),
                           child: TabBar(
-                          isScrollable: true,
-                          controller: this.state.tabController,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          indicatorWeight: 10,
-                          tabs: [
-                            Tab(
-                              child: Text(
-                                    '01',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 102, 1),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 28,
-                                    )
-                                  )
-                                ),
-                                Tab(
-                                  child: Text(
-                                    '02',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 102, 1),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 28
-                                    )
-                                  )
-                                ),
-                                Tab(
-                                  child: Text(
-                                    '03',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 102, 1),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 28
-                                    )
-                                  )
-                                ),
-                                Tab(
-                                  child: Text(
-                                    '04',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 102, 1),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 28
-                                    )
-                                  )
-                                ),
-                                Tab(
-                                  child: Text(
-                                    '05',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 102, 1),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 28
-                                    )
-                                  )
-                                ),
-                                Tab(
-                                  child: Text(
-                                    '06',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 102, 1),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 28
-                                    )
-                                  )
-                                ),
-                                Tab(
-                                  child: Text(
-                                    '07',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 102, 1),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 28
-                                    )
-                                  )
-                                ),
-                                Tab(
-                                  child: Text(
-                                    '08',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 102, 1),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 28
-                                    )
-                                  )
-                                ),
-                                Tab(
-                                  child: Text(
-                                    '09',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 102, 1),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 28
-                                    )
-                                  )
-                                ),
-                                Tab(
-                                  child: Text(
-                                    '10',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(0, 0, 102, 1),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 28
-                                    )
+                            isScrollable: true,
+                            controller: this.state.tabController,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            indicatorWeight: 10,
+                            tabs: this.state.investments.map((investment) => 
+                              Tab(
+                                child: Text(
+                                  investment.capitalID.toString().padLeft(2, '0'),
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 102, 1),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 28,
                                   )
                                 )
-                              ],
-                            ),
+                              )
+                            ).toList()
+                          ),
                         )
                       ],
                     ),
@@ -201,7 +115,7 @@ class MyInvestmentsContent extends StatelessWidget {
                     height: this.state.screen.height,
                     child: TabBarView(
                       controller: this.state.tabController,
-                      children: [
+                      children: this.state.investments.map((investmen) => 
                         Container(
                           padding: EdgeInsets.all(30),
                           child: Column(
@@ -209,7 +123,7 @@ class MyInvestmentsContent extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Container(
-                                child: Text('Inversión 01',
+                                child: Text('Inversión ${investmen.capitalID.toString().padLeft(2, '0')}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 25,
@@ -234,7 +148,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(child: Text('Principal', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                    Container(child: Text('\$200,000', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                    Container(child: Text('\$${investmen.amount}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
@@ -252,7 +166,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(child: Text('Tasa de interés anual', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                    Container(child: Text('15%', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                    Container(child: Text('${investmen.interestRate}%', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
@@ -270,7 +184,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(child: Text('Pago de interés anual', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                    Container(child: Text('\$30,000', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                    Container(child: Text('\$${investmen.annualInterestPayment}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
@@ -288,7 +202,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(child: Text('Intereses pagados + principal', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                    Container(child: Text('\$230000', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                    Container(child: Text('\$${investmen.total}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
@@ -306,7 +220,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(child: Text('Fecha inicial', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                    Container(child: Text('01/04/20', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                    Container(child: Text(this.state.formatDate.format(investmen.startDate), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
@@ -324,7 +238,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(child: Text('Fecha final', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                    Container(child: Text('31/03/21', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                    Container(child: Text(this.state.formatDate.format(investmen.endDate), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
@@ -334,7 +248,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(child: Text('Estatus', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                    Container(child: Text('Activa', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                    Container(child: Text(investmen.enabled ? 'Activa' : 'Inactiva', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
@@ -346,7 +260,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   width: this.state.screen.width * .8,
                                   child: GestureDetector(
                                     onTap: () {
-                                      appService<NavigationService>().navigateTo('/details-investments');
+                                      appService<NavigationService>().navigateTo('/details-investments', arguments: investmen.details);
                                     },
                                     child: Container(
                                       padding: EdgeInsets.symmetric(vertical: 25),
@@ -371,35 +285,8 @@ class MyInvestmentsContent extends StatelessWidget {
                               )
                             ],
                           ),
-                        ),
-                        Container(
-                          child: Text('02')
-                        ),
-                        Container(
-                          child: Text('03')
-                        ),
-                        Container(
-                          child: Text('04')
-                        ),
-                        Container(
-                          child: Text('05')
-                        ),
-                        Container(
-                          child: Text('06'),
-                        ),
-                        Container(
-                          child: Text('07')
-                        ),
-                        Container(
-                          child: Text('08')
-                        ),
-                        Container(
-                          child: Text('09')
-                        ),
-                        Container(
-                          child: Text('10')
                         )
-                      ],
+                      ).toList()
                     ),
                   )
                 ],

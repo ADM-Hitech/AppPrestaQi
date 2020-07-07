@@ -5,6 +5,6 @@ class AppSettings {
   String apiUrl;
 
   AppSettings() {
-    this.apiUrl = kReleaseMode ? 'https://api-prestaqi.com' : 'http://localhost:455/';
+    this.apiUrl = kReleaseMode ? 'https://prestaqi.azurewebsites.net/service/api/' : 'https://prestaqi.azurewebsites.net/service/api/';
   }
 }

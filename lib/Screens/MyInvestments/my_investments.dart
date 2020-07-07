@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
+import 'package:prestaQi/Models/InvestmentModel.dart';
 import 'package:prestaQi/Screens/MyInvestments/my_investments_content.dart';
+import 'package:prestaQi/Services/InvestmentsService.dart';
+import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
 import 'package:prestaQi/Widgets/DrawerMenu.dart';
 
@@ -15,12 +19,30 @@ class MyInvestmentsState extends State<MyInvestments> with SingleTickerProviderS
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ScreenResponsive screen;
   TabController tabController;
+  List<InvestmentModel> investments = new List<InvestmentModel>();
+  bool loading = true;
+  DateFormat formatDate = new DateFormat('dd/MM/yyyy');
 
   @override
   void initState() {
     super.initState();
     this.screen = new ScreenResponsive(context);
-    tabController = TabController(length: 10, vsync: this);
+    this.fetchInversion();
+  }
+
+  void fetchInversion() {
+    appService<InvestmentsService>().fetchInvestment().then((value) {
+      setState(() {
+        this.investments = value;
+        tabController = TabController(length: this.investments.length, vsync: this);
+
+        this.loading = false;
+      });
+    }).catchError((onError) {
+      setState(() {
+        this.loading = false;
+      });
+    });
   }
 
   void showSlide() {

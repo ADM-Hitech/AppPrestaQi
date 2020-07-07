@@ -57,7 +57,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                       child: FittedBox(
                         fit: BoxFit.contain,
                         child: Text(
-                          '\$3,000.00',
+                          '\$${this.state.widget.calculateAdvance.amount.toStringAsFixed(2)}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(0, 0, 102, 1)
@@ -80,7 +80,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                             left: 0,
                             child: Container(
                               height: 7,
-                              width: ((this.state.screen.width * .65) - 80) * .5,
+                              width: ((this.state.screen.width * .65) - 80) * this.state.porcen,
                               decoration: BoxDecoration(
                                 color: Color.fromRGBO(51, 51, 255, 1),
                                 borderRadius: BorderRadius.circular(3.5)
@@ -118,7 +118,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(child: Text('Banco', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                          Container(child: Text('Citybanamex', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                          Container(child: Text(this.state.infoBank.institutionName, style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                         ],
                       ),
                     ),
@@ -136,7 +136,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(child: Text('Cuenta', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                          Container(child: Text('**** **** 1234', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                          Container(child: Text('**** **** ${this.state.getLast4Char()}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                         ],
                       ),
                     ),
@@ -154,7 +154,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(child: Text('Total a descontar', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                          Container(child: Text('\$3,150.00', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                          Container(child: Text('\$${this.state.totalDiscount.toStringAsFixed(2)}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                         ],
                       ),
                     ),
@@ -164,7 +164,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(child: Text('Fecha de cobro', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                          Container(child: Text('15/06/2020', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                          Container(child: Text(this.state.formatDate.format(this.state.dateNextPay), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                         ],
                       ),
                     )
@@ -173,6 +173,11 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
               ),
             ),
           ),
+          (this.state.loading) ?
+            Center(
+              child: CircularProgressIndicator(),
+            )
+          :
           Positioned(
             bottom: 40,
             left: 0,
@@ -187,9 +192,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                       width: (this.state.screen.width * .8) / 2,
                       padding: EdgeInsets.only(right: 10),
                       child: GestureDetector(
-                        onTap: () {
-                          appService<NavigationService>().showCartaMandato(context);
-                        },
+                        onTap: this.state.loading ? (){} : this.state.acepted,
                         child: Container(
                           height: 70,
                           decoration: BoxDecoration(
@@ -207,7 +210,9 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                       padding: EdgeInsets.only(left: 10),
                       child: GestureDetector(
                         onTap: () {
-                          appService<NavigationService>().showAlertSuccess(context);
+                          if (!this.state.loading) {
+                            appService<NavigationService>().navigateTo('/request-advance');
+                          }
                         },
                         child: Container(
                           height: 70,

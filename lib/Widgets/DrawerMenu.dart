@@ -47,6 +47,25 @@ class DrawerMenuState extends State<DrawerMenu> {
     widget.hideSlide();
   }
 
+  void logAuth() async {
+    var response = await appService<NavigationService>().showConfirmLogout(context);
+
+    if (response) {
+      appService<AuthService>().logout().then((value) {
+        appService<NavigationService>().navigateTo('/index-auth');
+      }).catchError((onError) {
+        print(onError);
+      });
+    }
+  }
+
+  String letterName() {
+    var split = this.user.givenName.split(' ');
+    String letters = (split[0][0] ?? '') + (split[1][0] ?? '');
+
+    return letters;
+  }
+
   @override
   Widget build(BuildContext context) {
     
@@ -86,7 +105,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                     ),
                     child: Center(
                       child: Text(
-                        'JP',
+                        this.letterName(),
                         style: TextStyle(
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.bold,
@@ -102,14 +121,16 @@ class DrawerMenuState extends State<DrawerMenu> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
+                          width: 150,
                           child: Text(
-                            'Juan Pérez', 
+                            this.user.givenName, 
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.bold,
-                              fontSize: 25,
+                              fontSize: 18,
                               color: Colors.white
-                            )
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         SizedBox(
@@ -117,10 +138,10 @@ class DrawerMenuState extends State<DrawerMenu> {
                         ),
                         Container(
                           child: Text(
-                            'ID 342366',
+                            'ID ${this.user.userId.toString().padLeft(4, '0')}',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 17,
+                              fontSize: 15,
                             ),
                           ),
                         )
@@ -146,66 +167,102 @@ class DrawerMenuState extends State<DrawerMenu> {
               children: [
                 Column(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        appService<NavigationService>().navigateTo('/my-investments');
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(right: 15),
-                              child: SvgPicture.asset(
-                                'assets/icons/ico-inversiones.svg',
-                                color: Color.fromRGBO(202, 206, 230, 1),
-                                width: 20,
+                    if (this.user.type == 2)
+                      GestureDetector(
+                        onTap: () {
+                          appService<NavigationService>().navigateTo('/my-investments');
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          child: Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(right: 15),
+                                child: SvgPicture.asset(
+                                  'assets/icons/ico-inversiones.svg',
+                                  color: Color.fromRGBO(202, 206, 230, 1),
+                                  width: 20,
+                                ),
                               ),
-                            ),
-                            Container(
-                              child: Text('Mis Inversiones', 
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  color: HexColor.fromHex('#000066'),
-                                  fontSize: 18
-                                )
+                              Container(
+                                child: Text('Mis Inversiones', 
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    color: HexColor.fromHex('#000066'),
+                                    fontSize: 18
+                                  )
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                      )
+                    ,
+                    if (this.user.type == 3)
+                      GestureDetector(
+                        onTap: () {
+                          appService<NavigationService>().navigateTo('/request-advance');
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          child: Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(right: 15),
+                                child: SvgPicture.asset(
+                                  'assets/icons/ico-menu-adelantos.svg',
+                                  color: Color.fromRGBO(202, 206, 230, 1),
+                                  width: 20,
+                                ),
                               ),
-                            )
-                          ],
+                              Container(
+                                child: Text('Solicitar Adelanto', 
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    color: HexColor.fromHex('#000066'),
+                                    fontSize: 18
+                                  )
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       )
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        appService<NavigationService>().navigateTo('/my-advances');
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(right: 15),
-                              child: SvgPicture.asset(
-                                'assets/icons/ico-menu-adelantos.svg',
-                                color: Color.fromRGBO(202, 206, 230, 1),
-                                width: 20,
+                    ,
+                    if (this.user.type == 3)
+                      GestureDetector(
+                        onTap: () {
+                          appService<NavigationService>().navigateTo('/my-advances');
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          child: Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(right: 15),
+                                child: SvgPicture.asset(
+                                  'assets/icons/ico-menu-adelantos.svg',
+                                  color: Color.fromRGBO(202, 206, 230, 1),
+                                  width: 20,
+                                ),
                               ),
-                            ),
-                            Container(
-                              child: Text('Mis Adelantos', 
-                                style: TextStyle(
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  color: HexColor.fromHex('#000066'),
-                                  fontSize: 18
-                                )
-                              ),
-                            )
-                          ],
+                              Container(
+                                child: Text('Mis Adelantos', 
+                                  style: TextStyle(
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    color: HexColor.fromHex('#000066'),
+                                    fontSize: 18
+                                  )
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
-                    ),
+                      )
+                    ,
                     GestureDetector(
                       onTap: () {
                         appService<NavigationService>().navigateTo('/my-profile');
@@ -296,30 +353,33 @@ class DrawerMenuState extends State<DrawerMenu> {
                         )
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                      child: Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 15),
-                            child: SvgPicture.asset(
-                              'assets/icons/ico-menu-cerrar-sesion.svg',
-                              color: Color.fromRGBO(202, 206, 230, 1),
-                              width: 20,
+                    GestureDetector(
+                      onTap: this.logAuth,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 15),
+                              child: SvgPicture.asset(
+                                'assets/icons/ico-menu-cerrar-sesion.svg',
+                                color: Color.fromRGBO(202, 206, 230, 1),
+                                width: 20,
+                              ),
                             ),
-                          ),
-                          Container(
-                            child: Text('Cerrar Sesión',
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                                color: HexColor.fromHex('#000066'),
-                                fontSize: 18
-                              )
-                            ),
-                          )
-                        ],
-                      )
+                            Container(
+                              child: Text('Cerrar Sesión',
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  color: HexColor.fromHex('#000066'),
+                                  fontSize: 18
+                                )
+                              ),
+                            )
+                          ],
+                        )
+                      ),
                     )
                   ],
                 ),

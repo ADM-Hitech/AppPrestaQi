@@ -69,7 +69,7 @@ class IndexAuthContent extends StatelessWidget {
                 width: this.state.screen.width * .8,
                 child: GestureDetector(
                   onTap: () {
-                    appService<NavigationService>().navigateTo('/request-advance');
+                    appService<NavigationService>().navigateTo('/auth');
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 25),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prestaQi/Models/StartupViewModel.dart';
+import 'package:prestaQi/Utils/HexColor.dart';
 import 'package:prestaQi/Widgets/ViewModelProvider.dart';
 
 class StartupView extends StatelessWidget {
@@ -17,8 +18,18 @@ class StartupView extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width * .8,
+                height: 150,
+                child: Image.asset('assets/images/splash.png')
+              ),
               Container(
-                child: Image(image: AssetImage('assets/images/ioio_entrada_loop.gif'), width: 250),
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
+                  valueColor: AlwaysStoppedAnimation(
+                    HexColor.fromHex('#000066')
+                  ),
+                ),
               )
             ],
           ),

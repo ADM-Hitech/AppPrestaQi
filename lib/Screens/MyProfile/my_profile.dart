@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
+import 'package:prestaQi/Models/MyProfile.dart';
 import 'package:prestaQi/Screens/MyProfile/my_profile_content.dart';
+import 'package:prestaQi/Services/SetupService.dart';
+import 'package:prestaQi/Services/UserService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
 import 'package:prestaQi/Widgets/DrawerMenu.dart';
 
@@ -14,11 +18,39 @@ class MyProfileState extends State<MyProfile> {
   
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ScreenResponsive screen;
+  MyProfileModel user = new MyProfileModel(firstName: '-', lastName: '- -', id: 0);
+  bool loading = true;
+  NumberFormat numberFormat = new NumberFormat("#,###.0#", "en_US");
 
   @override
   void initState() {
     super.initState();
     this.screen = new ScreenResponsive(context);
+    this.fetchMyProfile();
+  }
+
+  void fetchMyProfile() {
+    appService<UserService>().getMyProfile().then((value) {
+      setState(() {
+        this.user = value;
+      });
+
+      setState(() {
+        this.loading = false;
+      });
+    }).catchError((onError) {
+      setState(() {
+        this.loading = false;
+      });
+    });
+  }
+
+  String letterName() {
+    var fullName = this.user.firstName + ' ' + this.user.lastName;
+    var split = fullName.split(' ');
+    String letters = (split[0][0] ?? '') + (split[1][0] ?? '');
+
+    return letters;
   }
 
   void showSlide() {

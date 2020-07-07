@@ -17,7 +17,15 @@ class StartupViewModel extends BaseModel {
     var hasLoggedInUser = await _authService.logged();
 
     if (hasLoggedInUser) {
-      _navigationService.navigateTo('/home');
+      var user = await _authService.me();
+
+      if (user.type == 3) {
+        _navigationService.navigateTo('/request-advance');
+      } else if (user.type == 2) {
+        _navigationService.navigateTo('/my-investments');
+      } else {
+        _navigationService.navigateTo('/my-profile');
+      }
     } else {
       _navigationService.navigateTo('/index-auth');
     }
