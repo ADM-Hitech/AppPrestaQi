@@ -81,7 +81,7 @@ class RequestAdvanceContent extends StatelessWidget{
                     children: [
                       Container(
                         child: Text(
-                          '¿Cuánto dinero necesitas? ${this.state.screen.height}', 
+                          '¿Cuánto dinero necesitas?', 
                           style: TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
