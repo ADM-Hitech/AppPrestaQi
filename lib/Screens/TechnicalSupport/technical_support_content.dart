@@ -96,8 +96,8 @@ class TechnicalSupportContent extends StatelessWidget {
                                 Container(
                                   margin: EdgeInsets.only(right: 20),
                                   child: Container(
-                                    width: 80,
-                                    height: 80,
+                                    width: this.state.getSizeCircleIcon(),
+                                    height: this.state.getSizeCircleIcon(),
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(102, 204, 102, 1),
                                       borderRadius: BorderRadius.circular(40),
@@ -114,7 +114,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                       child: SvgPicture.asset(
                                         'assets/icons/ico-soporte-whatsapp.svg',
                                         color: Colors.white,
-                                        width: 45,
+                                        width: this.state.getSizeIcon(),
                                       ),
                                     ),
                                   ),
@@ -129,7 +129,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                           'Comunícate vía',
                                           style: TextStyle(
                                             color: Color.fromRGBO(142, 145, 162, 1),
-                                            fontSize: 18
+                                            fontSize: this.state.getFontSize()
                                           ),
                                         ),
                                       ),
@@ -138,7 +138,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                           'WhatsApp al número',
                                           style: TextStyle(
                                             color: Color.fromRGBO(142, 145, 162, 1),
-                                            fontSize: 18
+                                            fontSize: this.state.getFontSize()
                                           ),
                                         ),
                                       ),
@@ -146,7 +146,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                         child: Text('55 22-33 44-55',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 22,
+                                            fontSize: this.state.getFontSizeData(),
                                             color: Color.fromRGBO(0, 0, 102, 1)
                                           )
                                         ),
@@ -184,8 +184,8 @@ class TechnicalSupportContent extends StatelessWidget {
                                 Container(
                                   margin: EdgeInsets.only(right: 20),
                                   child: Container(
-                                    width: 80,
-                                    height: 80,
+                                    width: this.state.getSizeCircleIcon(),
+                                    height: this.state.getSizeCircleIcon(),
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(102, 204, 102, 1),
                                       borderRadius: BorderRadius.circular(40),
@@ -202,7 +202,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                       child: SvgPicture.asset(
                                         'assets/icons/ico-soporte-correo.svg',
                                         color: Colors.white,
-                                        width: 45,
+                                        width: this.state.getSizeIcon()
                                       ),
                                     )
                                   ),
@@ -217,7 +217,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                           'Comunícate vía',
                                           style: TextStyle(
                                             color: Color.fromRGBO(142, 145, 162, 1),
-                                            fontSize: 18
+                                            fontSize: this.state.getFontSize()
                                           ),
                                         ),
                                       ),
@@ -225,9 +225,10 @@ class TechnicalSupportContent extends StatelessWidget {
                                         child: Text('soporte@prestaqi.com',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 19,
-                                            color: Color.fromRGBO(0, 0, 102, 1)
-                                          )
+                                            fontSize: this.state.getFontSizeData(),
+                                            color: Color.fromRGBO(0, 0, 102, 1),
+                                          ),
+                                          maxLines: 10,
                                         ),
                                       )
                                     ],
@@ -263,8 +264,8 @@ class TechnicalSupportContent extends StatelessWidget {
                                 Container(
                                   margin: EdgeInsets.only(right: 20),
                                   child: Container(
-                                    width: 80,
-                                    height: 80,
+                                    width: this.state.getSizeCircleIcon(),
+                                    height: this.state.getSizeCircleIcon(),
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(102, 204, 102, 1),
                                       borderRadius: BorderRadius.circular(40),
@@ -281,7 +282,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                       child: SvgPicture.asset(
                                         'assets/icons/ico-soporte-telefono.svg',
                                         color: Colors.white,
-                                        width: 45,
+                                        width: this.state.getSizeIcon(),
                                       ),
                                     )
                                   ),
@@ -296,7 +297,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                           'Asistencia telefónica',
                                           style: TextStyle(
                                             color: Color.fromRGBO(142, 145, 162, 1),
-                                            fontSize: 18
+                                            fontSize: this.state.getFontSize()
                                           ),
                                         ),
                                       ),
@@ -305,7 +306,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                           'a los números',
                                           style: TextStyle(
                                             color: Color.fromRGBO(142, 145, 162, 1),
-                                            fontSize: 18
+                                            fontSize: this.state.getFontSize()
                                           ),
                                         ),
                                       ),
@@ -313,7 +314,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                         child: Text('800 111 2222',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 22,
+                                            fontSize: this.state.getFontSizeData(),
                                             color: Color.fromRGBO(0, 0, 102, 1)
                                           )
                                         ),

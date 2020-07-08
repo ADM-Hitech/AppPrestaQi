@@ -4,6 +4,7 @@ import 'package:prestaQi/Screens/Login/login.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/HexColor.dart';
+import 'package:prestaQi/Utils/ValidatorText.dart';
 
 class LoginContent extends StatelessWidget {
   
@@ -33,10 +34,23 @@ class LoginContent extends StatelessWidget {
         child:ListView(
           children: [
             Container(
-              child: SvgPicture.asset(
-                'assets/icons/ico-logo.svg',
-                color: Colors.white,
-                width: this.state.screen.width * .8,
+              height: this.state.screen.height > 890 ? 250 : 150,
+              width: this.state.screen.width,
+              child: Container(
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: -75,
+                      right: 0,
+                      left: 0,
+                      child: SvgPicture.asset(
+                        'assets/icons/ico-logo.svg',
+                        color: Colors.white,
+                        width: this.state.screen.width * .8,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             Center(
@@ -75,6 +89,17 @@ class LoginContent extends StatelessWidget {
                   controller: this.state.emailController,
                   style: TextStyle(color: Colors.white),
                   textCapitalization: TextCapitalization.none,
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return 'El correo es requerido.';
+                    }
+
+                    if (!ValidatorText.email(value)) {
+                      return 'Correo inválido.';
+                    }
+
+                    return null;
+                  },
                   decoration: InputDecoration(
                     labelText: 'Correo electrónico',
                     labelStyle: TextStyle(color: Colors.white),
@@ -116,13 +141,61 @@ class LoginContent extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 35,
+              height: this.state.screen.width < 420 ? 25 : 35,
             ),
             Center(
               child: Container(
                 width: (this.state.screen.width * .8) + 30,
                 padding: EdgeInsets.only(right: 14),
-                child: Row(
+                child: this.state.screen.width < 420 ?
+                Column(
+                  children: [
+                    Container(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Checkbox(
+                            checkColor: HexColor.fromHex('#000066'),
+                            activeColor: Colors.white,
+                            onChanged: (bool value) {},
+                            value: true,
+                          ),
+                          Container(
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Text('Recordar mis datos', style: TextStyle(color: Colors.white)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        appService<NavigationService>().navigateTo('/recovery-password');
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(left: 14, top: 5),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 10),
+                              child: SvgPicture.asset(
+                                'assets/icons/ico-candado.svg',
+                                color: Colors.white,
+                                width: 23,
+                              ),
+                            ),
+                            Container(
+                              child: Text('Recuperar contraseña', style: TextStyle(color: Colors.white)),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ]
+                ) : 
+                Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -175,8 +248,16 @@ class LoginContent extends StatelessWidget {
             if (this.state.error.isNotEmpty)
               Center(
                 child: Container(
+                  margin: EdgeInsets.only(top: 15),
                   width: this.state.screen.width * .8,
-                  child: Text(this.state.error, style: TextStyle(fontSize: 15, color: Colors.white)),
+                  child: Text(
+                    this.state.error, 
+                    style: TextStyle(
+                      fontSize: 15, 
+                      color: Colors.white,
+                      decoration: TextDecoration.underline
+                    ),
+                  ),
                 ),
               )
             ,

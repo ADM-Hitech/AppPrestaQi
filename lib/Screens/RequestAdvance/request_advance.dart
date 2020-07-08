@@ -71,6 +71,54 @@ class RequestAdvanceState extends State<RequestAdvance> {
     }
   }
 
+  double getSizeTitle() {
+    if (this.screen.height > 667) {
+      return 50;
+    } else {
+      return 40;
+    }
+  }
+
+  double getHightTitle() {
+    if (this.screen.height > 667) {
+      return 320;
+    } else {
+      return 280;
+    }
+  }
+
+  double getTopBody() {
+    if (this.screen.height > 667) {
+      return 250;
+    } else {
+      return 200;
+    }
+  }
+
+  double getSpacesBetween() {
+    if (this.screen.height > 667) {
+      return 35;
+    } else {
+      return 20;
+    }
+  }
+
+  double getSpacesBetweenButton() {
+    if (this.screen.height > 667) {
+      return 80;
+    } else {
+      return 30;
+    }
+  }
+
+    double getSpacesBetweenSlide() {
+    if (this.screen.height > 667) {
+      return 70;
+    } else {
+      return 25;
+    }
+  }
+
   void showSlide() {
     scaffoldKey.currentState.openDrawer();
   }

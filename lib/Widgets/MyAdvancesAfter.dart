@@ -7,8 +7,14 @@ class MyAdvanceAfter extends StatelessWidget {
 
   final DateTime date;
   final double total;
+  final double sizeText;
 
-  MyAdvanceAfter({Key key, @required this.date, @required this.total}): super(key: key);
+  MyAdvanceAfter({
+    Key key, 
+    @required this.date, 
+    @required this.total,
+    this.sizeText = 23
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,16 +60,16 @@ class MyAdvanceAfter extends StatelessWidget {
                     'Saldo Total',
                     style: TextStyle(
                       color: Color.fromRGBO(0, 0, 102, 1),
-                      fontSize: 20,
+                      fontSize: this.sizeText - 3,
                     ),
                   ),
                 ),
                 Container(
                   child: Text(
-                    'a descontar\r\nal ${DateFormat.MMMMd('es').format(this.date)}',
+                    'a descontar\r\nel ${DateFormat.MMMMd('es').format(this.date)}',
                     style: TextStyle(
                       color: Color.fromRGBO(0, 0, 102, 1),
-                      fontSize: 23,
+                      fontSize: this.sizeText,
                       fontWeight: FontWeight.bold
                     ),
                   ),
@@ -79,7 +85,7 @@ class MyAdvanceAfter extends StatelessWidget {
               NumberFormat('\$ #,##0', 'es_Us').format(this.total),
               style: TextStyle(
                 color: Color.fromRGBO(0, 0, 102, 1),
-                fontSize: 25,
+                fontSize: this.sizeText + 2,
                 fontWeight: FontWeight.bold
               ),
             ),

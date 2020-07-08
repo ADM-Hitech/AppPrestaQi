@@ -136,7 +136,7 @@ class MyProfileContent extends StatelessWidget {
                     ),
                     Container(
                       width: this.state.screen.width,
-                      height: this.state.screen.height - 150,
+                      height: this.state.screen.height - 255,
                       child: ListView.builder(
                         padding: EdgeInsets.all(0),
                         physics: BouncingScrollPhysics(),

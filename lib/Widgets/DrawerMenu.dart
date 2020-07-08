@@ -383,7 +383,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                     )
                   ],
                 ),
-                Positioned(
+                /*Positioned(
                   bottom: 20,
                   child: Container(
                     width: (300 - 70).toDouble(),
@@ -396,7 +396,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                       textAlign: TextAlign.left,
                     ),
                   ),
-                )
+                )*/
               ],
             ),
           )

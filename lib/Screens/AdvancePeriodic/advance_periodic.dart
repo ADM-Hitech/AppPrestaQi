@@ -55,6 +55,14 @@ class AdvancePeriodicState extends State<AdvancePeriodic> {
     });
   }
 
+  double getFontSize() {
+    if (this.screen.width > 414) {
+      return 20;
+    } else {
+      return 17;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     local.initializeDateFormatting('es');
@@ -83,7 +91,7 @@ class AdvancePeriodicState extends State<AdvancePeriodic> {
         ),
         title: Container(
           child: Text(
-            'A descontar al ${DateFormat.MMMMd('es').format(this.date)}',
+            'A descontar el ${DateFormat.MMMMd('es').format(this.date)}',
             style: TextStyle(
               color: Color.fromRGBO(143, 146, 163, 1),
               fontWeight: FontWeight.w600

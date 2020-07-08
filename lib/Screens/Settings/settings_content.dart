@@ -108,7 +108,7 @@ class SettingsContent extends StatelessWidget {
                                         style: TextStyle(
                                           color: Color.fromRGBO(0, 0, 102, 1),
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20
+                                          fontSize: this.state.getFontSize()
                                         ),
                                       ),
                                     )
@@ -161,7 +161,7 @@ class SettingsContent extends StatelessWidget {
                                         style: TextStyle(
                                           color: Color.fromRGBO(0, 0, 102, 1),
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20
+                                          fontSize: this.state.getFontSize()
                                         ),
                                       ),
                                     )
@@ -213,7 +213,7 @@ class SettingsContent extends StatelessWidget {
                                         style: TextStyle(
                                           color: Color.fromRGBO(0, 0, 102, 1),
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20
+                                          fontSize: this.state.getFontSize()
                                         ),
                                       ),
                                     )
@@ -265,7 +265,7 @@ class SettingsContent extends StatelessWidget {
                                         style: TextStyle(
                                           color: Color.fromRGBO(0, 0, 102, 1),
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 20
+                                          fontSize: this.state.getFontSize()
                                         ),
                                       ),
                                     )

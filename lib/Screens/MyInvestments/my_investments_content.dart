@@ -55,7 +55,7 @@ class MyInvestmentsContent extends StatelessWidget {
               ) :
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 25, vertical: 30),
@@ -111,16 +111,15 @@ class MyInvestmentsContent extends StatelessWidget {
                   ),
                   Container(
                     width: this.state.screen.width,
+                    height: this.state.screen.height - 233,
                     color: Colors.white,
-                    height: this.state.screen.height,
                     child: TabBarView(
                       controller: this.state.tabController,
                       children: this.state.investments.map((investmen) => 
                         Container(
-                          padding: EdgeInsets.all(30),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
+                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                          child: ListView(
+                            padding: EdgeInsets.all(0),
                             children: [
                               Container(
                                 child: Text('Inversión ${investmen.capitalID.toString().padLeft(2, '0')}',
@@ -201,7 +200,14 @@ class MyInvestmentsContent extends StatelessWidget {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(child: Text('Intereses pagados + principal', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
+                                    Container(
+                                      child: Text('Intereses pagados + principal', 
+                                        style: TextStyle(
+                                          color: Color.fromRGBO(142, 145, 162, 1), 
+                                          fontSize: 16
+                                        )
+                                      )
+                                    ),
                                     Container(child: Text('\$${investmen.total}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
@@ -282,6 +288,9 @@ class MyInvestmentsContent extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                height: 50,
                               )
                             ],
                           ),

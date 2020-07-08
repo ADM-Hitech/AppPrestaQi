@@ -203,7 +203,8 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                           fontSize: 20, 
                                           color: Color.fromRGBO(142, 145, 162, 1),
                                           fontWeight: FontWeight.w600
-                                        )
+                                        ),
+                                        textAlign: TextAlign.center,
                                       ),
                                     ),
                                     SizedBox(

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:prestaQi/Models/MyProfile.dart';
 import 'package:prestaQi/Screens/MyProfile/my_profile_content.dart';
+import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Services/UserService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
@@ -94,34 +95,39 @@ class MyProfileState extends State<MyProfile> {
           ),
         ),
         actions: [
-          Container(
-            width: 50,
-            height: 50,
-            padding: EdgeInsets.only(right: 20),
-            child: Stack(
-              children: [
-                Positioned(
-                  top: 0,
-                  bottom: 0,
-                  child: SvgPicture.asset(
-                    'assets/icons/ico-notificaciones-nuevo.svg',
-                    color: Colors.white,
-                    width: 25,
-                  ),
-                ),
-                Positioned(
-                  top: 17,
-                  right: 8,
-                  child: Container(
-                    width: 9,
-                    height: 9,
-                    decoration: BoxDecoration(
-                      color: Colors.redAccent,
-                      borderRadius: BorderRadius.circular(4.5)
+          GestureDetector(
+            onTap: () {
+              appService<NavigationService>().navigateTo('/notification');
+            },
+            child: Container(
+              width: 50,
+              height: 50,
+              padding: EdgeInsets.only(right: 20),
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 0,
+                    bottom: 0,
+                    child: SvgPicture.asset(
+                      'assets/icons/ico-notificaciones-nuevo.svg',
+                      color: Colors.white,
+                      width: 25,
                     ),
                   ),
-                )
-              ]
+                  Positioned(
+                    top: 17,
+                    right: 8,
+                    child: Container(
+                      width: 9,
+                      height: 9,
+                      decoration: BoxDecoration(
+                        color: Colors.redAccent,
+                        borderRadius: BorderRadius.circular(4.5)
+                      ),
+                    ),
+                  )
+                ]
+              ),
             ),
           )
         ],

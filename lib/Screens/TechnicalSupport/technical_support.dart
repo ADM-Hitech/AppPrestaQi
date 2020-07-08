@@ -31,6 +31,38 @@ class TechnicalSupportState extends State<TechnicalSupport> {
     scaffoldKey.currentState.openEndDrawer();
   }
 
+  double getFontSize() {
+    if (this.screen.width > 375) {
+      return 18;
+    } else {
+      return 15;
+    }
+  }
+
+  double getFontSizeData() {
+    if (this.screen.width > 375) {
+      return 19;
+    } else {
+      return 17;
+    }
+  }
+
+  double getSizeCircleIcon() {
+    if (this.screen.width > 375) {
+      return 65;
+    } else {
+      return 50;
+    }
+  }
+
+  double getSizeIcon() {
+    if (this.screen.width > 375) {
+      return 35;
+    } else {
+      return 25;
+    }
+  }
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
