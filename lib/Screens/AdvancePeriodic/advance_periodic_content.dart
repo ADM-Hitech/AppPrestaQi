@@ -35,7 +35,7 @@ class AdvancePeriodicContent extends StatelessWidget {
                 child: FittedBox(
                   fit: BoxFit.contain,
                   child: Text(
-                    'Mis adelantos del período',
+                    'Mis adelantos del periodo',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Color.fromRGBO(0, 0, 102, 1)
@@ -45,51 +45,55 @@ class AdvancePeriodicContent extends StatelessWidget {
               ),
               Container(
                 width: this.state.screen.width,
-                child: Container(
-                  child: DataTable(
-                    columns: [
-                      DataColumn(
-                        label: Container(
-                          
-                          child: Text(
-                            'FECHA',
-                            textAlign: TextAlign.center
-                          ),
-                        )
-                      ),
-                      DataColumn(label: Center(child: Text('ADELANTO', textAlign: TextAlign.center,))),
-                      DataColumn(label: Center(
-                        child: Text(
-                          'TOTAL\r\nA RETENER',
-                          textAlign: TextAlign.center,
-                        ),
-                      )),
-                      DataColumn(label: Center(child: Text('FOLIO', textAlign: TextAlign.center,)))
-                    ],
-                    rows: this.state.childs.map((advance) => 
-                      DataRow(
-                        cells: [
-                          DataCell(
-                            Container(child: Center(child: Text(this.state.formatDate.format(advance.dateAdvance))))
-                          ),
-                          DataCell(
-                            GestureDetector(
-                              onTap: () {
-                                appService<NavigationService>().showDetailsAdvancePeriodic(context, advance);
-                              },
-                              child: Container(child: Center(child: Text('\$${advance.amount}', style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline)))),  
-                            )
-                          ),
-                          DataCell(
-                            Container(child: Center(child: Text('\$${advance.totalWithhold}')))
-                          ),
-                          DataCell(
-                            Container(child: Center(child: Text('${advance.id.toString().padLeft(4, '0')}')))
+                height: ((this.state.childs.length + 1) * 55).toDouble(),
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    DataTable(
+                      columns: [
+                        DataColumn(
+                          label: Container(
+                            
+                            child: Text(
+                              'FECHA',
+                              textAlign: TextAlign.center
+                            ),
                           )
-                        ]
-                      )
-                    ).toList()
-                  ),
+                        ),
+                        DataColumn(label: Center(child: Text('ADELANTO', textAlign: TextAlign.center,))),
+                        DataColumn(label: Center(
+                          child: Text(
+                            'TOTAL\r\nA RETENER',
+                            textAlign: TextAlign.center,
+                          ),
+                        )),
+                        DataColumn(label: Center(child: Text('FOLIO', textAlign: TextAlign.center,)))
+                      ],
+                      rows: this.state.childs.map((advance) => 
+                        DataRow(
+                          cells: [
+                            DataCell(
+                              Container(child: Center(child: Text(this.state.formatDate.format(advance.dateAdvance))))
+                            ),
+                            DataCell(
+                              GestureDetector(
+                                onTap: () {
+                                  appService<NavigationService>().showDetailsAdvancePeriodic(context, advance);
+                                },
+                                child: Container(child: Center(child: Text('\$${advance.amount}', style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline)))),  
+                              )
+                            ),
+                            DataCell(
+                              Container(child: Center(child: Text('\$${advance.totalWithhold}')))
+                            ),
+                            DataCell(
+                              Container(child: Center(child: Text('${advance.id.toString().padLeft(4, '0')}')))
+                            )
+                          ]
+                        )
+                      ).toList()
+                    )
+                  ],
                 ),
               ),
               Container(
@@ -108,15 +112,29 @@ class AdvancePeriodicContent extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 15),
-                      child: Text('\$${this.state.numberFormat.format(this.state.totalAdvance)}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+                      child: Text(
+                        '\$${this.state.numberFormat.format(this.state.totalAdvance)}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: this.state.getFontSize()
+                        )
+                      ),
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 15),
-                      child: Text('\$${this.state.numberFormat.format(this.state.totalRetencion)}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20)),
+                      child: Text(
+                        '\$${this.state.numberFormat.format(this.state.totalRetencion)}',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: this.state.getFontSize()
+                        )
+                      ),
                     ),
-                    Container(
+                    /*Container(
                       width: 50,
-                    )
+                    )*/
                   ],
                 ),
               )

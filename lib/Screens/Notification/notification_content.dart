@@ -28,7 +28,7 @@ class NotificationContent extends StatelessWidget {
           return Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(color: Color.fromRGBO(222, 227, 237, 1))
@@ -52,13 +52,15 @@ class NotificationContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
+                            width: this.state.screen.width - 130,
                             child: Text(
-                              'Tu dinero ha sudo depositado',
+                              'Tu dinero ha sido depositado',
                               style: TextStyle(
                                 color: Color.fromRGBO(77, 77, 77, 1),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16
                               ),
+                              maxLines: 50,
                             ),
                           ),
                           Container(
@@ -77,7 +79,7 @@ class NotificationContent extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(color: Color.fromRGBO(222, 227, 237, 1))
@@ -101,6 +103,7 @@ class NotificationContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
+                            width: this.state.screen.width - 130,
                             child: Text(
                               'Tu contraseña se guardó con éxito',
                               style: TextStyle(
@@ -108,6 +111,7 @@ class NotificationContent extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16
                               ),
+                              maxLines: 50,
                             ),
                           ),
                           Container(
@@ -126,7 +130,7 @@ class NotificationContent extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(color: Color.fromRGBO(222, 227, 237, 1))
@@ -150,6 +154,7 @@ class NotificationContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
+                            width: this.state.screen.width - 130,
                             child: Text(
                               'Bienvenido a PrestaQi',
                               style: TextStyle(
@@ -157,6 +162,7 @@ class NotificationContent extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16
                               ),
+                              maxLines: 50,
                             ),
                           ),
                           Container(

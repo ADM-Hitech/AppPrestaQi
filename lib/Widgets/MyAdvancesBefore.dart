@@ -8,8 +8,15 @@ class MyAdvanceBefore extends StatelessWidget {
   final DateTime date;
   final int folio;
   final double total;
+  final double sizeText;
 
-  MyAdvanceBefore({Key key, @required this.date, @required this.folio, @required this.total}): super(key: key);
+  MyAdvanceBefore({
+    Key key, 
+    @required this.date, 
+    @required this.folio, 
+    @required this.total,
+    this.sizeText = 20
+  }): super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +53,7 @@ class MyAdvanceBefore extends StatelessWidget {
             ),
           ),
           Container(
+            margin: EdgeInsets.only(left: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -55,7 +63,7 @@ class MyAdvanceBefore extends StatelessWidget {
                     DateFormat.MMMMd('es').format(this.date),
                     style: TextStyle(
                       color: Color.fromRGBO(142, 145, 162, 1),
-                      fontSize: 20,
+                      fontSize: this.sizeText,
                       fontWeight: FontWeight.bold
                     ),
                   ),
@@ -65,7 +73,7 @@ class MyAdvanceBefore extends StatelessWidget {
                     DateFormat.jm().format(this.date),
                     style: TextStyle(
                       color: Color.fromRGBO(142, 145, 162, 1),
-                      fontSize: 15
+                      fontSize: this.sizeText - 5
                     ),
                   ),
                 ),
@@ -74,7 +82,7 @@ class MyAdvanceBefore extends StatelessWidget {
                     'Folio: ${this.folio.toString().padLeft(6, '0')}',
                     style: TextStyle(
                       color: Color.fromRGBO(142, 145, 162, 1),
-                      fontSize: 20,
+                      fontSize: this.sizeText,
                       fontWeight: FontWeight.bold
                     ),
                   ),
@@ -84,13 +92,13 @@ class MyAdvanceBefore extends StatelessWidget {
           ),
           Container(
             width: 100,
-            margin: EdgeInsets.only(right: 25, left: 25),
+            margin: EdgeInsets.only(right: 20, left: 18),
             alignment: Alignment.centerRight,
             child: Text(
               NumberFormat('\$ #,##0', 'es_Us').format(this.total),
               style: TextStyle(
                 color: Color.fromRGBO(142, 145, 162, 1),
-                fontSize: 25,
+                fontSize: this.sizeText + 3,
                 fontWeight: FontWeight.bold
               ),
             ),

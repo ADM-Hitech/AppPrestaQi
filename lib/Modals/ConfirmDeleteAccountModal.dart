@@ -113,10 +113,10 @@ class ConfirmDeleteAccountState extends State<ConfirmDeleteAccount> {
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(bottom: 25),
                 child: Text(
-                  'Un asesor de PrestaQi te contactará vía telefónico a correo electrónico para indicarte los pasos a seguir para eliminar tu cuenta.',
+                  'Un asesor de PrestaQi te contactará vía telefónico o correo electrónico para indicarte los pasos a seguir para eliminar tu cuenta.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 18,
                     color: Color.fromRGBO(142, 145, 162, 1)
                   )
                 ),
@@ -128,7 +128,7 @@ class ConfirmDeleteAccountState extends State<ConfirmDeleteAccount> {
                       Navigator.pop(context);
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 20),
+                      padding: EdgeInsets.symmetric(vertical: 15),
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(0, 0, 102, 1),
                         borderRadius: BorderRadius.circular(40)
@@ -156,7 +156,7 @@ class ConfirmDeleteAccountState extends State<ConfirmDeleteAccount> {
                       Navigator.pop(context);
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 20),
+                      padding: EdgeInsets.symmetric(vertical: 15),
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(198, 200, 208, 1),
                         borderRadius: BorderRadius.circular(40)

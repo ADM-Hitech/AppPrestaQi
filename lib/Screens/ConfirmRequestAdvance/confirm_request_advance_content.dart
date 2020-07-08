@@ -46,7 +46,8 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                           fontSize: 20, 
                           color: Color.fromRGBO(142, 145, 162, 1),
                           fontWeight: FontWeight.w600
-                        )
+                        ),
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     SizedBox(
@@ -96,7 +97,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 320,
+            top: 305,
             left: 0,
             right: 0,
             child: Center(
@@ -194,7 +195,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                       child: GestureDetector(
                         onTap: this.state.loading ? (){} : this.state.acepted,
                         child: Container(
-                          height: 70,
+                          height: 55,
                           decoration: BoxDecoration(
                             color: Color.fromRGBO(0, 0, 102, 1),
                             borderRadius: BorderRadius.all(Radius.circular(50))
@@ -215,7 +216,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                           }
                         },
                         child: Container(
-                          height: 70,
+                          height: 55,
                           decoration: BoxDecoration(
                             color: Color.fromRGBO(198, 200, 208, 1),
                             borderRadius: BorderRadius.all(Radius.circular(50))

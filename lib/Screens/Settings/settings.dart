@@ -31,6 +31,14 @@ class SettingsState extends State<Settings> {
     scaffoldKey.currentState.openEndDrawer();
   }
 
+  double getFontSize() {
+    if (this.screen.width > 375) {
+      return 20;
+    } else {
+      return 18;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

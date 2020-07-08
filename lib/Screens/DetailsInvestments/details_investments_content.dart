@@ -18,243 +18,109 @@ class DetailsInvestmentsContent extends StatelessWidget {
           topRight: Radius.circular(60)
         )
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 30),
-            width: this.state.screen.width * .65,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Text(
-                'Estado de Cuenta',
-                style: TextStyle(
-                  color: Color.fromRGBO(0, 0, 102, 1),
-                  fontWeight: FontWeight.bold
-                ),
+      child: ListView.builder(
+        itemCount: 1,
+        itemBuilder: (cntx, i) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 20,
               ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 15, left: 25, right: 25),
-            child: Text(
-              'Contrato de mutuo con interés número:',
-              style: TextStyle(
-                color: Color.fromRGBO(77, 77, 77, 1),
-                fontSize: 16
-              )
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 25, right: 25),
-            child: Text(
-              'XXX333ABC123',
-              style: TextStyle(
-                color: Color.fromRGBO(77, 77, 77, 1),
-                fontWeight: FontWeight.bold,
-                fontSize: 23
-              )
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(25),
-            width: this.state.screen.width,
-            height: 1,
-            color: Color.fromRGBO(222, 227, 237, 1),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 25),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+                width: this.state.screen.width * .65,
+                child: FittedBox(
+                  fit: BoxFit.contain,
                   child: Text(
-                    'Tasa de interés anual',
+                    'Estado de Cuenta',
                     style: TextStyle(
-                      color: Color.fromRGBO(77, 77, 77, 1),
-                      fontSize: 19
-                    )
-                  ),
-                ),
-                Container(
-                  child: Text(
-                    '15%',
-                    style: TextStyle(
-                      color: Color.fromRGBO(77, 77, 77, 1),
-                      fontSize: 19,
+                      color: Color.fromRGBO(0, 0, 102, 1),
                       fontWeight: FontWeight.bold
                     ),
                   ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Container(
-            width: this.state.screen.width,
-            height: this.state.screen.height - 379,
-            margin: EdgeInsets.symmetric(horizontal: 25),
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                Column(
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 15, left: 25, right: 25),
+                child: Text(
+                  'Contrato de mutuo con interés número:',
+                  style: TextStyle(
+                    color: Color.fromRGBO(77, 77, 77, 1),
+                    fontSize: 16
+                  )
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 25, right: 25),
+                child: Text(
+                  'XXX333ABC123',
+                  style: TextStyle(
+                    color: Color.fromRGBO(77, 77, 77, 1),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 23
+                  )
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(25),
+                width: this.state.screen.width,
+                height: 1,
+                color: Color.fromRGBO(222, 227, 237, 1),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      height: 50,
-                      color: Color.fromRGBO(239, 244, 255, 1),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 40,
-                            child: Center(
-                              child: Text(
-                                '#',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(77, 77, 77, 1),
-                                  fontWeight: FontWeight.bold
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 120,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'INICIAL',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 120,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'VENCIMIENTO',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 120,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'SALDO INSOLUTO',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 120,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'PAGO PRINCIPAL',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 120,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'PAGO INTERESES',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 120,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'IVA INTERESES',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 120,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'RETENCIÓN IVA',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 120,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'RETENCIÓN ISR',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                          Container(
-                            width: 120,
-                            alignment: Alignment.center,
-                            child: Text(
-                              'PAGO',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          )
-                        ],
+                      child: Text(
+                        'Tasa de interés anual',
+                        style: TextStyle(
+                          color: Color.fromRGBO(77, 77, 77, 1),
+                          fontSize: 19
+                        )
                       ),
                     ),
+                    Container(
+                      child: Text(
+                        '15%',
+                        style: TextStyle(
+                          color: Color.fromRGBO(77, 77, 77, 1),
+                          fontSize: 19,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Container(
+                width: this.state.screen.width,
+                height: (55 * (this.state.widget.childs.length + 1)).toDouble(),
+                margin: EdgeInsets.symmetric(horizontal: 25),
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
                     Column(
-                      children: this.state.widget.childs.map((detail) => 
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 15),
-                          decoration: BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                color: Color.fromRGBO(222, 227, 237, 1),
-                                width: 1
-                              ),
-                            )
-                          ),
+                          height: 50,
+                          color: Color.fromRGBO(239, 244, 255, 1),
                           child: Row(
                             children: [
                               Container(
                                 width: 40,
                                 child: Center(
                                   child: Text(
-                                    detail.period.toString(),
+                                    '#',
                                     style: TextStyle(
                                       color: Color.fromRGBO(77, 77, 77, 1),
                                       fontWeight: FontWeight.bold
@@ -266,7 +132,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
                                 width: 120,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  this.state.formatDate.format(detail.startDate),
+                                  'INICIAL',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Color.fromRGBO(77, 77, 77, 1),
@@ -278,7 +144,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
                                 width: 120,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  this.state.formatDate.format(detail.endDate),
+                                  'VENCIMIENTO',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Color.fromRGBO(77, 77, 77, 1),
@@ -290,7 +156,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
                                 width: 120,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  '\$${this.state.numberFormat.format(detail.outstandingBalance)}',
+                                  'SALDO INSOLUTO',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Color.fromRGBO(77, 77, 77, 1),
@@ -302,7 +168,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
                                 width: 120,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  '\$${this.state.numberFormat.format(detail.principalPayment)}',
+                                  'PAGO PRINCIPAL',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Color.fromRGBO(77, 77, 77, 1),
@@ -314,7 +180,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
                                 width: 120,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  '\$${this.state.numberFormat.format(detail.interestPayment)}',
+                                  'PAGO INTERESES',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Color.fromRGBO(77, 77, 77, 1),
@@ -326,7 +192,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
                                 width: 120,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  '\$${this.state.numberFormat.format(detail.vat)}',
+                                  'IVA INTERESES',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Color.fromRGBO(77, 77, 77, 1),
@@ -338,7 +204,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
                                 width: 120,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  '\$${this.state.numberFormat.format(detail.vatRetention)}',
+                                  'RETENCIÓN IVA',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Color.fromRGBO(77, 77, 77, 1),
@@ -350,7 +216,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
                                 width: 120,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  '\$${this.state.numberFormat.format(detail.isrRetention)}',
+                                  'RETENCIÓN ISR',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Color.fromRGBO(77, 77, 77, 1),
@@ -362,7 +228,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
                                 width: 120,
                                 alignment: Alignment.center,
                                 child: Text(
-                                  '\$${this.state.numberFormat.format(detail.payment)}',
+                                  'PAGO',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Color.fromRGBO(77, 77, 77, 1),
@@ -371,16 +237,155 @@ class DetailsInvestmentsContent extends StatelessWidget {
                                 ),
                               )
                             ],
-                          )
+                          ),
+                        ),
+                        Column(
+                          children: this.state.widget.childs.map((detail) => 
+                            Container(
+                              padding: EdgeInsets.symmetric(vertical: 15),
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Color.fromRGBO(222, 227, 237, 1),
+                                    width: 1
+                                  ),
+                                )
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 40,
+                                    child: Center(
+                                      child: Text(
+                                        detail.period.toString(),
+                                        style: TextStyle(
+                                          color: Color.fromRGBO(77, 77, 77, 1),
+                                          fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 120,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      this.state.formatDate.format(detail.startDate),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 120,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      this.state.formatDate.format(detail.endDate),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 120,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '\$${this.state.numberFormat.format(detail.outstandingBalance)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 120,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '\$${this.state.numberFormat.format(detail.principalPayment)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 120,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '\$${this.state.numberFormat.format(detail.interestPayment)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 120,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '\$${this.state.numberFormat.format(detail.vat)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 120,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '\$${this.state.numberFormat.format(detail.vatRetention)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 120,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '\$${this.state.numberFormat.format(detail.isrRetention)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 120,
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      '\$${this.state.numberFormat.format(detail.payment)}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
+                            )
+                          ).toList()
                         )
-                      ).toList()
+                      ],
                     )
                   ],
-                )
-              ],
-            ),
-          )
-        ],
+                ),
+              )
+            ],
+          );
+        },
       ),
     );
   }

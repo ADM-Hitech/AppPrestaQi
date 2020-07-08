@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prestaQi/Screens/IndexAuth/index_auth.dart';
@@ -29,10 +31,23 @@ class IndexAuthContent extends StatelessWidget {
           ListView(
             children: [
               Container(
-                child: SvgPicture.asset(
-                  'assets/icons/ico-logo.svg',
-                  color: Colors.white,
-                  width: this.state.screen.width * .8,
+                height: 200,
+                width: this.state.screen.width,
+                child: Container(
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: -75,
+                        right: 0,
+                        left: 0,
+                        child: SvgPicture.asset(
+                          'assets/icons/ico-logo.svg',
+                          color: Colors.white,
+                          width: this.state.screen.width * .8,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Center(
@@ -41,7 +56,7 @@ class IndexAuthContent extends StatelessWidget {
                   child: Text('El dinero\r\nque necesitas', 
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 55
+                      fontSize: this.state.getFontSize()
                     )
                   ),
                 ),
@@ -52,7 +67,7 @@ class IndexAuthContent extends StatelessWidget {
                   child: Text('al alcance\r\nde tu mano', 
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 55,
+                      fontSize: this.state.getFontSize(),
                       fontWeight: FontWeight.bold
                     )
                   ),

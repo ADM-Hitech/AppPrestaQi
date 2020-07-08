@@ -85,7 +85,11 @@ class MyAdvancesContent extends StatelessWidget {
                           onTap: () {
                             appService<NavigationService>().navigateTo('/advance-periodic', arguments: this.state.myAdvancesActive);
                           },
-                          child: MyAdvanceAfter(date: new DateTime(this.state.date.year, this.state.date.month, this.state.nextDayForPay), total: this.state.totalDiscount),
+                          child: MyAdvanceAfter(
+                            date: new DateTime(this.state.date.year, this.state.date.month, this.state.nextDayForPay),
+                            total: this.state.totalDiscount,
+                            sizeText: this.state.getFontSize(),
+                          ),
                         ),
                         SizedBox(
                           height: 25,
@@ -112,7 +116,12 @@ class MyAdvancesContent extends StatelessWidget {
                                 onTap: () {
                                   appService<NavigationService>().showDetailsAdvancePeriodic(context, advance);
                                 },
-                                child: MyAdvanceBefore(date: advance.dateAdvance, folio: advance.id, total: advance.totalWithhold),
+                                child: MyAdvanceBefore(
+                                  date: advance.dateAdvance,
+                                  folio: advance.id,
+                                  total: advance.totalWithhold,
+                                  sizeText: this.state.getFontSize(),
+                                ),
                               )
                             ).toList(),
                           ),

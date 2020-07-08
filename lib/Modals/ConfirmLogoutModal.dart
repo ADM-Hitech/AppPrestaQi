@@ -83,7 +83,7 @@ class ConfirmLogoutState extends State<ConfirmLogout> {
           ),
           width: MediaQuery.of(context).size.width * .8,
           padding: EdgeInsets.symmetric(vertical: 40, horizontal: 25),
-          height: 400,
+          height: 420,
           child: Column(
             children: <Widget>[
               Container(
@@ -98,12 +98,15 @@ class ConfirmLogoutState extends State<ConfirmLogout> {
               SizedBox(
                 height: 25,
               ),
-              Container(
-                child: Text('¿Cerrar la sesión?', 
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30
-                  )
+              Center(
+                child: Container(
+                  child: Text('¿Cerrar la sesión?', 
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 28
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               SizedBox(
@@ -116,7 +119,7 @@ class ConfirmLogoutState extends State<ConfirmLogout> {
                       Navigator.pop(context, true);
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 20),
+                      padding: EdgeInsets.symmetric(vertical: 18),
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(0, 0, 102, 1),
                         borderRadius: BorderRadius.circular(40)
@@ -144,7 +147,7 @@ class ConfirmLogoutState extends State<ConfirmLogout> {
                       Navigator.pop(context, false);
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 20),
+                      padding: EdgeInsets.symmetric(vertical: 18),
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(198, 200, 208, 1),
                         borderRadius: BorderRadius.circular(40)

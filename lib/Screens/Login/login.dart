@@ -59,9 +59,9 @@ class LoginState extends State<Login> {
         }).catchError((onError) {
           setState(() {
             if (onError is String) {
-              this.error = onError;
+              this.error = 'Los datos son incorrectos.';
             } else {
-              this.error = 'Intentelo mas tarde';
+              this.error = 'Inténtelo mas tarde.';
             }
           });
         }).whenComplete(() {

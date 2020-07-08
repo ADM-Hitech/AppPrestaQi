@@ -54,7 +54,7 @@ class DetailsInvestmentsState extends State<DetailsInvestments>{
           ),
         ),
         title: Container(
-          child: Text('Solicitar adelanto', 
+          child: Text('Detalle de inversión', 
             style: TextStyle(
               color: Color.fromRGBO(143, 146, 163, 1),
               fontWeight: FontWeight.w600

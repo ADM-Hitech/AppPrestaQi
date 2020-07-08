@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prestaQi/Screens/RequestAdvance/request_advance.dart';
-import 'package:prestaQi/Services/NavigationService.dart';
-import 'package:prestaQi/Services/SetupService.dart';
 
 import '../../Utils/HexColor.dart';
 
@@ -23,7 +21,7 @@ class RequestAdvanceContent extends StatelessWidget{
           Positioned(
             top: 0,
             child: Container(
-              height: 320,
+              height: this.state.getHightTitle(),
               width: this.state.screen.width,
               decoration: BoxDecoration(
                 color: HexColor.fromHex('#1292ff'),
@@ -45,7 +43,7 @@ class RequestAdvanceContent extends StatelessWidget{
                           color: Colors.white, 
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.bold,
-                          fontSize: 50
+                          fontSize: this.state.getSizeTitle()
                         )
                       )
                     ),
@@ -55,10 +53,10 @@ class RequestAdvanceContent extends StatelessWidget{
             ),
           ),
           Positioned(
-            top: 250,
+            top: this.state.getTopBody(),
             child: Container(
               width: this.state.screen.width,
-              height: this.state.screen.height - 250,
+              height: this.state.screen.height - this.state.getTopBody(),
               padding: EdgeInsets.all(25),
               decoration: BoxDecoration(
                 color: HexColor.fromHex('#eff4ff'),
@@ -73,7 +71,7 @@ class RequestAdvanceContent extends StatelessWidget{
                 ]
               ),
               child: ListView.builder(
-                padding: EdgeInsets.only(top: 35, left: 0, right: 0, bottom: 0),
+                padding: EdgeInsets.only(top: this.state.getSpacesBetween(), left: 0, right: 0, bottom: 0),
                 physics: BouncingScrollPhysics(),
                 itemCount: 1,
                 itemBuilder: (cntx, i) {
@@ -83,7 +81,7 @@ class RequestAdvanceContent extends StatelessWidget{
                     children: [
                       Container(
                         child: Text(
-                          '¿Cuánto dinero necesitas?', 
+                          '¿Cuánto dinero necesitas? ${this.state.screen.height}', 
                           style: TextStyle(
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
@@ -93,7 +91,7 @@ class RequestAdvanceContent extends StatelessWidget{
                         ),
                       ),
                       SizedBox(
-                        height: 50,
+                        height: this.state.getSpacesBetween() + 15,
                       ),
                       Container(
                         height: 90,
@@ -159,7 +157,7 @@ class RequestAdvanceContent extends StatelessWidget{
                         ),
                       ),
                       SizedBox(
-                        height: 70,
+                        height: this.state.getSpacesBetweenSlide(),
                       ),
                       Container(
                         width: this.state.screen.width,
@@ -210,7 +208,7 @@ class RequestAdvanceContent extends StatelessWidget{
                         ),  
                       ),
                       SizedBox(
-                        height: 80,
+                        height: this.state.getSpacesBetweenButton(),
                       ),
                       Center(
                         child: Container(
