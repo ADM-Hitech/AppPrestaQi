@@ -111,7 +111,7 @@ class RecoveryPasswordContent extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Container(
-                      width: 55,
+                      width: 63,
                       padding: EdgeInsets.only(
                         bottom: 2, // space between underline and text
                       ),
