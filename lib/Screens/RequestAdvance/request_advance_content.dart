@@ -135,6 +135,28 @@ class RequestAdvanceContent extends StatelessWidget{
                               )
                             ),
                             Container(
+                              width: this.state.screen.width - 200,
+                              child: TextFormField(
+                                controller: this.state.valueControl,
+                                textAlign: TextAlign.center,
+                                keyboardType: TextInputType.number,
+                                onChanged: this.state.updateValueWithInput,
+                                style: TextStyle(
+                                  color: this.state.colorAmount,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30
+                                ),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  errorBorder: InputBorder.none,
+                                  disabledBorder: InputBorder.none
+                                )
+                              ),
+                            ),
+                            /*Container(
                               child: Text('\$${this.state.valueAdvance.toStringAsFixed(2)}', 
                               style: TextStyle(
                                   color: this.state.colorAmount,
@@ -143,7 +165,7 @@ class RequestAdvanceContent extends StatelessWidget{
                                   fontSize: 30
                                 )
                               )
-                            ),
+                            ),*/
                             Container(
                               width: 80,
                               alignment: Alignment.center,
@@ -159,83 +181,93 @@ class RequestAdvanceContent extends StatelessWidget{
                       SizedBox(
                         height: this.state.getSpacesBetweenSlide(),
                       ),
-                      Container(
-                        width: this.state.screen.width,
-                        child: SliderTheme(
-                          data: SliderTheme.of(context).copyWith(
-                            activeTrackColor: Color.fromRGBO(51, 51, 254, 1),
-                            inactiveTrackColor: Color.fromRGBO(202, 206, 230, 1),
-                            thumbColor: Color.fromRGBO(51, 51, 254, 1)
-                          ),
-                          child: Slider(
-                            value: this.state.valueAdvance,
-                            min: 0.0,
-                            max: this.state.maxValue,
-                            activeColor: Color.fromRGBO(51, 51, 254, 1),
-                            inactiveColor: Color.fromRGBO(202, 206, 230, 1),
-                            onChanged: this.state.updateValueAdvance
+                      if (this.state.loading) ...[
+                        Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      ]
+                      else ...[
+                        Container(
+                          width: this.state.screen.width,
+                          child: SliderTheme(
+                            data: SliderTheme.of(context).copyWith(
+                              activeTrackColor: Color.fromRGBO(51, 51, 254, 1),
+                              inactiveTrackColor: Color.fromRGBO(202, 206, 230, 1),
+                              thumbColor: Color.fromRGBO(51, 51, 254, 1)
+                            ),
+                            child: Slider(
+                              value: this.state.valueAdvance,
+                              min: 0.0,
+                              max: this.state.maxValue,
+                              activeColor: Color.fromRGBO(51, 51, 254, 1),
+                              inactiveColor: Color.fromRGBO(202, 206, 230, 1),
+                              onChanged: this.state.updateValueAdvance
+                            ),
                           ),
                         ),
-                      ),
-                      Center(
-                        child: Container(
-                          width: this.state.screen.width,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Text('\$0', 
+                        Center(
+                          child: Container(
+                            width: this.state.screen.width,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: Text('\$0', 
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(77, 77, 77, 1),
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 23
+                                    )
+                                  ),
+                                ),
+                                Container(
+                                  child: Text('\$${this.state.maxValue}',
                                   style: TextStyle(
-                                    color: Color.fromRGBO(77, 77, 77, 1),
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 23
-                                  )
-                                ),
-                              ),
-                              Container(
-                                child: Text('\$${this.state.maxValue}',
-                                style: TextStyle(
-                                    color: Color.fromRGBO(77, 77, 77, 1),
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 23
-                                  )
-                                ),
-                              )
-                            ],
-                          ),
-                        ),  
-                      ),
-                      SizedBox(
-                        height: this.state.getSpacesBetweenButton(),
-                      ),
-                      Center(
-                        child: Container(
-                          width: this.state.screen.width * .8,
-                          child: GestureDetector(
-                            onTap: this.state.requestAdvance,
+                                      color: Color.fromRGBO(77, 77, 77, 1),
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 23
+                                    )
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),  
+                        ),
+                        SizedBox(
+                          height: this.state.getSpacesBetweenButton(),
+                        ),
+                        Center(
+                          child: Opacity(
+                            opacity: this.state.errorAmount ? .6 : 1,
                             child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 25),
-                              decoration: BoxDecoration(
-                                color: HexColor.fromHex('#000066'),
-                                borderRadius: BorderRadius.circular(40)
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'SOLICITAR', 
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18
-                                  )
+                              width: this.state.screen.width * .8,
+                              child: GestureDetector(
+                                onTap: this.state.requestAdvance,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(vertical: 25),
+                                  decoration: BoxDecoration(
+                                    color: HexColor.fromHex('#000066'),
+                                    borderRadius: BorderRadius.circular(40)
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'SOLICITAR', 
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18
+                                      )
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      )
+                        )
+                      ]
                     ],
                   );
                 },

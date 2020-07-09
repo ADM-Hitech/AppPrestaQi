@@ -23,13 +23,17 @@ class RequestAdvanceState extends State<RequestAdvance> {
 
   double valueAdvance = 0;
   double maxValue = 1;
-  Color colorAmount = Color.fromRGBO(77, 77, 77, 1);
+  Color colorAmount = HexColor.fromHex('#ff2626');
+  bool loading = true;
+  bool errorAmount = true;
+  final TextEditingController valueControl = TextEditingController(text: '');
 
   @override
   void initState() {
     super.initState();
     this.screen = new ScreenResponsive(context);
     this.fetchMaxMount();
+    this.valueControl.text = this.valueAdvance.toStringAsFixed(2);
   }
 
   void updateValueAdvance(double value) {
@@ -37,9 +41,13 @@ class RequestAdvanceState extends State<RequestAdvance> {
       this.valueAdvance = value.floorToDouble();
       if (this.valueAdvance > 0 ) {
         this.colorAmount = Color.fromRGBO(77, 77, 77, 1);
+        this.errorAmount = false;
       } else {
         this.colorAmount = HexColor.fromHex('#ff2626');
+        this.errorAmount = true;
       }
+
+      this.valueControl.text = this.valueAdvance.toStringAsFixed(2);
     });
   }
 
@@ -47,9 +55,12 @@ class RequestAdvanceState extends State<RequestAdvance> {
     appService<RequestAdvanceService>().calculateAdvance().then((value) {
       setState(() {
         this.maxValue = value;
+        this.loading = false;
       });
+
     }).catchError((onError) {
       print(onError);
+      this.loading = false;
     });
   }
 
@@ -58,7 +69,7 @@ class RequestAdvanceState extends State<RequestAdvance> {
       this.colorAmount = Color.fromRGBO(77, 77, 77, 1);
     });
 
-    if (this.valueAdvance <= 0) {
+    if (this.errorAmount) {
       setState(() {
         this.colorAmount = HexColor.fromHex('#ff2626');
       });
@@ -111,11 +122,34 @@ class RequestAdvanceState extends State<RequestAdvance> {
     }
   }
 
-    double getSpacesBetweenSlide() {
+  double getSpacesBetweenSlide() {
     if (this.screen.height > 667) {
       return 70;
     } else {
       return 25;
+    }
+  }
+
+  void updateValueWithInput(String value) {
+    var newValue = double.tryParse(value);
+
+    if (newValue != null) {
+      setState(() {
+        if (newValue <= 0 || newValue > this.maxValue) {
+          this.colorAmount = HexColor.fromHex('#ff2626');
+          this.errorAmount = true;
+        } else {
+          this.colorAmount = Color.fromRGBO(77, 77, 77, 1);
+          this.errorAmount = false;
+        }
+      });
+    }
+
+    if (newValue != null && newValue <= this.maxValue ) {
+      setState(() {
+        this.valueAdvance = newValue;
+        //this.valueControl.text = '\$${this.valueAdvance.toStringAsFixed(2)}';
+      });
     }
   }
 

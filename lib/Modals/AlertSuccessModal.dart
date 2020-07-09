@@ -87,7 +87,7 @@ class AlertAccessState extends State<AlertAccess> {
             children: <Widget>[
               Container(
                 child: Center(
-                  child: Image.asset('assets/icons/circle_success.png', width: 90, height: 90),
+                  child: Image.asset('assets/icons/circle_success.png', width: 70, height: 70),
                 ),
               ),
               SizedBox(
@@ -97,7 +97,7 @@ class AlertAccessState extends State<AlertAccess> {
                 child: Text('¡Listo!', 
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 30
+                    fontSize: 28
                   )
                 ),
               ),
@@ -111,7 +111,7 @@ class AlertAccessState extends State<AlertAccess> {
                   'Solicitud en curso, recibirás una notificación cuando tengas el dinero en tu cuenta.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 17,
                     color: Color.fromRGBO(142, 145, 162, 1)
                   )
                 ),
@@ -123,7 +123,7 @@ class AlertAccessState extends State<AlertAccess> {
                       Navigator.pop(context);
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 20),
+                      padding: EdgeInsets.symmetric(vertical: 15),
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(0, 0, 102, 1),
                         borderRadius: BorderRadius.circular(40)
