@@ -88,7 +88,7 @@ class AuthService {
     
     LoginModel login = new LoginModel(mail: email);
 
-    final response = await http.post('${this.apiUrl}Login', 
+    final response = await http.put('${this.apiUrl}Administrative/RecoveryPassword', 
       body: login.toJsonRecoveryPassword(),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',

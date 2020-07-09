@@ -71,6 +71,7 @@ class RecoveryPasswordContent extends StatelessWidget {
               child: Container(
                 width: this.state.screen.width * .8,
                 child: TextFormField(
+                  controller: this.state.emailController,
                   style: TextStyle(color: Colors.white),
                   textCapitalization: TextCapitalization.none,
                   decoration: InputDecoration(
