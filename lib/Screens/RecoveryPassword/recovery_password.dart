@@ -45,7 +45,9 @@ class RecoveryPasswordState extends State<RecoveryPassword> {
         this.message = '';
       });
 
-      appService<AuthService>().recoveryPassword(this.emailController.text.replaceAll(new RegExp(r"\s+"), '')).then((value) => {
+      var email = this.emailController.text.replaceAll(new RegExp(r"\s+"), '');
+
+      appService<AuthService>().recoveryPassword(email).then((value) => {
         setState(() {
           this.message = value;
           this.loading = false;
