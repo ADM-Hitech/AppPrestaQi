@@ -13,270 +13,277 @@ class RequestAdvanceContent extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      height: this.state.screen.height,
-      width: this.state.screen.width,
-      child: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            child: Container(
-              height: this.state.getHightTitle(),
-              width: this.state.screen.width,
-              decoration: BoxDecoration(
-                color: HexColor.fromHex('#1292ff'),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/background_header.png'),
-                  fit: BoxFit.none,
-                  alignment: Alignment.bottomCenter
-                )
-              ),
-              child: Stack(
-                children: [
-                  Positioned(
-                    bottom: 100,
-                    left: 25,
-                    child: Container(
-                      child: Text(
-                        'Solicitar\r\nadelanto', 
-                        style: TextStyle(
-                          color: Colors.white, 
-                          fontFamily: 'Montserrat',
-                          fontWeight: FontWeight.bold,
-                          fontSize: this.state.getSizeTitle()
-                        )
-                      )
-                    ),
+    return new GestureDetector(
+      onTap: () {
+        FocusScope.of(context).requestFocus(new FocusNode());
+      },
+      child: Container(
+        height: this.state.screen.height,
+        width: this.state.screen.width,
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              child: Container(
+                height: this.state.getHightTitle(),
+                width: this.state.screen.width,
+                decoration: BoxDecoration(
+                  color: HexColor.fromHex('#1292ff'),
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/background_header.png'),
+                    fit: BoxFit.none,
+                    alignment: Alignment.bottomCenter
                   )
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            top: this.state.getTopBody(),
-            child: Container(
-              width: this.state.screen.width,
-              height: this.state.screen.height - this.state.getTopBody(),
-              padding: EdgeInsets.all(25),
-              decoration: BoxDecoration(
-                color: HexColor.fromHex('#eff4ff'),
-                borderRadius: BorderRadius.only(topRight: Radius.circular(70)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(0, 0, 102, .4),
-                    spreadRadius: 5,
-                    blurRadius: 50,
-                    offset: Offset(0, 3)
-                  )
-                ]
-              ),
-              child: ListView.builder(
-                padding: EdgeInsets.only(top: this.state.getSpacesBetween(), left: 0, right: 0, bottom: 0),
-                physics: BouncingScrollPhysics(),
-                itemCount: 1,
-                itemBuilder: (cntx, i) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
+                ),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      bottom: 100,
+                      left: 25,
+                      child: Container(
                         child: Text(
-                          '¿Cuánto dinero necesitas?', 
+                          'Solicitar\r\nadelanto', 
                           style: TextStyle(
+                            color: Colors.white, 
                             fontFamily: 'Montserrat',
                             fontWeight: FontWeight.bold,
-                            fontSize: 26.5,
-                            color: Color.fromRGBO(0, 0, 102, 1)
+                            fontSize: this.state.getSizeTitle()
                           )
-                        ),
-                      ),
-                      SizedBox(
-                        height: this.state.getSpacesBetween() + 15,
-                      ),
-                      Container(
-                        height: 90,
-                        width: this.state.screen.width,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(
-                            color: Color.fromRGBO(222, 227, 237, 1),
-                            width: 3
-                          ),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(203, 208, 232, 1),
-                              spreadRadius: 5,
-                              blurRadius: 30,
-                              offset: Offset(-10, 20)
-                            )
-                          ]
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 60,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(239, 244, 255, 1),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(16),
-                                  bottomLeft: Radius.circular(16)
-                                )
-                              ),
-                              child: Text('\$',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(202, 206, 230, 1),
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25
-                                )
-                              )
-                            ),
-                            Container(
-                              width: this.state.screen.width - 200,
-                              child: TextFormField(
-                                controller: this.state.valueControl,
-                                textInputAction: TextInputAction.done,
-                                textAlign: TextAlign.center,
-                                keyboardType: TextInputType.number,
-                                onChanged: this.state.updateValueWithInput,
-                                style: TextStyle(
-                                  color: this.state.colorAmount,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30
-                                ),
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  focusedBorder: InputBorder.none,
-                                  enabledBorder: InputBorder.none,
-                                  errorBorder: InputBorder.none,
-                                  disabledBorder: InputBorder.none
-                                )
-                              ),
-                            ),
-                            /*Container(
-                              child: Text('\$${this.state.valueAdvance.toStringAsFixed(2)}', 
-                              style: TextStyle(
-                                  color: this.state.colorAmount,
-                                  fontFamily: 'Montserrat',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30
-                                )
-                              )
-                            ),*/
-                            Container(
-                              width: 80,
-                              alignment: Alignment.center,
-                              child: SvgPicture.asset(
-                                'assets/icons/ico-teclado.svg',
-                                color: Color.fromRGBO(202, 206, 230, 1),
-                                width: 40,
-                              )
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: this.state.getSpacesBetweenSlide(),
-                      ),
-                      if (this.state.loading) ...[
-                        Center(
-                          child: CircularProgressIndicator(),
                         )
-                      ]
-                      else ...[
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: this.state.getTopBody(),
+              child: Container(
+                width: this.state.screen.width,
+                height: this.state.screen.height - this.state.getTopBody(),
+                padding: EdgeInsets.all(25),
+                decoration: BoxDecoration(
+                  color: HexColor.fromHex('#eff4ff'),
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(70)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromRGBO(0, 0, 102, .4),
+                      spreadRadius: 5,
+                      blurRadius: 50,
+                      offset: Offset(0, 3)
+                    )
+                  ]
+                ),
+                child: ListView.builder(
+                  padding: EdgeInsets.only(top: this.state.getSpacesBetween(), left: 0, right: 0, bottom: 0),
+                  physics: BouncingScrollPhysics(),
+                  itemCount: 1,
+                  itemBuilder: (cntx, i) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
                         Container(
-                          width: this.state.screen.width,
-                          child: SliderTheme(
-                            data: SliderTheme.of(context).copyWith(
-                              activeTrackColor: Color.fromRGBO(51, 51, 254, 1),
-                              inactiveTrackColor: Color.fromRGBO(202, 206, 230, 1),
-                              thumbColor: Color.fromRGBO(51, 51, 254, 1)
-                            ),
-                            child: Slider(
-                              value: this.state.valueAdvance,
-                              min: 0.0,
-                              max: this.state.maxValue,
-                              activeColor: Color.fromRGBO(51, 51, 254, 1),
-                              inactiveColor: Color.fromRGBO(202, 206, 230, 1),
-                              onChanged: this.state.updateValueAdvance
-                            ),
+                          child: Text(
+                            '¿Cuánto dinero necesitas?', 
+                            style: TextStyle(
+                              fontFamily: 'Montserrat',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 26.5,
+                              color: Color.fromRGBO(0, 0, 102, 1)
+                            )
                           ),
-                        ),
-                        Center(
-                          child: Container(
-                            width: this.state.screen.width,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  child: Text('\$0', 
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(77, 77, 77, 1),
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 23
-                                    )
-                                  ),
-                                ),
-                                Container(
-                                  child: Text('\$${this.state.maxValue}',
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(77, 77, 77, 1),
-                                      fontFamily: 'Montserrat',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 23
-                                    )
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),  
                         ),
                         SizedBox(
-                          height: this.state.getSpacesBetweenButton(),
+                          height: this.state.getSpacesBetween() + 15,
                         ),
-                        Center(
-                          child: Opacity(
-                            opacity: this.state.errorAmount ? .6 : 1,
-                            child: Container(
-                              width: this.state.screen.width * .8,
-                              child: GestureDetector(
-                                onTap: this.state.requestAdvance,
+                        Container(
+                          height: 90,
+                          width: this.state.screen.width,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Color.fromRGBO(222, 227, 237, 1),
+                              width: 3
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(203, 208, 232, 1),
+                                spreadRadius: 5,
+                                blurRadius: 30,
+                                offset: Offset(-10, 20)
+                              )
+                            ]
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 60,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(239, 244, 255, 1),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(16),
+                                    bottomLeft: Radius.circular(16)
+                                  )
+                                ),
+                                child: Text('\$',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(202, 206, 230, 1),
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25
+                                  )
+                                )
+                              ),
+                              Form(
                                 child: Container(
-                                  padding: EdgeInsets.symmetric(vertical: 25),
-                                  decoration: BoxDecoration(
-                                    color: HexColor.fromHex('#000066'),
-                                    borderRadius: BorderRadius.circular(40)
+                                  width: this.state.screen.width - 200,
+                                  child: TextFormField(
+                                    controller: this.state.valueControl,
+                                    textInputAction: TextInputAction.done,
+                                    textAlign: TextAlign.center,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: this.state.updateValueWithInput,
+                                    style: TextStyle(
+                                      color: this.state.colorAmount,
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30
+                                    ),
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      errorBorder: InputBorder.none,
+                                      disabledBorder: InputBorder.none
+                                    )
                                   ),
-                                  child: Center(
-                                    child: Text(
-                                      'SOLICITAR', 
+                                ),
+                              ),
+                              /*Container(
+                                child: Text('\$${this.state.valueAdvance.toStringAsFixed(2)}', 
+                                style: TextStyle(
+                                    color: this.state.colorAmount,
+                                    fontFamily: 'Montserrat',
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 30
+                                  )
+                                )
+                              ),*/
+                              Container(
+                                width: 80,
+                                alignment: Alignment.center,
+                                child: SvgPicture.asset(
+                                  'assets/icons/ico-teclado.svg',
+                                  color: Color.fromRGBO(202, 206, 230, 1),
+                                  width: 40,
+                                )
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: this.state.getSpacesBetweenSlide(),
+                        ),
+                        if (this.state.loading) ...[
+                          Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        ]
+                        else ...[
+                          Container(
+                            width: this.state.screen.width,
+                            child: SliderTheme(
+                              data: SliderTheme.of(context).copyWith(
+                                activeTrackColor: Color.fromRGBO(51, 51, 254, 1),
+                                inactiveTrackColor: Color.fromRGBO(202, 206, 230, 1),
+                                thumbColor: Color.fromRGBO(51, 51, 254, 1)
+                              ),
+                              child: Slider(
+                                value: this.state.valueAdvance,
+                                min: 0.0,
+                                max: this.state.maxValue,
+                                activeColor: Color.fromRGBO(51, 51, 254, 1),
+                                inactiveColor: Color.fromRGBO(202, 206, 230, 1),
+                                onChanged: this.state.updateValueAdvance
+                              ),
+                            ),
+                          ),
+                          Center(
+                            child: Container(
+                              width: this.state.screen.width,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Text('\$0', 
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Color.fromRGBO(77, 77, 77, 1),
                                         fontFamily: 'Montserrat',
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 18
+                                        fontSize: 23
                                       )
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text('\$${this.state.maxValue}',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                        fontFamily: 'Montserrat',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 23
+                                      )
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),  
+                          ),
+                          SizedBox(
+                            height: this.state.getSpacesBetweenButton(),
+                          ),
+                          Center(
+                            child: Opacity(
+                              opacity: this.state.errorAmount ? .6 : 1,
+                              child: Container(
+                                width: this.state.screen.width * .8,
+                                child: GestureDetector(
+                                  onTap: this.state.requestAdvance,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(vertical: 25),
+                                    decoration: BoxDecoration(
+                                      color: HexColor.fromHex('#000066'),
+                                      borderRadius: BorderRadius.circular(40)
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'SOLICITAR', 
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'Montserrat',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18
+                                        )
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                      ]
-                    ],
-                  );
-                },
+                          )
+                        ]
+                      ],
+                    );
+                  },
+                ),
               ),
-            ),
-          )
-        ],
-      ),
+            )
+          ],
+        ),
+      )
     );
   }
 }
