@@ -82,5 +82,30 @@ class AuthService {
     pref.remove('typeName');
 
     return true;
-  } 
+  }
+
+  Future<String> recoveryPassword(String email) async {
+    
+    LoginModel login = new LoginModel(mail: email);
+
+    final response = await http.post('${this.apiUrl}Login', 
+      body: login.toJsonRecoveryPassword(),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.acceptHeader: 'application/json'
+      }
+    );
+
+    var objectResponse = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      if (objectResponse['success']) {
+        return 'Se ha enviado a su correo la nueva contraseña';
+      }
+
+      return objectResponse['message'];
+    } else {
+      return 'Error al recuperar la contraseña';
+    }
+  }
 }
