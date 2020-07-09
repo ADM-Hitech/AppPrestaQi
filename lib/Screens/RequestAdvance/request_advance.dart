@@ -108,7 +108,7 @@ class RequestAdvanceState extends State<RequestAdvance> {
 
   double getSpacesBetween() {
     if (this.screen.height > 667) {
-      return 35;
+      return 15;
     } else {
       return 20;
     }

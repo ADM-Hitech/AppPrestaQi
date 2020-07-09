@@ -82,10 +82,10 @@ class MyAdvanceAfter extends StatelessWidget {
             margin: EdgeInsets.only(right: 25, left: 25),
             alignment: Alignment.centerRight,
             child: Text(
-              NumberFormat('\$ #,##0', 'es_Us').format(this.total),
+              NumberFormat('\$ #,##0.00', 'es_Us').format(this.total),
               style: TextStyle(
                 color: Color.fromRGBO(0, 0, 102, 1),
-                fontSize: this.sizeText + 2,
+                fontSize: this.sizeText,
                 fontWeight: FontWeight.bold
               ),
             ),

@@ -53,12 +53,12 @@ class MyAdvancesState extends State<MyAdvances> {
             if (this.nextDayForPay == 15 && (element.dateAdvance.day >= 1 && element.dateAdvance.day <= 15)) {
               
               this.myAdvancesActive.add(element);
-              this.totalDiscount += element.totalWithhold.floorToDouble();
+              this.totalDiscount += element.totalWithhold;
 
             } else if (this.nextDayForPay != 15 && (element.dateAdvance.day >= 16 && element.dateAdvance.day <= this.nextDayForPay)) { 
               
               this.myAdvancesActive.add(element);
-              this.totalDiscount += element.totalWithhold.floorToDouble();
+              this.totalDiscount += element.totalWithhold;
 
             } else {
               
@@ -97,7 +97,7 @@ class MyAdvancesState extends State<MyAdvances> {
     if (this.screen.width > 414) {
       return 23;
     } else {
-      return 18;
+      return 16.8;
     }
   }
 

@@ -68,7 +68,7 @@ class SettingSecurityContent extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 30),
                 child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enum ad minim veniam, quis nostyrd exercutatuib yllamco laboris nisi',
+                  'Todas las operaciones y tus datos personales están protegidos con cifrado y autenticación por medio de token por lo que es completamente seguro realizar operaciones en nuestra plataforma. \n\nEn PrestaQi nos preocupamos por tu seguridad y estamos contigo en todo momento.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,

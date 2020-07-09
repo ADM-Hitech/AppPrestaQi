@@ -138,6 +138,7 @@ class RequestAdvanceContent extends StatelessWidget{
                               width: this.state.screen.width - 200,
                               child: TextFormField(
                                 controller: this.state.valueControl,
+                                textInputAction: TextInputAction.done,
                                 textAlign: TextAlign.center,
                                 keyboardType: TextInputType.number,
                                 onChanged: this.state.updateValueWithInput,

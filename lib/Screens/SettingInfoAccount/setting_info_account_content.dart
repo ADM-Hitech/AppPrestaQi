@@ -57,7 +57,7 @@ class SettingInfoAccountContent extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.only(top: 60),
                   child: Text(
-                    'Crea un informe de tus ajustes y configuración en PrestaQi.',
+                    'Crea un informe de tus datos y movimientos en PrestaQi.',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class SettingInfoAccountContent extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 30),
                 child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enum ad minim veniam, quis nostyrd exercutatuib yllamco laboris nisi',
+                  'Crea un informe de todas las operaciones que hayas realizado con PrestaQi. Puedes acceder o transferir la información a otra aplicación. El informe no incluye configuraciones adicionales ni datos personales.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
