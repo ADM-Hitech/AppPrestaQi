@@ -10,4 +10,8 @@ class LoginModel {
     'mail': mail,
     'password': password
   });
+
+  String toJsonRecoveryPassword() => json.encode({
+    'mail': mail
+  });
 }
