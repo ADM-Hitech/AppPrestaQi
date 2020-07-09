@@ -89,13 +89,14 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
   }
 
   void acepted() async {
-    setState(() {
-      this.loading = true;
-    });
 
     this.infoBank.amount = this.widget.calculateAdvance.amount;
     var result = await appService<NavigationService>().showCartaMandato(context, this.infoBank);
     if (result as bool) {
+
+      setState(() {
+        this.loading = true;
+      });
 
       appService<RequestAdvanceService>().requestAdvance(this.infoBank.amount).then((value) async {
         if (value) {
