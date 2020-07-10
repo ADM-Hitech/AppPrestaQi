@@ -7,6 +7,7 @@ import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Widgets/DialogManager.dart';
 import 'package:prestaQi/Widgets/StartupView.dart';
 import 'package:prestaQi/app_provider.dart';
+import 'package:prestaQi/providers/push_notifications.dart';
 import 'package:prestaQi/router.dart';
 import 'package:prestaQi/Utils/HexColor.dart';
 
@@ -29,6 +30,14 @@ class AppState extends State<App> {
   @override
   void initState() {
     super.initState();
+    final pushNotificationProvider = new PushNotificationProvider();
+    pushNotificationProvider.initNotifications();
+    pushNotificationProvider.messajes.listen((event) {
+      appService<NavigationService>().navigateTo('/auth');
+    });
+
+    //para consultar los argumentos del router 
+    //ModalRoute.of(context).settings.arguments;
   }
 
   @override
