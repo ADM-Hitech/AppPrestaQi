@@ -200,7 +200,7 @@ class CartaMandatoState extends State<CartaMandato> {
                                 ),
                                 Container(
                                   width: MediaQuery.of(context).size.width - 151,
-                                  child: Text('Si, acepto los términos y condiciones señalados en la presente Carta Mandato'),
+                                  child: Text('Sí, acepto los términos y condiciones señalados en la presente Carta Mandato.'),
                                 )
                               ],
                             ),
@@ -223,7 +223,7 @@ class CartaMandatoState extends State<CartaMandato> {
                                   ),
                                 ),
                                 Container(
-                                  child: Text('No extoy de acuerdo'),
+                                  child: Text('No estoy de acuerdo.'),
                                 )
                               ],
                             ),
