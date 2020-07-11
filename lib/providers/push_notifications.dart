@@ -21,6 +21,7 @@ class PushNotificationProvider {
       // cuando la aplicacion esta abierta
       onMessage: (Map<String, dynamic> message) {
         print('======== ON MESSAGE ========');
+        print(message);
         this._mesajesStreamController.sink.add(message);
 
         return;
