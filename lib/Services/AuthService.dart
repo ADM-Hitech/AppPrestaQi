@@ -53,20 +53,13 @@ class AuthService {
     var objectResponse = json.decode(response.body);
 
     if (response.statusCode == 200 && objectResponse['success']) {
-      if (((objectResponse['data']['contract'] ?? '') as String).isNotEmpty) 
-      {
-        authResponse.firstLogin = true;
-        authResponse.contract = objectResponse['data']['contract'];
-      } else {
-        authResponse.firstLogin = false;
-        authResponse.type = objectResponse['data']['type'];
-        authResponse.typeName = objectResponse['data']['typeName'];
+      authResponse.firstLogin = objectResponse['data']['user']['first_Login'];
+      authResponse.type = objectResponse['data']['type'];
+      authResponse.typeName = objectResponse['data']['typeName'];
 
-        pref.setString('token', objectResponse['data']['token']);
-        pref.setString('type', authResponse.type.toString());
-        pref.setString('typeName', authResponse.typeName);
-
-      }
+      pref.setString('token', objectResponse['data']['token']);
+      pref.setString('type', authResponse.type.toString());
+      pref.setString('typeName', authResponse.typeName);
 
       return authResponse;
     } else {
@@ -107,5 +100,32 @@ class AuthService {
     } else {
       return 'Error al recuperar la contraseña';
     }
+  }
+
+  Future<bool> changePassword(String password) async {
+    final SharedPreferences pref = await this.sPrefs;
+    final response = await http.put('${this.apiUrl}Administrative/ChangePassword', body: '{"password": "$password"}', headers: this.headers(pref));
+
+    if (response.statusCode == 200) {
+      var responseObject = json.decode(response.body);
+
+      if (responseObject['success'] as bool) {
+        pref.remove('token');
+        pref.remove('type');
+        pref.remove('typeName');
+
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  Map<String, String> headers(SharedPreferences pref) {
+    return {
+      HttpHeaders.authorizationHeader: 'Bearer ${pref.getString('token')}',
+      HttpHeaders.contentTypeHeader: 'application/json',
+      HttpHeaders.acceptHeader: 'application/json'
+    };
   }
 }

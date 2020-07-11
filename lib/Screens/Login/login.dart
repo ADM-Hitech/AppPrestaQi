@@ -46,14 +46,15 @@ class LoginState extends State<Login> {
         appService<AuthService>().auth(this.emailController.text.replaceAll(new RegExp(r"\s+"), ''), this.passwordController.text).then((value) {
           if (value.firstLogin) {
             //appService<NavigationService>().showContract(context, value.contract);
-          }
-
-          if (value.type == 3) {
-            appService<NavigationService>().navigateTo('/request-advance');
-          } else if (value.type == 2){
-            appService<NavigationService>().navigateTo('/my-investments');
+            appService<NavigationService>().navigateTo('/change-password');
           } else {
-            appService<NavigationService>().navigateTo('/');
+            if (value.type == 3) {
+              appService<NavigationService>().navigateTo('/request-advance');
+            } else if (value.type == 2){
+              appService<NavigationService>().navigateTo('/my-investments');
+            } else {
+              appService<NavigationService>().navigateTo('/');
+            }
           }
           
         }).catchError((onError) {
