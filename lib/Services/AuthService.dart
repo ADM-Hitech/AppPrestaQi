@@ -58,7 +58,7 @@ class AuthService {
       authResponse.typeName = objectResponse['data']['typeName'];
 
       pref.setString('token', objectResponse['data']['token']);
-      pref.setString('type', authResponse.type.toString());
+      pref.setInt('type', authResponse.type);
       pref.setString('typeName', authResponse.typeName);
 
       return authResponse;
@@ -102,23 +102,23 @@ class AuthService {
     }
   }
 
-  Future<bool> changePassword(String password) async {
+  Future<AuthResponse> changePassword(String password) async {
     final SharedPreferences pref = await this.sPrefs;
+    AuthResponse authResponse = new AuthResponse();
+    authResponse.success = true;
+
     final response = await http.put('${this.apiUrl}Administrative/ChangePassword', body: '{"password": "$password"}', headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
-
-      if (responseObject['success'] as bool) {
-        pref.remove('token');
-        pref.remove('type');
-        pref.remove('typeName');
-
-        return true;
+      if (responseObject['success']) {
+        authResponse.type = pref.getInt('type');
+        authResponse.typeName = pref.getString('typeName');
+        authResponse.success = true;
       }
     }
 
-    return false;
+    return authResponse;
   }
 
   Map<String, String> headers(SharedPreferences pref) {

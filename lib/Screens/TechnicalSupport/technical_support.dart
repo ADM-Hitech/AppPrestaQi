@@ -4,6 +4,7 @@ import 'package:prestaQi/Screens/TechnicalSupport/technical_support_content.dart
 import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
+import 'package:prestaQi/Widgets/ActionMenuAlert.dart';
 import 'package:prestaQi/Widgets/DrawerMenu.dart';
 
 class TechnicalSupport extends StatefulWidget {
@@ -95,41 +96,7 @@ class TechnicalSupportState extends State<TechnicalSupport> {
           ),
         ),
         actions: [
-          GestureDetector(
-            onTap: () {
-              appService<NavigationService>().navigateTo('/notification');
-            },
-            child: Container(
-              width: 50,
-              height: 50,
-              padding: EdgeInsets.only(right: 20),
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 0,
-                    bottom: 0,
-                    child: SvgPicture.asset(
-                      'assets/icons/ico-notificaciones-nuevo.svg',
-                      color: Colors.white,
-                      width: 25,
-                    ),
-                  ),
-                  Positioned(
-                    top: 17,
-                    right: 8,
-                    child: Container(
-                      width: 9,
-                      height: 9,
-                      decoration: BoxDecoration(
-                        color: Colors.redAccent,
-                        borderRadius: BorderRadius.circular(4.5)
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )
+          ActionMenuAlert()
         ],
       ),
       drawer: DrawerMenu(screen: this.screen, hideSlide: this.hideSlide),

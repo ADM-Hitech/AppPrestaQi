@@ -63,8 +63,14 @@ class ChangePasswordState extends State<ChangePassword> {
       });
 
       appService<AuthService>().changePassword(this.passwordController.text).then((value) {
-        if (value) {
-          appService<NavigationService>().navigateTo('/auth');
+        if (value.success) {
+          if (value.type == 3) {
+            appService<NavigationService>().navigateTo('/request-advance');
+          } else if (value.type == 2){
+            appService<NavigationService>().navigateTo('/my-investments');
+          } else {
+            appService<NavigationService>().navigateTo('/');
+          }
         } else {
           this.message = 'Error al actualizar';
           setState(() {
