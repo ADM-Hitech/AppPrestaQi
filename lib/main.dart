@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:prestaQi/Models/Alert.dart';
 import 'package:prestaQi/Models/AppProviderModel.dart';
 import 'package:prestaQi/Models/UserToken.dart';
 import 'package:prestaQi/Services/DialogService.dart';
@@ -7,14 +11,30 @@ import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Widgets/DialogManager.dart';
 import 'package:prestaQi/Widgets/StartupView.dart';
 import 'package:prestaQi/app_provider.dart';
+import 'package:prestaQi/providers/NotificationProvider.dart';
 import 'package:prestaQi/providers/push_notifications.dart';
 import 'package:prestaQi/router.dart';
 import 'package:prestaQi/Utils/HexColor.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   setupService();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  Provider.debugCheckInvalidValueType = null;
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp
+  ]).then((_) => {});
   
-  runApp(App());
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<NotificationProvider>(create: (_) => NotificationProvider())
+      ],
+      child: App(),
+    )
+  );
 }
 
 class App extends StatefulWidget {
@@ -26,18 +46,42 @@ class App extends StatefulWidget {
 class AppState extends State<App> {
 
   UserToken userToken = new UserToken();
+  int countNotification = 0;
 
   @override
   void initState() {
     super.initState();
-    final pushNotificationProvider = new PushNotificationProvider();
-    pushNotificationProvider.initNotifications();
-    pushNotificationProvider.messajes.listen((event) {
-      appService<NavigationService>().navigateTo('/auth');
-    });
-
     //para consultar los argumentos del router 
     //ModalRoute.of(context).settings.arguments;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final pNotification = Provider.of<NotificationProvider>(context);
+    final pushNotificationProvider = new PushNotificationProvider();
+
+    pushNotificationProvider.initNotifications();
+
+    pushNotificationProvider.messajes.listen((event) {
+      //appService<NavigationService>().navigateTo('/auth');
+      Alert newAlert = new Alert(
+        data: {},
+        icon: 'error',
+        id: Random().nextInt(100),
+        message: event['notification']['body'] ?? '',
+        title: event['notification']['title'] ?? ''
+      );
+
+      pNotification.addAlert(newAlert);
+
+      print(newAlert);
+
+      setState(() {
+        this.countNotification++;
+      });
+    });
   }
 
   @override
@@ -45,6 +89,7 @@ class AppState extends State<App> {
     
     return AppProvider(
       appProvider: AppProviderModel(),
+      countNotification: this.countNotification,
       child: MaterialApp(
         title: 'PrestaQi',
         theme: ThemeData(

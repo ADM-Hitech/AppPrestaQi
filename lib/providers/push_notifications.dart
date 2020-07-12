@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -7,8 +6,13 @@ class PushNotificationProvider {
 
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   
-  final _mesajesStreamController = StreamController<dynamic>.broadcast();
-  Stream<dynamic> get messajes => _mesajesStreamController.stream;
+  // ignore: close_sinks
+  var mesajesStreamController = new StreamController<dynamic>();
+  Stream<dynamic> get messajes => mesajesStreamController.stream.asBroadcastStream();
+
+  PushNotificationProvider() {
+    this.initNotifications();
+  }
 
   void initNotifications() {
     _firebaseMessaging.requestNotificationPermissions();
@@ -22,7 +26,7 @@ class PushNotificationProvider {
       onMessage: (Map<String, dynamic> message) {
         print('======== ON MESSAGE ========');
         print(message);
-        this._mesajesStreamController.sink.add(message);
+        this.mesajesStreamController.sink.add(message);
 
         return;
       },
@@ -36,7 +40,7 @@ class PushNotificationProvider {
       onResume: (message) {
         print('======== ON RESUME ===========');
         print(message);
-        this._mesajesStreamController.sink.add(message);
+        this.mesajesStreamController.sink.add(message);
 
         ///evento para el click a las notificaciones
         return;
@@ -45,7 +49,7 @@ class PushNotificationProvider {
   }
 
   void dispose() {
-    this._mesajesStreamController?.close();
+    this.mesajesStreamController?.close();
   }
 
 }

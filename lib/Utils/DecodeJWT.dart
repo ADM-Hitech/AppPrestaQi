@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 Map<String, dynamic> parseJwt(String token) {
   if (token == null) return null;
   

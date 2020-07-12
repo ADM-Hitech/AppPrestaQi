@@ -60,10 +60,18 @@ class DrawerMenuState extends State<DrawerMenu> {
   }
 
   String letterName() {
-    var split = this.user.givenName.split(' ');
-    String letters = (split[0][0] ?? '') + (split[1][0] ?? '');
+    var split = this.user?.givenName?.split(' ');
+    String letters = split != null ? (split[0][0] ?? '') + (split[1][0] ?? '') : '';
 
     return letters;
+  }
+
+  String getId() {
+    if (this.user == null) {
+      return '0000';
+    }
+
+    return this.user.userId.toString().padLeft(4, '0');
   }
 
   @override
@@ -123,7 +131,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                         Container(
                           width: 150,
                           child: Text(
-                            this.user.givenName, 
+                            this.user == null ? '' : this.user.givenName, 
                             style: TextStyle(
                               fontFamily: 'Montserrat',
                               fontWeight: FontWeight.bold,
@@ -138,7 +146,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                         ),
                         Container(
                           child: Text(
-                            'ID ${this.user.userId.toString().padLeft(4, '0')}',
+                            'ID ${this.getId()}',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
@@ -167,7 +175,7 @@ class DrawerMenuState extends State<DrawerMenu> {
               children: [
                 Column(
                   children: [
-                    if (this.user.type == 2)
+                    if (this.user != null && this.user.type == 2)
                       GestureDetector(
                         onTap: () {
                           appService<NavigationService>().navigateTo('/my-investments');
@@ -199,7 +207,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                         )
                       )
                     ,
-                    if (this.user.type == 3)
+                    if (this.user != null && this.user.type == 3)
                       GestureDetector(
                         onTap: () {
                           appService<NavigationService>().navigateTo('/request-advance');
@@ -231,7 +239,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                         ),
                       )
                     ,
-                    if (this.user.type == 3)
+                    if (this.user != null && this.user.type == 3)
                       GestureDetector(
                         onTap: () {
                           appService<NavigationService>().navigateTo('/my-advances');

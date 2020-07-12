@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prestaQi/Screens/Notification/notification.dart';
-import 'package:prestaQi/Utils/HexColor.dart';
+import 'package:prestaQi/Widgets/ItemNotification.dart';
+import 'package:prestaQi/providers/NotificationProvider.dart';
+import 'package:provider/provider.dart';
 
 class NotificationContent extends StatelessWidget {
 
@@ -10,6 +12,10 @@ class NotificationContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    var pNotification = Provider.of<NotificationProvider>(context);
+    pNotification.addAlerts(this.state.notifications);
+    pNotification.listAlerts.addAll(this.state.notifications);
     
     return new Container(
       height: this.state.screen.height,
@@ -26,161 +32,7 @@ class NotificationContent extends StatelessWidget {
         itemCount: 1,
         itemBuilder: (cntx, i) {
           return Column(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Color.fromRGBO(222, 227, 237, 1))
-                  )
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: HexColor.fromHex('#2865ff'),
-                        borderRadius: BorderRadius.circular(25)
-                      ),
-                      margin: EdgeInsets.only(right: 20),
-                      child: Icon(Icons.check, color: Colors.white),
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: this.state.screen.width - 130,
-                            child: Text(
-                              'Tu dinero ha sido depositado',
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16
-                              ),
-                              maxLines: 50,
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              'Revisa tu cuenta bancaria',
-                              style: TextStyle(
-                                color: Color.fromRGBO(142, 145, 162, 1),
-                                fontSize: 15
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Color.fromRGBO(222, 227, 237, 1))
-                  )
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: HexColor.fromHex('32379E'),
-                        borderRadius: BorderRadius.circular(25)
-                      ),
-                      margin: EdgeInsets.only(right: 20),
-                      child: Icon(Icons.add_alert, color: Colors.white),
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: this.state.screen.width - 130,
-                            child: Text(
-                              'Tu contraseña se guardó con éxito',
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16
-                              ),
-                              maxLines: 50,
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              'Hace 28 días',
-                              style: TextStyle(
-                                color: Color.fromRGBO(142, 145, 162, 1),
-                                fontSize: 15
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Color.fromRGBO(222, 227, 237, 1))
-                  )
-                ),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: HexColor.fromHex('32379E'),
-                        borderRadius: BorderRadius.circular(25)
-                      ),
-                      margin: EdgeInsets.only(right: 20),
-                      child: Icon(Icons.check, color: Colors.white),
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: this.state.screen.width - 130,
-                            child: Text(
-                              'Bienvenido a PrestaQi',
-                              style: TextStyle(
-                                color: Color.fromRGBO(77, 77, 77, 1),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16
-                              ),
-                              maxLines: 50,
-                            ),
-                          ),
-                          Container(
-                            child: Text(
-                              'Hace 30 días',
-                              style: TextStyle(
-                                color: Color.fromRGBO(142, 145, 162, 1),
-                                fontSize: 15
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              )
-            ],
+            children: pNotification.listAlerts.map((item) => ItemNotification(notification: item, screen: this.state.screen)).toList(),
           );
         }
       ),
