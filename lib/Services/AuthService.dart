@@ -61,6 +61,8 @@ class AuthService {
       pref.setInt('type', authResponse.type);
       pref.setString('typeName', authResponse.typeName);
 
+      await this.addDeviceToUser();
+
       return authResponse;
     } else {
       throw(objectResponse['message']);
@@ -119,6 +121,19 @@ class AuthService {
     }
 
     return authResponse;
+  }
+
+  Future<void> addDeviceToUser() async {
+    final SharedPreferences pref = await this.sPrefs;
+
+    this.me().then((value) async {
+      final response = await http.post('${this.apiUrl}Devices', body: '{"device_id": "${pref.getString('token_device')}", "user_id": ${value.userId}, "user_type": ${value.type}}', headers: this.headers(pref));
+      if (response.statusCode == 200) {
+        print(response);
+      }
+    }).catchError((onError) {
+      print(onError);
+    });
   }
 
   Map<String, String> headers(SharedPreferences pref) {

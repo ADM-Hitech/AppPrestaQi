@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PushNotificationProvider {
 
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  Future<SharedPreferences> sPrefs = SharedPreferences.getInstance();
   
   // ignore: close_sinks
   var mesajesStreamController = new StreamController<dynamic>();
@@ -15,10 +17,11 @@ class PushNotificationProvider {
   }
 
   void initNotifications() {
+
     _firebaseMessaging.requestNotificationPermissions();
-    _firebaseMessaging.getToken().then((tokenDevices) {
-      print('===== FCM Token ========');
-      print(tokenDevices);
+    _firebaseMessaging.getToken().then((tokenDevices) async {
+      final SharedPreferences pref = await this.sPrefs;
+      pref.setString('token_device', tokenDevices);
     });
 
     _firebaseMessaging.configure(
