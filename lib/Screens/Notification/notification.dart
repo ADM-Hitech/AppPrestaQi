@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:prestaQi/Models/Alert.dart';
+import 'package:prestaQi/Models/DataAdvanceCapitalNotification.dart';
 import 'package:prestaQi/Screens/Notification/notification_content.dart';
+import 'package:prestaQi/Services/NavigationService.dart';
+import 'package:prestaQi/Services/NotificationService.dart';
+import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
 import 'package:prestaQi/app_provider.dart';
+import 'package:prestaQi/providers/NotificationProvider.dart';
+import 'package:provider/provider.dart';
 
 class Notification extends StatefulWidget {
 
@@ -22,6 +28,24 @@ class NotificationState extends State<Notification> {
     this.screen = new ScreenResponsive(context);
     /*this.notifications.add(new Alert(id: 1, data: {}, icon: 'info', message: 'Tu contraseña se guardó con éxito', title: ''));
     this.notifications.add(new Alert(id: 2, data: {}, icon: 'done', message: 'Tu dinero ha sido depositado', title: ''));*/
+  }
+
+  void openNotification(Alert alert) async {
+    if (alert.data is DataAdvanceCapitalNotification) {
+      bool aceptContract = await appService<NavigationService>().showCartaMandatoInversionista(context, alert.data);
+
+      if (aceptContract) {
+        bool uploaded = await appService<NavigationService>().showUploadFile(context, alert.data);
+        if (uploaded) {
+          appService<NotificationService>().disabledNotification(alert.id).then((value) {
+            Provider.of<NotificationProvider>(context, listen: false).deleteAlert(alert);
+            AppProvider.of(context).updateCountNotification();
+          }).catchError((onError) {
+            print(onError);
+          });
+        }
+      }
+    }
   }
 
   @override

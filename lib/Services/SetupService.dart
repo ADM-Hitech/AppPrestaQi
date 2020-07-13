@@ -3,6 +3,7 @@ import 'package:prestaQi/Services/AuthService.dart';
 import 'package:prestaQi/Services/DialogService.dart';
 import 'package:prestaQi/Services/InvestmentsService.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
+import 'package:prestaQi/Services/NotificationService.dart';
 import 'package:prestaQi/Services/RequestAdvance.dart';
 import 'package:prestaQi/Services/UserService.dart';
 import 'package:prestaQi/app_settings.dart';
@@ -17,4 +18,5 @@ void setupService() {
   appService.registerLazySingleton(() => RequestAdvanceService());
   appService.registerLazySingleton(() => UserService());
   appService.registerLazySingleton(() => InvestmentsService());
+  appService.registerLazySingleton(() => NotificationService());
 }

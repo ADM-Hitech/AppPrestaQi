@@ -32,7 +32,14 @@ class NotificationContent extends StatelessWidget {
         itemCount: 1,
         itemBuilder: (cntx, i) {
           return Column(
-            children: pNotification.listAlerts.map((item) => ItemNotification(notification: item, screen: this.state.screen)).toList(),
+            children: pNotification.listAlerts.map((item) => 
+              GestureDetector(
+                onTap: () {
+                  this.state.openNotification(item);
+                },
+                child: ItemNotification(notification: item, screen: this.state.screen),
+              )
+            ).toList(),
           );
         }
       ),

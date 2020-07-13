@@ -5,5 +5,11 @@ class Alert {
   String message;
   dynamic data;
 
-  Alert({this.id, this.icon, this.title, this.message, this.data});
+  Alert({
+    this.id,
+    this.icon,
+    this.title,
+    this.message,
+    this.data
+  });
 }
