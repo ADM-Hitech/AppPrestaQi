@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:prestaQi/Modals/AlertSuccessModal.dart';
+import 'package:prestaQi/Modals/CartaMandatoInversionistaModal.dart';
 import 'package:prestaQi/Modals/CartaMandatoModal.dart';
 import 'package:prestaQi/Modals/ConfirmDeleteAccountModal.dart';
 import 'package:prestaQi/Modals/ConfirmLogoutModal.dart';
 import 'package:prestaQi/Modals/ContractModal.dart';
 import 'package:prestaQi/Modals/DetailsAdvancePeriodicModal.dart';
 import 'package:prestaQi/Modals/ErrorRequestAdvanceModal.dart';
+import 'package:prestaQi/Modals/UploadReceipt.dart';
+import 'package:prestaQi/Models/DataAdvanceCapitalNotification.dart';
 import 'package:prestaQi/Models/InfoBank.dart';
 import 'package:prestaQi/Models/MyAdvanceModel.dart';
 
@@ -19,6 +22,14 @@ class NavigationService {
 
   Future<dynamic> showCartaMandato(BuildContext context, InfoBank infoBank) {
     return Navigator.of(context).push(CartaMandatoModal(infoBank: infoBank));
+  }
+
+  Future<dynamic> showCartaMandatoInversionista(BuildContext context, DataAdvanceCapitalNotification info) {
+    return Navigator.of(context).push(CartaMandatoInversionistaModal(info: info));
+  }
+
+  Future<dynamic> showUploadFile(BuildContext context, DataAdvanceCapitalNotification info) {
+    return Navigator.of(context).push(UploadReceiptModal(info: info));
   }
 
   Future<dynamic> showAlertSuccess(BuildContext context) {

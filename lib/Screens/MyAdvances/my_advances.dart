@@ -10,7 +10,6 @@ import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
 import 'package:prestaQi/Widgets/ActionMenuAlert.dart';
 import 'package:prestaQi/Widgets/DrawerMenu.dart';
-import 'package:prestaQi/Services/NavigationService.dart';
 
 
 class MyAdvances extends StatefulWidget {
@@ -54,12 +53,16 @@ class MyAdvancesState extends State<MyAdvances> {
             if (this.nextDayForPay == 15 && (element.dateAdvance.day >= 1 && element.dateAdvance.day <= 15)) {
               
               this.myAdvancesActive.add(element);
-              this.totalDiscount += element.totalWithhold;
+              if (element.paidStatus != 0) {
+                this.totalDiscount += element.totalWithhold;
+              }
 
             } else if (this.nextDayForPay != 15 && (element.dateAdvance.day >= 16 && element.dateAdvance.day <= this.nextDayForPay)) { 
               
               this.myAdvancesActive.add(element);
-              this.totalDiscount += element.totalWithhold;
+              if (element.paidStatus != 0) {
+                this.totalDiscount += element.totalWithhold;
+              }
 
             } else {
               

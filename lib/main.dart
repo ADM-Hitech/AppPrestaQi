@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prestaQi/Models/Alert.dart';
 import 'package:prestaQi/Models/AppProviderModel.dart';
+import 'package:prestaQi/Models/DataAdvanceCapitalNotification.dart';
 import 'package:prestaQi/Models/UserToken.dart';
 import 'package:prestaQi/Services/DialogService.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
@@ -66,21 +67,43 @@ class AppState extends State<App> {
 
     pushNotificationProvider.messajes.listen((event) {
       //appService<NavigationService>().navigateTo('/auth');
-      Alert newAlert = new Alert(
-        data: {},
-        icon: 'error',
-        id: Random().nextInt(100),
-        message: event['notification']['body'] ?? '',
-        title: event['notification']['title'] ?? ''
-      );
+      Alert newAlert;
+
+      if (event['data']['Capital_Id'] != null) {
+
+        newAlert = new Alert(
+          data: new DataAdvanceCapitalNotification(
+            amount: double.tryParse(event['data']['Amount']),
+            capitalId: int.tryParse(event['data']['Capital_Id']),
+            createdAt: DateTime.tryParse(event['data']['created_at'])
+          ),
+          icon: event['data']['icon'],
+          id: int.tryParse(event['data']['notification_id']) ?? Random().nextInt(100),
+          message: event['notification']['body'] ?? '',
+          title: event['notification']['title'] ?? ''
+        );
+
+      } else {
+        newAlert = new Alert(
+          data: {},
+          icon: event['data']['icon'],
+          id: int.tryParse(event['data']['notification_id']) ?? Random().nextInt(100),
+          message: event['notification']['body'] ?? '',
+          title: event['notification']['title'] ?? ''
+        );
+      }
 
       pNotification.addAlert(newAlert);
-
-      print(newAlert);
 
       setState(() {
         this.countNotification++;
       });
+    });
+  }
+
+  void updateCountNotification() {
+    setState(() {
+      this.countNotification = this.countNotification - 1;
     });
   }
 
@@ -90,6 +113,7 @@ class AppState extends State<App> {
     return AppProvider(
       appProvider: AppProviderModel(),
       countNotification: this.countNotification,
+      updateCountNotification: this.updateCountNotification,
       child: MaterialApp(
         title: 'PrestaQi',
         theme: ThemeData(
