@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -69,28 +70,68 @@ class AppState extends State<App> {
       //appService<NavigationService>().navigateTo('/auth');
       Alert newAlert;
 
-      if (event['data']['Capital_Id'] != null) {
+      if (Platform.isIOS) {
 
-        newAlert = new Alert(
-          data: new DataAdvanceCapitalNotification(
-            amount: double.tryParse(event['data']['Amount']),
-            capitalId: int.tryParse(event['data']['Capital_Id']),
-            createdAt: DateTime.tryParse(event['data']['created_at'])
-          ),
-          icon: event['data']['icon'],
-          id: int.tryParse(event['data']['notification_id']) ?? Random().nextInt(100),
-          message: event['notification']['body'] ?? '',
-          title: event['notification']['title'] ?? ''
-        );
+        String message = '';
+        String title = '';
 
+        if (event['notification'] != null) {
+          message = event['notification']['body'] ?? '';
+          title = event['notification']['title'] ?? '';
+        }
+
+        if (event['aps'] != null) {
+          message = event['aps']['alert']['body'] ?? '';
+          title = event['aps']['alert']['title'] ?? '';
+        }
+
+        if (event['Capital_Id'] != null) {
+          newAlert = new Alert(
+            data: new DataAdvanceCapitalNotification(
+              amount: double.tryParse(event['Amount']),
+              capitalId: int.tryParse(event['Capital_Id']),
+              createdAt: DateTime.tryParse(event['created_at'])
+            ),
+            icon: event['icon'],
+            id: int.tryParse(event['notification_id']) ?? Random().nextInt(100),
+            message: message,
+            title: title
+          );
+        } else {
+          newAlert = new Alert(
+            data: {},
+            icon: event['icon'],
+            id: int.tryParse(event['notification_id']) ?? Random().nextInt(100),
+            message: message,
+            title: title
+          );
+        }
+
+        print(newAlert);
       } else {
-        newAlert = new Alert(
-          data: {},
-          icon: event['data']['icon'],
-          id: int.tryParse(event['data']['notification_id']) ?? Random().nextInt(100),
-          message: event['notification']['body'] ?? '',
-          title: event['notification']['title'] ?? ''
-        );
+        if (event['data']['Capital_Id'] != null) {
+
+          newAlert = new Alert(
+            data: new DataAdvanceCapitalNotification(
+              amount: double.tryParse(event['data']['Amount']),
+              capitalId: int.tryParse(event['data']['Capital_Id']),
+              createdAt: DateTime.tryParse(event['data']['created_at'])
+            ),
+            icon: event['data']['icon'],
+            id: int.tryParse(event['data']['notification_id']) ?? Random().nextInt(100),
+            message: event['notification']['body'] ?? '',
+            title: event['notification']['title'] ?? ''
+          );
+
+        } else {
+          newAlert = new Alert(
+            data: {},
+            icon: event['data']['icon'],
+            id: int.tryParse(event['data']['notification_id']) ?? Random().nextInt(100),
+            message: event['notification']['body'] ?? '',
+            title: event['notification']['title'] ?? ''
+          );
+        } 
       }
 
       pNotification.addAlert(newAlert);

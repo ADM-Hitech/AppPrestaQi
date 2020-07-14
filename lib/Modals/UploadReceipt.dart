@@ -4,9 +4,12 @@ import 'dart:typed_data';
 
 import 'package:dashed_container/dashed_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image/image.dart' as imageLib;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:prestaQi/Models/ChangeStatusCallCapital.dart';
 import 'package:prestaQi/Models/DataAdvanceCapitalNotification.dart';
 import 'package:prestaQi/Services/InvestmentsService.dart';
@@ -106,27 +109,55 @@ class UploadReceiptState extends State<UploadReceipt> {
   }
 
   void selectImage() async {
-    final  pickedFile = await picker.getImage(source: ImageSource.gallery);
+    try {
+      final pickedFile = await picker.getImage(source: ImageSource.gallery);
+      final dirAplicationDocuments = await getApplicationDocumentsDirectory();
 
-    setState(() {
-      this.image = File(pickedFile.path);
-      this.heightImage = 250;
-      this.bytesImages = null;
-      this.error = '';
-    });
-
-    setState(() {
-      this.bytesImages = this.image.readAsBytesSync();
-      this.changeStatus.fileByte = this.bytesImages;
-      this.changeStatus.fileName = 'voucher_${this.widget.info.capitalId}${this.dateFormatVaucher.format(this.date)}';
-    });
-
-    var decodedImage = await decodeImageFromList(this.bytesImages);
-
-    if (decodedImage.height > decodedImage.width) {
       setState(() {
-        this.heightImage = 350;
+        this.image = File(pickedFile.path);
+        this.heightImage = 250;
+        this.bytesImages = null;
+        this.error = '';
       });
+
+      var newImage = imageLib.decodeImage(this.image.readAsBytesSync());
+      var newSize = this.getNewSize(newImage.width, newImage.height, 0, 350);
+
+      var thumb = imageLib.copyResize(newImage, width: newSize[0], height: newSize[0]);
+      var finalImage = new File('${dirAplicationDocuments.path}/tes_convert.jpeg')..writeAsBytesSync(imageLib.encodeJpg(thumb));
+      
+      setState(() {
+        this.bytesImages = finalImage.readAsBytesSync();
+        this.changeStatus.fileByte = this.bytesImages;
+        this.changeStatus.fileName = 'voucher_confirm_${this.widget.info.capitalId}${this.dateFormatVaucher.format(this.date)}.jpeg';
+      });
+
+      var decodedImage = await decodeImageFromList(this.bytesImages);
+
+      if (decodedImage.height > decodedImage.width) {
+        setState(() {
+          this.heightImage = 350;
+        });
+      }
+
+    } on PlatformException {
+      print('Error');
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  List<int> getNewSize(int width, int height, int porcent, int min) {
+    if (width > height) {
+      var radio = height / width;
+      int newWidth = (width - min) * (porcent / 100).floor();
+      int newHigth = (((height - min) * radio) * (porcent / 100)).floor();
+      return [newWidth, newHigth];
+    } else {
+      var radio = width / height;
+      int newWidth = ((width - min * radio) * (porcent / 100)).floor();
+      int newHigth = ((height - min) * (porcent / 100)).floor();
+      return [newWidth, newHigth];
     }
   }
 
@@ -158,12 +189,14 @@ class UploadReceiptState extends State<UploadReceipt> {
           Navigator.pop(context, true);
         });
       } else {
+        print('else');
         setState(() {
           this.error = 'Error al subir el archivo';
           this.loading = false;
         });
       }
     }).catchError((onError) {
+      print(onError);
       setState(() {
         this.error = 'Error al subir el archivo';
         this.loading = false;

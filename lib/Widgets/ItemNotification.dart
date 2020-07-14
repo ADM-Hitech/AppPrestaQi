@@ -84,6 +84,7 @@ class ItemNotification extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  width: this.screen.width - 130,
                   child: Text(
                     this.notification.message,
                     style: TextStyle(
