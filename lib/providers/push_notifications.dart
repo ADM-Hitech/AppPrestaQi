@@ -22,6 +22,7 @@ class PushNotificationProvider {
     _firebaseMessaging.getToken().then((tokenDevices) async {
       final SharedPreferences pref = await this.sPrefs;
       pref.setString('token_device', tokenDevices);
+      print(tokenDevices);
     });
 
     _firebaseMessaging.configure(

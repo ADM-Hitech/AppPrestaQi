@@ -39,5 +39,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Permite el acceso para subir tus comprobantes de pago.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Permite el acceso para subir tus comprobantes de pago.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Permite el acceso para subir tus comprobantes de pago.</string>
 </dict>
 </plist>
