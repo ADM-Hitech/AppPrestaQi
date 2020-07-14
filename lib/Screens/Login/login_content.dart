@@ -107,7 +107,8 @@ class LoginContent extends StatelessWidget {
                     enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
                     focusColor: Colors.white,
                     focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
-                  )
+                  ),
+                  onChanged: this.state.lowerCaseEmail,
                 )
               ),
             ),
@@ -206,8 +207,8 @@ class LoginContent extends StatelessWidget {
                           Checkbox(
                             checkColor: HexColor.fromHex('#000066'),
                             activeColor: Colors.white,
-                            onChanged: (bool value) {},
-                            value: true,
+                            onChanged: this.state.updateRememberUser,
+                            value: this.state.rememberUser,
                           ),
                           Container(
                             child: GestureDetector(

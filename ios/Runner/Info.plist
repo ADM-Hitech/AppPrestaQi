@@ -45,5 +45,9 @@
 	<string>Permite el acceso para subir tus comprobantes de pago.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Permite el acceso para subir tus comprobantes de pago.</string>
+	<key>UIBackgroundModes</key>
+    <array>
+        <string>remote-notification</string>
+    </array>
 </dict>
 </plist>

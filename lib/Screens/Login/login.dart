@@ -5,6 +5,9 @@ import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
 
+import '../../Services/AuthService.dart';
+import '../../Services/SetupService.dart';
+
 class Login extends StatefulWidget {
   
   @override
@@ -20,11 +23,28 @@ class LoginState extends State<Login> {
   String error = '';
   ScreenResponsive screen;
   bool loading = false;
+  bool rememberUser = true;
 
   @override
   void initState() {
     super.initState();
     this.screen = new ScreenResponsive(context);
+    this.getRememberUser();
+  }
+
+  void getRememberUser() async {
+    appService<AuthService>().getRememberUser().then((value) {
+      setState(() {
+        this.emailController.text = value[0];
+        this.passwordController.text = value[1];
+      });
+    }).catchError((onError) {});
+  }
+
+  void lowerCaseEmail(String email) {
+    setState(() {
+      this.emailController.text = email.toLowerCase();
+    });
   }
   
   String validateUser(String value) {
@@ -33,6 +53,12 @@ class LoginState extends State<Login> {
     }
 
     return null;
+  }
+
+  void updateRememberUser(bool value) {
+    setState(() {
+      this.rememberUser = value;
+    });
   }
 
   void submit() async {

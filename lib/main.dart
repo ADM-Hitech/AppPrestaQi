@@ -18,6 +18,7 @@ import 'package:prestaQi/providers/push_notifications.dart';
 import 'package:prestaQi/router.dart';
 import 'package:prestaQi/Utils/HexColor.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 
 void main() {
   setupService();
@@ -53,6 +54,7 @@ class AppState extends State<App> {
   @override
   void initState() {
     super.initState();
+    FlutterAppBadger.updateBadgeCount(1);
     //para consultar los argumentos del router 
     //ModalRoute.of(context).settings.arguments;
   }
@@ -61,7 +63,7 @@ class AppState extends State<App> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final pNotification = Provider.of<NotificationProvider>(context);
+    final pNotification = Provider.of<NotificationProvider>(context, listen: false);
     final pushNotificationProvider = new PushNotificationProvider();
 
     pushNotificationProvider.initNotifications();
@@ -138,13 +140,26 @@ class AppState extends State<App> {
 
       setState(() {
         this.countNotification++;
+        this.updateAppBadger();
       });
     });
   }
 
+  void updateAppBadger() async {
+    if (await FlutterAppBadger.isAppBadgeSupported()) {
+      if (this.countNotification > 0) {
+        FlutterAppBadger.updateBadgeCount(this.countNotification);
+      } else {
+        FlutterAppBadger.removeBadge();
+      }
+    }
+  }
+
   void updateCountNotification() {
+    final pNotification = Provider.of<NotificationProvider>(context, listen: false);
     setState(() {
-      this.countNotification = this.countNotification - 1;
+      this.countNotification = pNotification.count;
+      this.updateAppBadger();
     });
   }
 
