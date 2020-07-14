@@ -27,6 +27,14 @@ class AuthService {
     return validToken(token);
   }
 
+  Future<List<String>> getRememberUser() async {
+    final SharedPreferences pref = await this.sPrefs;
+    String user = pref.getString('rUser') ?? '';
+    String password = pref.getString('rPass') ?? '';
+
+    return [user, password];
+  } 
+
   Future<UserToken> me() async {
     final SharedPreferences pref = await this.sPrefs;
     String token = pref.getString('token');
@@ -60,6 +68,9 @@ class AuthService {
       pref.setString('token', objectResponse['data']['token']);
       pref.setInt('type', authResponse.type);
       pref.setString('typeName', authResponse.typeName);
+
+      pref.setString('rUser', email);
+      pref.setString('rPass', password);
 
       await this.addDeviceToUser();
 
@@ -117,6 +128,7 @@ class AuthService {
         authResponse.type = pref.getInt('type');
         authResponse.typeName = pref.getString('typeName');
         authResponse.success = true;
+        pref.setString('rPass', password);
       }
     }
 

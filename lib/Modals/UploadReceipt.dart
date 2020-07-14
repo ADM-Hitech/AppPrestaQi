@@ -129,7 +129,7 @@ class UploadReceiptState extends State<UploadReceipt> {
       setState(() {
         this.bytesImages = finalImage.readAsBytesSync();
         this.changeStatus.fileByte = this.bytesImages;
-        this.changeStatus.fileName = 'voucher_confirm_${this.widget.info.capitalId}${this.dateFormatVaucher.format(this.date)}.jpeg';
+        this.changeStatus.fileName = 'voucher_${this.widget.info.capitalId}${this.dateFormatVaucher.format(this.date)}.jpeg';
       });
 
       var decodedImage = await decodeImageFromList(this.bytesImages);

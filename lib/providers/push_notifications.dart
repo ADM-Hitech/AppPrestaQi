@@ -34,10 +34,11 @@ class PushNotificationProvider {
 
         return;
       },
-      // cuando se resiva una notifiacion
+      // cuando se reciba una notifiacion
       onLaunch: (message) {
         print('======= ON LAUNCH ======');
         print(message);
+        this.mesajesStreamController.sink.add(message);
         return;
       },
       //cuando la aplicacion esta cerrada
@@ -51,7 +52,7 @@ class PushNotificationProvider {
       }
     );
   }
-
+  
   void dispose() {
     this.mesajesStreamController?.close();
   }
