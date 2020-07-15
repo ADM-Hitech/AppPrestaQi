@@ -21,6 +21,7 @@ class ChangePasswordState extends State<ChangePassword> {
   ScreenResponsive screen;
   bool loading = false;
   String message = '';
+  bool rememberUser = false;
 
   String validPassword(String value) {
     if (value.isEmpty) {
@@ -54,6 +55,7 @@ class ChangePasswordState extends State<ChangePassword> {
   void initState() {
     super.initState();
     this.screen = new ScreenResponsive(context);
+    this.rememberUser = (ModalRoute.of(context).settings.arguments as bool) ?? false;
   }
 
   void submit() {
@@ -62,7 +64,7 @@ class ChangePasswordState extends State<ChangePassword> {
         this.loading = true;
       });
 
-      appService<AuthService>().changePassword(this.passwordController.text).then((value) {
+      appService<AuthService>().changePassword(this.passwordController.text, this.rememberUser).then((value) {
         if (value.success) {
           if (value.type == 3) {
             appService<NavigationService>().navigateTo('/request-advance');
@@ -71,6 +73,7 @@ class ChangePasswordState extends State<ChangePassword> {
           } else {
             appService<NavigationService>().navigateTo('/');
           }
+
         } else {
           this.message = 'Error al actualizar';
           setState(() {

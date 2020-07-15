@@ -59,6 +59,10 @@ class LoginState extends State<Login> {
     setState(() {
       this.rememberUser = value;
     });
+
+    if (!this.rememberUser) {
+      appService<AuthService>().clearRememberUser().then((value) { }).catchError((onError) {});
+    }
   }
 
   void submit() async {
@@ -69,10 +73,12 @@ class LoginState extends State<Login> {
           this.loading = true;
         });
 
-        appService<AuthService>().auth(this.emailController.text.replaceAll(new RegExp(r"\s+"), ''), this.passwordController.text).then((value) {
+        String emailClean = this.emailController.text.replaceAll(new RegExp(r"\s+"), '');
+
+        appService<AuthService>().auth(emailClean, this.passwordController.text, this.rememberUser).then((value) {
           if (value.firstLogin) {
             //appService<NavigationService>().showContract(context, value.contract);
-            appService<NavigationService>().navigateTo('/change-password');
+            appService<NavigationService>().navigateTo('/change-password', arguments: this.rememberUser);
           } else {
             if (value.type == 3) {
               appService<NavigationService>().navigateTo('/request-advance');

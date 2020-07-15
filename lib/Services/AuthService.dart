@@ -35,6 +35,13 @@ class AuthService {
     return [user, password];
   } 
 
+  Future<void> clearRememberUser() async {
+    final SharedPreferences pref = await this.sPrefs;
+
+    pref.remove('rUser');
+    pref.remove('rPass');
+  }
+
   Future<UserToken> me() async {
     final SharedPreferences pref = await this.sPrefs;
     String token = pref.getString('token');
@@ -44,7 +51,7 @@ class AuthService {
     return userToken;
   }
 
-  Future<AuthResponse> auth(String email, String password) async {
+  Future<AuthResponse> auth(String email, String password, bool remember) async {
 
     final SharedPreferences pref = await this.sPrefs;
     AuthResponse authResponse = new AuthResponse();
@@ -69,8 +76,10 @@ class AuthService {
       pref.setInt('type', authResponse.type);
       pref.setString('typeName', authResponse.typeName);
 
-      pref.setString('rUser', email);
-      pref.setString('rPass', password);
+      if (remember) {
+        pref.setString('rUser', email);
+        pref.setString('rPass', password);
+      }
 
       await this.addDeviceToUser();
 
@@ -115,7 +124,7 @@ class AuthService {
     }
   }
 
-  Future<AuthResponse> changePassword(String password) async {
+  Future<AuthResponse> changePassword(String password, bool rememberUser) async {
     final SharedPreferences pref = await this.sPrefs;
     AuthResponse authResponse = new AuthResponse();
     authResponse.success = true;
@@ -128,7 +137,9 @@ class AuthService {
         authResponse.type = pref.getInt('type');
         authResponse.typeName = pref.getString('typeName');
         authResponse.success = true;
-        pref.setString('rPass', password);
+        if (rememberUser) {
+          pref.setString('rPass', password);
+        }
       }
     }
 
