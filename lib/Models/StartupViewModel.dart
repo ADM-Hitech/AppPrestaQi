@@ -20,14 +20,14 @@ class StartupViewModel extends BaseModel {
       var user = await _authService.me();
 
       if (user.type == 3) {
-        _navigationService.navigateTo('/request-advance');
+        _navigationService.navigateToAndRemoveHistory('/request-advance');
       } else if (user.type == 2) {
-        _navigationService.navigateTo('/my-investments');
+        _navigationService.navigateToAndRemoveHistory('/my-investments');
       } else {
-        _navigationService.navigateTo('/my-profile');
+        _navigationService.navigateToAndRemoveHistory('/my-profile');
       }
     } else {
-      _navigationService.navigateTo('/index-auth');
+      _navigationService.navigateToAndRemoveHistory('/index-auth');
     }
   }
 }

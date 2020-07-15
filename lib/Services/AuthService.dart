@@ -27,6 +27,13 @@ class AuthService {
     return validToken(token);
   }
 
+  Future<String> getUrlDocument() async {
+    final SharedPreferences pref = await this.sPrefs;
+    String token = pref.getString('token');
+
+    return '${this.apiUrl}Users/GetContract?token=$token';
+  }
+
   Future<List<String>> getRememberUser() async {
     final SharedPreferences pref = await this.sPrefs;
     String user = pref.getString('rUser') ?? '';
@@ -47,6 +54,7 @@ class AuthService {
     String token = pref.getString('token');
     var jwtObject = parseJwt(token);
     UserToken userToken = UserToken.fromJson(jwtObject);
+    userToken.urlGeneralNotice = '${this.apiUrl}Users/GetContract?token=${pref.getString('token')}';
 
     return userToken;
   }
@@ -136,6 +144,7 @@ class AuthService {
       if (responseObject['success']) {
         authResponse.type = pref.getInt('type');
         authResponse.typeName = pref.getString('typeName');
+        authResponse.urlNotice = '${this.apiUrl}Users/GetContract?token=${pref.getString('token')}';
         authResponse.success = true;
         if (rememberUser) {
           pref.setString('rPass', password);
