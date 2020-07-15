@@ -47,20 +47,18 @@ class MyAdvancesState extends State<MyAdvances> {
       setState(() {
         value.forEach((element) {
 
-          this.myAdvances.add(element); //detele after test
-
           if (element.dateAdvance.month == this.date.month) {
             if (this.nextDayForPay == 15 && (element.dateAdvance.day >= 1 && element.dateAdvance.day <= 15)) {
               
               this.myAdvancesActive.add(element);
-              if (element.paidStatus != 0) {
+              if (element.paidStatus == 0) {
                 this.totalDiscount += element.totalWithhold;
               }
 
             } else if (this.nextDayForPay != 15 && (element.dateAdvance.day >= 16 && element.dateAdvance.day <= this.nextDayForPay)) { 
               
               this.myAdvancesActive.add(element);
-              if (element.paidStatus != 0) {
+              if (element.paidStatus == 0) {
                 this.totalDiscount += element.totalWithhold;
               }
 

@@ -94,12 +94,15 @@ class MyAdvanceBefore extends StatelessWidget {
             width: 100,
             margin: EdgeInsets.only(right: 20, left: 18),
             alignment: Alignment.centerRight,
-            child: Text(
-              NumberFormat('\$ #,##0.00', 'es_Us').format(this.total),
-              style: TextStyle(
-                color: Color.fromRGBO(142, 145, 162, 1),
-                fontSize: this.sizeText,
-                fontWeight: FontWeight.bold
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Text(
+                NumberFormat('\$ #,##0.00', 'es_Us').format(this.total),
+                style: TextStyle(
+                  color: Color.fromRGBO(142, 145, 162, 1),
+                  fontSize: this.sizeText,
+                  fontWeight: FontWeight.bold
+                ),
               ),
             ),
           ),
