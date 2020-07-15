@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:prestaQi/Models/Alert.dart';
 import 'package:prestaQi/Models/DataAdvanceCapitalNotification.dart';
 import 'package:prestaQi/Screens/Notification/notification_content.dart';
@@ -26,8 +27,7 @@ class NotificationState extends State<Notification> {
   void initState() {
     super.initState();
     this.screen = new ScreenResponsive(context);
-    /*this.notifications.add(new Alert(id: 1, data: {}, icon: 'info', message: 'Tu contraseña se guardó con éxito', title: ''));
-    this.notifications.add(new Alert(id: 2, data: {}, icon: 'done', message: 'Tu dinero ha sido depositado', title: ''));*/
+    this.getNotifications();
   }
 
   void openNotification(Alert alert) async {
@@ -46,6 +46,41 @@ class NotificationState extends State<Notification> {
         }
       }
     }
+  }
+
+  void deleteNotification() async {
+    List<int> deleteAlert = new List<int>();
+
+    try {
+      var pNotification = Provider.of<NotificationProvider>(context, listen: false);
+      var fnotification = [...pNotification.listAlerts.where((element) => !(element.data is DataAdvanceCapitalNotification))];
+
+      fnotification.forEach((element) {
+        pNotification.deleteAlert(element);
+        deleteAlert.add(element.id);
+      });
+
+      await appService<NotificationService>().disabledNotifications(deleteAlert);
+
+      AppProvider.of(context).updateCountNotification();
+    } on PlatformException {}
+    
+    this.goBack();
+  }
+
+  void goBack() async {
+    Navigator.of(context).maybePop((e) => {
+      print(e)
+    });
+    Navigator.pop(context);
+  }
+
+  void getNotifications() async {
+    appService<NotificationService>().getNotification().then((value) {
+      setState(() {
+        this.notifications = value;
+      });
+    }).catchError((onError) {});
   }
 
   @override
@@ -71,9 +106,7 @@ class NotificationState extends State<Notification> {
         ),
         actions: [
           GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
+            onTap: this.deleteNotification,
             child: Container(
               width: 50,
               height: 50,

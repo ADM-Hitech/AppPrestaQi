@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prestaQi/Screens/ChangePassword/change_password.dart';
 
+import '../../Services/NavigationService.dart';
+import '../../Services/SetupService.dart';
 import '../../Utils/HexColor.dart';
 
 class ChangePasswordContent extends StatelessWidget {
@@ -20,9 +22,14 @@ class ChangePasswordContent extends StatelessWidget {
           Positioned(
             top: 60,
             right: 30,
-            child: Container(
-              width: 40,
-              child: Icon(Icons.close, color: Colors.white, size: 45),
+            child: GestureDetector(
+              onTap: () {
+                appService<NavigationService>().navigateTo('/auth');
+              },
+              child: Container(
+                width: 40,
+                child: Icon(Icons.close, color: Colors.white, size: 45),
+              ),
             ),
           ),
           Form(
