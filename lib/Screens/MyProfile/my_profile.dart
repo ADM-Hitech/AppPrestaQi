@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:prestaQi/Models/MyProfile.dart';
 import 'package:prestaQi/Screens/MyProfile/my_profile_content.dart';
-import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Services/UserService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
@@ -20,7 +19,24 @@ class MyProfileState extends State<MyProfile> {
   
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ScreenResponsive screen;
-  MyProfileModel user = new MyProfileModel(firstName: '-', lastName: '- -', id: 0);
+  MyProfileModel user = new MyProfileModel(
+    firstName: '-',
+    lastName: '- -',
+    id: 0,
+    accountNumber: '-',
+    advances: '',
+    age: 0,
+    institutionId: 0,
+    institutionName: '',
+    mail: '',
+    netMonthlySalary: 0,
+    companyName: '',
+    position: '',
+    clabe: '',
+    type: 0,
+    periodName: '',
+    periodId: 0
+  );
   bool loading = true;
   NumberFormat numberFormat = new NumberFormat("#,###.0#", "en_US");
 
@@ -39,10 +55,13 @@ class MyProfileState extends State<MyProfile> {
 
       setState(() {
         this.loading = false;
+        print(value);
       });
     }).catchError((onError) {
+      print(onError);
       setState(() {
         this.loading = false;
+        print('Error api');
       });
     });
   }

@@ -11,6 +11,8 @@ import 'package:prestaQi/app_provider.dart';
 import 'package:prestaQi/providers/NotificationProvider.dart';
 import 'package:provider/provider.dart';
 
+import '../../Models/Alert.dart';
+
 class Notification extends StatefulWidget {
 
   @override
@@ -48,7 +50,7 @@ class NotificationState extends State<Notification> {
     }
   }
 
-  void deleteNotification() async {
+  void deleteNotification() {
     List<int> deleteAlert = new List<int>();
 
     try {
@@ -60,7 +62,7 @@ class NotificationState extends State<Notification> {
         deleteAlert.add(element.id);
       });
 
-      await appService<NotificationService>().disabledNotifications(deleteAlert);
+      appService<NotificationService>().disabledNotifications(deleteAlert).then((value) => null).catchError((onError) {});
 
       AppProvider.of(context).updateCountNotification();
     } on PlatformException {}
@@ -69,10 +71,8 @@ class NotificationState extends State<Notification> {
   }
 
   void goBack() async {
-    Navigator.of(context).maybePop((e) => {
-      print(e)
-    });
-    Navigator.pop(context);
+    Navigator.of(context).maybePop((e) => {});
+    //Navigator.pop(context);
   }
 
   void getNotifications() async {
@@ -81,6 +81,18 @@ class NotificationState extends State<Notification> {
         this.notifications = value;
       });
     }).catchError((onError) {});
+  }
+
+  List<Alert> getItemsNoDuplicated(List<Alert> alerts) {
+    List<Alert> response = new List<Alert>();
+
+    alerts.forEach((element) {
+      if (response.firstWhere((item) => item.id == element.id, orElse: () => null) == null) {
+        response.add(element);
+      }
+    });
+
+    return response;
   }
 
   @override
