@@ -14,7 +14,6 @@ class NotificationContent extends StatelessWidget {
   Widget build(BuildContext context) {
 
     var pNotification = Provider.of<NotificationProvider>(context);
-    pNotification.addAlerts(this.state.notifications);
     pNotification.listAlerts.addAll(this.state.notifications);
     
     return new Container(
@@ -32,7 +31,7 @@ class NotificationContent extends StatelessWidget {
         itemCount: 1,
         itemBuilder: (cntx, i) {
           return Column(
-            children: pNotification.listAlerts.map((item) => 
+            children: this.state.getItemsNoDuplicated(pNotification.listAlerts).map((item) => 
               GestureDetector(
                 onTap: () {
                   this.state.openNotification(item);

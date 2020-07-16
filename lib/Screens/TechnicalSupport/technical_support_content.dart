@@ -222,13 +222,17 @@ class TechnicalSupportContent extends StatelessWidget {
                                         ),
                                       ),
                                       Container(
-                                        child: Text('soporte@prestaqi.com',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: this.state.getFontSizeData(),
-                                            color: Color.fromRGBO(0, 0, 102, 1),
+                                        width: (this.state.screen.width * .9) - 110 - this.state.getSizeIcon(),
+                                        child: FittedBox(
+                                          fit: BoxFit.contain,
+                                          child: Text('soporte@prestaqi.com',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: this.state.getFontSizeData(),
+                                              color: Color.fromRGBO(0, 0, 102, 1),
+                                            ),
+                                            maxLines: 10,
                                           ),
-                                          maxLines: 10,
                                         ),
                                       )
                                     ],

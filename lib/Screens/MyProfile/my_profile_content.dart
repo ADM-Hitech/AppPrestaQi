@@ -100,7 +100,7 @@ class MyProfileContent extends StatelessWidget {
                                 Container(
                                   width: this.state.screen.width - 175,
                                   child: Text(
-                                    '${this.state.user.firstName} ${this.state.user.lastName}', 
+                                    '${this.state.user?.firstName} ${this.state.user?.lastName}', 
                                     style: TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontWeight: FontWeight.bold,
@@ -199,7 +199,7 @@ class MyProfileContent extends StatelessWidget {
                                         children: [
                                           Container(
                                             child: Text(
-                                              '${this.state.user.firstName} ${this.state.user.lastName}',
+                                              '${this.state.user?.firstName} ${this.state.user?.lastName}',
                                               style: TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.w500,
