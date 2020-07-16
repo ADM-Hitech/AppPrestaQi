@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>457128115939-mlohg3qfobu3vbba6bg2skinpkb0b8hk.apps.googleusercontent.com</string>
+	<string>457128115939-be62omv5muhvbombr7obm9jraf7m79dg.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.457128115939-mlohg3qfobu3vbba6bg2skinpkb0b8hk</string>
+	<string>com.googleusercontent.apps.457128115939-be62omv5muhvbombr7obm9jraf7m79dg</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>457128115939-rip5e5kg49bpneskbugigb0h2db52t4s.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.prestaqi.prestaqi.prestaQi</string>
+	<string>com.prestaqi.prestaqi</string>
 	<key>PROJECT_ID</key>
 	<string>prestaqi-c1f13</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:457128115939:ios:8671578b250f255f61cfd6</string>
+	<string>1:457128115939:ios:eb561869da7cd9fa61cfd6</string>
 	<key>DATABASE_URL</key>
 	<string>https://prestaqi-c1f13.firebaseio.com</string>
 </dict>
