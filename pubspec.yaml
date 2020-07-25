@@ -1,5 +1,5 @@
 name: prestaQi
-description: A new Flutter project.
+description: PrestaQi
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -41,6 +41,7 @@ dependencies:
   image: ^2.1.14
   path_provider: ^1.6.9
   flutter_app_badger: ^1.1.2
+  webview_flutter: ^0.3.22+1
 
 flutter_icons:
   image_path: "assets/icons/icon_app.jpg"

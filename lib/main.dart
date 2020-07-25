@@ -54,7 +54,6 @@ class AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    FlutterAppBadger.updateBadgeCount(1);
     //para consultar los argumentos del router 
     //ModalRoute.of(context).settings.arguments;
   }

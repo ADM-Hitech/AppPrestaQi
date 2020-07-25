@@ -87,42 +87,48 @@ class SettingsContent extends StatelessWidget {
                           appService<NavigationService>().navigateTo('/setting-security');
                         },
                         child: Container(
+                          color: Colors.transparent,
                           padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      child: Image.asset(
-                                        'assets/icons/ico-ajustes-seguridad.png',
-                                        width: 50,
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 25),
-                                      child: Text(
-                                        'Seguridad',
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(0, 0, 102, 1),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: this.state.getFontSize()
+                          child: GestureDetector(
+                            onTap: () {
+                              appService<NavigationService>().navigateTo('/setting-security');
+                            },
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        child: Image.asset(
+                                          'assets/icons/ico-ajustes-seguridad.png',
+                                          width: 50,
                                         ),
                                       ),
-                                    )
-                                  ],
+                                      Container(
+                                        margin: EdgeInsets.only(left: 25),
+                                        child: Text(
+                                          'Seguridad',
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(0, 0, 102, 1),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: this.state.getFontSize()
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                child: SvgPicture.asset(
-                                  'assets/icons/ico-flecha-derecha.svg',
-                                  color: Color.fromRGBO(142, 145, 162, 1),
-                                  width: 18,
+                                Container(
+                                  child: SvgPicture.asset(
+                                    'assets/icons/ico-flecha-derecha.svg',
+                                    color: Color.fromRGBO(142, 145, 162, 1),
+                                    width: 18,
+                                  )
                                 )
-                              )
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -139,43 +145,49 @@ class SettingsContent extends StatelessWidget {
                           appService<NavigationService>().navigateTo('/setting-info-account');
                         },
                         child: Container(
+                          color: Colors.transparent,
                           padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      width: 50,
-                                      child: Image.asset(
-                                        'assets/icons/ico-ajustes-informe.png',
-                                        height: 50,
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 25),
-                                      child: Text(
-                                        'Informe de mi cuenta',
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(0, 0, 102, 1),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: this.state.getFontSize()
+                          child: GestureDetector(
+                            onTap: () {
+                              appService<NavigationService>().navigateTo('/setting-info-account');
+                            },
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 50,
+                                        child: Image.asset(
+                                          'assets/icons/ico-ajustes-informe.png',
+                                          height: 50,
                                         ),
                                       ),
-                                    )
-                                  ],
+                                      Container(
+                                        margin: EdgeInsets.only(left: 25),
+                                        child: Text(
+                                          'Informe de mi cuenta',
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(0, 0, 102, 1),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: this.state.getFontSize()
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                child: SvgPicture.asset(
-                                  'assets/icons/ico-flecha-derecha.svg',
-                                  color: Color.fromRGBO(142, 145, 162, 1),
-                                  width: 18,
+                                Container(
+                                  child: SvgPicture.asset(
+                                    'assets/icons/ico-flecha-derecha.svg',
+                                    color: Color.fromRGBO(142, 145, 162, 1),
+                                    width: 18,
+                                  )
                                 )
-                              )
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -192,42 +204,48 @@ class SettingsContent extends StatelessWidget {
                           appService<NavigationService>().navigateTo('/setting-info-app');
                         },
                         child: Container(
+                          color: Colors.transparent,
                           padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      child: Image.asset(
-                                        'assets/icons/ico-ajustes-info-plataforma.png',
-                                        width: 50,
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 25),
-                                      child: Text(
-                                        'Información de la app',
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(0, 0, 102, 1),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: this.state.getFontSize()
+                          child: GestureDetector(
+                            onTap: () {
+                              appService<NavigationService>().navigateTo('/setting-info-app');
+                            },
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        child: Image.asset(
+                                          'assets/icons/ico-ajustes-info-plataforma.png',
+                                          width: 50,
                                         ),
                                       ),
-                                    )
-                                  ],
+                                      Container(
+                                        margin: EdgeInsets.only(left: 25),
+                                        child: Text(
+                                          'Información de la app',
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(0, 0, 102, 1),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: this.state.getFontSize()
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                child: SvgPicture.asset(
-                                  'assets/icons/ico-flecha-derecha.svg',
-                                  color: Color.fromRGBO(142, 145, 162, 1),
-                                  width: 18,
+                                Container(
+                                  child: SvgPicture.asset(
+                                    'assets/icons/ico-flecha-derecha.svg',
+                                    color: Color.fromRGBO(142, 145, 162, 1),
+                                    width: 18,
+                                  )
                                 )
-                              )
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -244,42 +262,48 @@ class SettingsContent extends StatelessWidget {
                           appService<NavigationService>().navigateTo('/setting-delete-account');
                         },
                         child: Container(
+                          color: Colors.transparent,
                           padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      child: Image.asset(
-                                        'assets/icons/ico-ajustes-eliminar-cuenta.png',
-                                        width: 50,
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(left: 25),
-                                      child: Text(
-                                        'Eliminar cuenta',
-                                        style: TextStyle(
-                                          color: Color.fromRGBO(0, 0, 102, 1),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: this.state.getFontSize()
+                          child: GestureDetector(
+                            onTap: () {
+                              appService<NavigationService>().navigateTo('/setting-delete-account');
+                            },
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        child: Image.asset(
+                                          'assets/icons/ico-ajustes-eliminar-cuenta.png',
+                                          width: 50,
                                         ),
                                       ),
-                                    )
-                                  ],
+                                      Container(
+                                        margin: EdgeInsets.only(left: 25),
+                                        child: Text(
+                                          'Eliminar cuenta',
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(0, 0, 102, 1),
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: this.state.getFontSize()
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                child: SvgPicture.asset(
-                                  'assets/icons/ico-flecha-derecha.svg',
-                                  color: Color.fromRGBO(142, 145, 162, 1),
-                                  width: 18,
+                                Container(
+                                  child: SvgPicture.asset(
+                                    'assets/icons/ico-flecha-derecha.svg',
+                                    color: Color.fromRGBO(142, 145, 162, 1),
+                                    width: 18,
+                                  )
                                 )
-                              )
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

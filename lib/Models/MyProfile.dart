@@ -10,7 +10,7 @@ class MyProfileModel {
   double netMonthlySalary;
   String rfc;
   int interestRate;
-  int seniorityCompany;
+  String seniorityCompany;
   DateTime birthDate;
   int age;
   int genderId;
@@ -78,7 +78,7 @@ class MyProfileModel {
       netMonthlySalary: object['net_Monthly_Salary'] as double ?? 0.0,
       rfc: object['rfc'] ?? '',
       interestRate: object['interest_Rate'] as int ?? 0,
-      seniorityCompany: object['seniority_Company'] as int ?? 0,
+      seniorityCompany: object['seniority_Company'] ?? '',
       birthDate: DateTime.tryParse(object['birth_Date'] ?? '0000-00-00'),
       age: object['age'] as int ?? 0,
       genderId: object['gender_Id'] as int ?? 0,

@@ -27,6 +27,13 @@ class AuthService {
     return validToken(token);
   }
 
+  Future<String> getUrlDocument() async {
+    final SharedPreferences pref = await this.sPrefs;
+    String token = pref.getString('token');
+
+    return '${this.apiUrl}Users/GetContract?token=$token';
+  }
+
   Future<List<String>> getRememberUser() async {
     final SharedPreferences pref = await this.sPrefs;
     String user = pref.getString('rUser') ?? '';
@@ -35,16 +42,24 @@ class AuthService {
     return [user, password];
   } 
 
+  Future<void> clearRememberUser() async {
+    final SharedPreferences pref = await this.sPrefs;
+
+    pref.remove('rUser');
+    pref.remove('rPass');
+  }
+
   Future<UserToken> me() async {
     final SharedPreferences pref = await this.sPrefs;
     String token = pref.getString('token');
     var jwtObject = parseJwt(token);
     UserToken userToken = UserToken.fromJson(jwtObject);
+    userToken.urlGeneralNotice = '${this.apiUrl}Users/GetContract?token=${pref.getString('token')}';
 
     return userToken;
   }
 
-  Future<AuthResponse> auth(String email, String password) async {
+  Future<AuthResponse> auth(String email, String password, bool remember) async {
 
     final SharedPreferences pref = await this.sPrefs;
     AuthResponse authResponse = new AuthResponse();
@@ -69,8 +84,10 @@ class AuthService {
       pref.setInt('type', authResponse.type);
       pref.setString('typeName', authResponse.typeName);
 
-      pref.setString('rUser', email);
-      pref.setString('rPass', password);
+      if (remember) {
+        pref.setString('rUser', email);
+        pref.setString('rPass', password);
+      }
 
       await this.addDeviceToUser();
 
@@ -115,7 +132,7 @@ class AuthService {
     }
   }
 
-  Future<AuthResponse> changePassword(String password) async {
+  Future<AuthResponse> changePassword(String password, bool rememberUser) async {
     final SharedPreferences pref = await this.sPrefs;
     AuthResponse authResponse = new AuthResponse();
     authResponse.success = true;
@@ -127,8 +144,11 @@ class AuthService {
       if (responseObject['success']) {
         authResponse.type = pref.getInt('type');
         authResponse.typeName = pref.getString('typeName');
+        authResponse.urlNotice = '${this.apiUrl}Users/GetContract?token=${pref.getString('token')}';
         authResponse.success = true;
-        pref.setString('rPass', password);
+        if (rememberUser) {
+          pref.setString('rPass', password);
+        }
       }
     }
 

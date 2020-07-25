@@ -7,6 +7,7 @@ import 'package:prestaQi/Modals/ConfirmLogoutModal.dart';
 import 'package:prestaQi/Modals/ContractModal.dart';
 import 'package:prestaQi/Modals/DetailsAdvancePeriodicModal.dart';
 import 'package:prestaQi/Modals/ErrorRequestAdvanceModal.dart';
+import 'package:prestaQi/Modals/GeneralNoticeModal.dart';
 import 'package:prestaQi/Modals/UploadReceipt.dart';
 import 'package:prestaQi/Models/DataAdvanceCapitalNotification.dart';
 import 'package:prestaQi/Models/InfoBank.dart';
@@ -20,8 +21,16 @@ class NavigationService {
     return navigatorKey.currentState.pushNamed(routeName, arguments: arguments);
   }
 
+  Future<dynamic> navigateToAndRemoveHistory(String routeName, {Object arguments}) {
+    return navigatorKey.currentState.pushNamedAndRemoveUntil(routeName, (route) => false, arguments: arguments);
+  }
+
   Future<dynamic> showCartaMandato(BuildContext context, InfoBank infoBank) {
     return Navigator.of(context).push(CartaMandatoModal(infoBank: infoBank));
+  }
+
+  Future<dynamic> showGeneralNotice(BuildContext context, String url) {
+    return Navigator.of(context).push(GeneralNoticeModal(url: url));
   }
 
   Future<dynamic> showCartaMandatoInversionista(BuildContext context, DataAdvanceCapitalNotification info) {

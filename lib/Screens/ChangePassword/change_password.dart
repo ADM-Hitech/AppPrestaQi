@@ -5,6 +5,11 @@ import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
 import 'package:prestaQi/Utils/HexColor.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/Alert.dart';
+import '../../app_provider.dart';
+import '../../providers/NotificationProvider.dart';
 
 class ChangePassword extends StatefulWidget {
 
@@ -21,6 +26,7 @@ class ChangePasswordState extends State<ChangePassword> {
   ScreenResponsive screen;
   bool loading = false;
   String message = '';
+  bool rememberUser = false;
 
   String validPassword(String value) {
     if (value.isEmpty) {
@@ -57,33 +63,59 @@ class ChangePasswordState extends State<ChangePassword> {
   }
 
   void submit() {
+    final pNotification = Provider.of<NotificationProvider>(context, listen: false);
+
     if (this.formKey.currentState.validate()) {
       setState(() {
         this.loading = true;
+        this.rememberUser = (ModalRoute.of(context).settings.arguments as bool) ?? false;
       });
 
-      appService<AuthService>().changePassword(this.passwordController.text).then((value) {
-        if (value.success) {
-          if (value.type == 3) {
-            appService<NavigationService>().navigateTo('/request-advance');
-          } else if (value.type == 2){
-            appService<NavigationService>().navigateTo('/my-investments');
-          } else {
-            appService<NavigationService>().navigateTo('/');
+      appService<AuthService>().me().then((value) async {
+        if (value.type == 3) {
+          bool result = await appService<NavigationService>().showGeneralNotice(context, value.urlGeneralNotice);
+          if (!result) {
+            await appService<AuthService>().logout();
+            appService<NavigationService>().navigateTo('/auth');
+            return;
           }
-        } else {
-          this.message = 'Error al actualizar';
+        }
+
+        appService<AuthService>().changePassword(this.passwordController.text, this.rememberUser).then((value) async{
+          if (value.success) {
+            
+            pNotification.addAlert(new Alert(
+              data: null,
+              icon: 'info',
+              id: -1,
+              message: 'Gracias por crear tu cuenta con nosotros.',
+              title: 'Bienvenido a PrestaQi'
+            ));
+
+            AppProvider.of(context).updateCountNotification();
+
+            if (value.type == 3) {
+              appService<NavigationService>().navigateTo('/request-advance');
+            } else if (value.type == 2){
+              appService<NavigationService>().navigateTo('/my-investments');
+            } else {
+              appService<NavigationService>().navigateTo('/auth');
+            }
+
+          } else {
+            this.message = 'Error al actualizar';
+            setState(() {
+              this.loading = false;
+            });
+          }
+        }).catchError((onError) {
           setState(() {
+            this.message = 'Error al actualizar';
             this.loading = false;
           });
-        }
-      }).catchError((onError) {
-        setState(() {
-          this.message = 'Error al actualizar';
-          this.loading = false;
         });
-      });
 
+      }).catchError((onError) {});
     }
   }
 

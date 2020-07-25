@@ -5,6 +5,7 @@ class AuthResponse {
   bool firstLogin;
   int type;
   String typeName;
+  String urlNotice;
 
-  AuthResponse({this.success, this.contract, this.token, this.firstLogin});
+  AuthResponse({this.success, this.contract, this.token, this.firstLogin, this.urlNotice});
 }
