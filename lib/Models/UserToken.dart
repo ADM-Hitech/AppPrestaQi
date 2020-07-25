@@ -8,6 +8,7 @@ class UserToken {
   int exp;
   String iss;
   String aud;
+  String urlGeneralNotice;
 
   UserToken({
     this.givenName,
@@ -18,7 +19,8 @@ class UserToken {
     this.jti,
     this.exp,
     this.iss,
-    this.aud
+    this.aud,
+    this.urlGeneralNotice
   });
 
   factory UserToken.fromJson(Map<String, dynamic> json) {
