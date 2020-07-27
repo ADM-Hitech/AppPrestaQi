@@ -58,6 +58,8 @@ class UserService {
 
       if (responseObject['success'] as bool) {
         user = new MyProfileModel.fromJson(responseObject['data']['user']);
+        user.type = responseObject['data']['type'];
+        user.typeName = responseObject['data']['typeName'];
       }
     }
 

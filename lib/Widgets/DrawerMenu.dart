@@ -175,6 +175,37 @@ class DrawerMenuState extends State<DrawerMenu> {
               children: [
                 Column(
                   children: [
+                    GestureDetector(
+                      onTap: () {
+                        appService<NavigationService>().navigateTo('/change-password', arguments: 1);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 15),
+                              child: SvgPicture.asset(
+                                'assets/icons/ico-candado.svg',
+                                color: Color.fromRGBO(202, 206, 230, 1),
+                                width: 20,
+                              ),
+                            ),
+                            Container(
+                              child: Text(
+                                'Cambiar Contraseña',
+                                style: TextStyle(
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  color: HexColor.fromHex('#000066'),
+                                  fontSize: 18
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                     if (this.user != null && this.user.type == 2)
                       GestureDetector(
                         onTap: () {

@@ -22,8 +22,10 @@ class Notification extends StatefulWidget {
 class NotificationState extends State<Notification> {
   
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  ValueKey<DateTime> keyNotification = ValueKey<DateTime>(DateTime.now());
   ScreenResponsive screen;
   List<Alert> notifications = new List<Alert>();
+  bool loading = false;
 
   @override
   void initState() {
@@ -42,6 +44,10 @@ class NotificationState extends State<Notification> {
           appService<NotificationService>().disabledNotification(alert.id).then((value) {
             Provider.of<NotificationProvider>(context, listen: false).deleteAlert(alert);
             AppProvider.of(context).updateCountNotification();
+
+            setState(() {
+              this.notifications = this.notifications.where((element) => element.id != alert.id).toList();
+            });
           }).catchError((onError) {
             print(onError);
           });
@@ -76,11 +82,19 @@ class NotificationState extends State<Notification> {
   }
 
   void getNotifications() async {
+    setState(() {
+      this.loading = true;
+    });
+
     appService<NotificationService>().getNotification().then((value) {
       setState(() {
         this.notifications = value;
+        this.keyNotification = ValueKey<DateTime>(DateTime.now());
+        this.loading = false;
       });
-    }).catchError((onError) {});
+    }).catchError((onError) {
+      this.loading = false;
+    });
   }
 
   List<Alert> getItemsNoDuplicated(List<Alert> alerts) {

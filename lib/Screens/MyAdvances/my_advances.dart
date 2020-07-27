@@ -2,11 +2,13 @@ import 'package:date_util/date_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prestaQi/Models/MyAdvanceModel.dart';
+import 'package:prestaQi/Models/MyProfile.dart';
 import 'package:prestaQi/Models/UserToken.dart';
 import 'package:prestaQi/Screens/MyAdvances/my_advances_content.dart';
 import 'package:prestaQi/Services/AuthService.dart';
 import 'package:prestaQi/Services/RequestAdvance.dart';
 import 'package:prestaQi/Services/SetupService.dart';
+import 'package:prestaQi/Services/UserService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
 import 'package:prestaQi/Widgets/ActionMenuAlert.dart';
 import 'package:prestaQi/Widgets/DrawerMenu.dart';
@@ -22,7 +24,7 @@ class MyAdvancesState extends State<MyAdvances> {
   
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ScreenResponsive screen;
-  UserToken user = new UserToken();
+  MyProfileModel user = new MyProfileModel();
   List<MyAdvanceModel> myAdvances = new List<MyAdvanceModel>();
   List<MyAdvanceModel> myAdvancesActive = new List<MyAdvanceModel>();
   double totalDiscount = 0;
@@ -42,34 +44,69 @@ class MyAdvancesState extends State<MyAdvances> {
     this.getUser();
   }
 
-  void fetchMyAdvances(int userId) async {
+  void fetchMyAdvances(int userId, String periodName) async {
     appService<RequestAdvanceService>().getMyAdvances(userId).then((value) {
       setState(() {
         value.forEach((element) {
 
-          if (element.dateAdvance.month == this.date.month) {
-            if (this.nextDayForPay == 15 && (element.dateAdvance.day >= 1 && element.dateAdvance.day <= 15)) {
-              
+          if (periodName == 'Mensual') {
+            this.nextDayForPay = dateUtil.daysInMonth(this.date.month, this.date.year);
+            DateTime datePayment = new DateTime(this.date.year, this.date.month, this.nextDayForPay);
+            DateTime dateBefore = new DateTime(this.date.year, this.date.month, 1);
+            
+            this.nextDayForPay = datePayment.day;
+
+            if (element.dateAdvance.isAfter(dateBefore) && element.dateAdvance.isBefore(datePayment)) {
               this.myAdvancesActive.add(element);
               if (element.paidStatus == 0) {
                 this.totalDiscount += element.totalWithhold;
               }
-
-            } else if (this.nextDayForPay != 15 && (element.dateAdvance.day >= 16 && element.dateAdvance.day <= this.nextDayForPay)) { 
-              
-              this.myAdvancesActive.add(element);
-              if (element.paidStatus == 0) {
-                this.totalDiscount += element.totalWithhold;
-              }
-
             } else {
-              
               this.myAdvances.add(element);
-
             }
+            
+          } else if (periodName == 'Semanal') {
+            int daynumber = this.date.weekday;
+            int nextSunday = 7 - daynumber;
+            DateTime datePayment = this.date.add(Duration(days: nextSunday));
+
+            this.nextDayForPay = datePayment.day;
+
+            if (element.dateAdvance.isAfter(datePayment.add(Duration(days: -6))) && element.dateAdvance.isBefore(datePayment)) {
+              this.myAdvancesActive.add(element);
+              if (element.paidStatus == 0) {
+                this.totalDiscount += element.totalWithhold;
+              }
+            } else {
+              this.myAdvances.add(element);
+            }
+
           } else {
-            this.myAdvances.add(element);
+            if (element.dateAdvance.month == this.date.month) {
+              if (this.nextDayForPay == 15 && (element.dateAdvance.day >= 1 && element.dateAdvance.day <= 15)) {
+                
+                this.myAdvancesActive.add(element);
+                if (element.paidStatus == 0) {
+                  this.totalDiscount += element.totalWithhold;
+                }
+
+              } else if (this.nextDayForPay != 15 && (element.dateAdvance.day >= 16 && element.dateAdvance.day <= this.nextDayForPay)) { 
+                
+                this.myAdvancesActive.add(element);
+                if (element.paidStatus == 0) {
+                  this.totalDiscount += element.totalWithhold;
+                }
+
+              } else {
+                
+                this.myAdvances.add(element);
+
+              }
+            } else {
+              this.myAdvances.add(element);
+            }
           }
+
         });
 
         this.loading = false;
@@ -84,12 +121,13 @@ class MyAdvancesState extends State<MyAdvances> {
   }
 
   void getUser() {
-    appService<AuthService>().me().then((value) {
+    //appService<AuthService>().me().then((value) {
+    appService<UserService>().getMyProfile().then((value) {
       setState(() {
         this.user = value;
       });
 
-      this.fetchMyAdvances(this.user.userId);
+      this.fetchMyAdvances(this.user.id, this.user.periodName);
     }).catchError((onError) {
       print(onError);
     });

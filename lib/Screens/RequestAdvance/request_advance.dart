@@ -5,6 +5,7 @@ import 'package:prestaQi/Screens/RequestAdvance/request_advance_content.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/RequestAdvance.dart';
 import 'package:prestaQi/Services/SetupService.dart';
+import 'package:prestaQi/Services/UserService.dart';
 import 'package:prestaQi/Utils/HexColor.dart';
 import 'package:prestaQi/Widgets/ActionMenuAlert.dart';
 import 'package:prestaQi/Widgets/DrawerMenu.dart';
@@ -27,6 +28,7 @@ class RequestAdvanceState extends State<RequestAdvance> {
   Color colorAmount = HexColor.fromHex('#ff2626');
   bool loading = true;
   bool errorAmount = true;
+  bool isBlocked = false;
   final TextEditingController valueControl = TextEditingController(text: '');
 
   @override
@@ -53,15 +55,23 @@ class RequestAdvanceState extends State<RequestAdvance> {
   }
 
   void fetchMaxMount() {
-    appService<RequestAdvanceService>().calculateAdvance().then((value) {
+    appService<UserService>().getMyProfile().then((user) {
       setState(() {
-        this.maxValue = value <= 0 ? 1 : value;
+        this.isBlocked = user.isBlocked;
+      });
+      
+      appService<RequestAdvanceService>().calculateAdvance().then((value) {
+        setState(() {
+          this.maxValue = value <= 0 ? 1 : value;
+          this.loading = false;
+        });
+
+      }).catchError((onError) {
+        print(onError);
         this.loading = false;
       });
-
     }).catchError((onError) {
       print(onError);
-      this.loading = false;
     });
   }
 

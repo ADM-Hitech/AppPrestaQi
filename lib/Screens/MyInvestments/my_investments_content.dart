@@ -254,7 +254,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(child: Text('Estatus', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                    Container(child: Text(investmen.enabled ? 'Activa' : 'Inactiva', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                    Container(child: Text(investmen.enabled, style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),

@@ -32,6 +32,7 @@ class MyProfileModel {
   int id;
   DateTime createdAt;
   DateTime updatedAt;
+  bool isBlocked;
 
   MyProfileModel({
     this.firstName,
@@ -64,7 +65,8 @@ class MyProfileModel {
     this.typeName,
     this.id,
     this.createdAt,
-    this.updatedAt
+    this.updatedAt,
+    this.isBlocked
   });
 
   factory MyProfileModel.fromJson(Map<String, dynamic> object) {
@@ -99,7 +101,8 @@ class MyProfileModel {
       typeName: object['typeName'] ?? '',
       id: object['id'] as int ?? 0,
       createdAt: DateTime.tryParse(object['created_at'] ?? '0000-00-00'),
-      updatedAt: DateTime.tryParse(object['created_at'] ?? '0000-00-00')
+      updatedAt: DateTime.tryParse(object['created_at'] ?? '0000-00-00'),
+      isBlocked: object['is_Blocked'] as bool ?? false
     );
   }
 
