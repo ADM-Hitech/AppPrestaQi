@@ -25,7 +25,13 @@ class NotificationContent extends StatelessWidget {
           topRight: Radius.circular(60)
         )
       ),
-      child: ListView.builder(
+      child: this.state.loading ?
+        Center(
+          child: CircularProgressIndicator(),
+        )
+      :
+      ListView.builder(
+        key: this.state.keyNotification,
         padding: EdgeInsets.only(top: 35, left: 0, right: 0, bottom: 0),
         physics: BouncingScrollPhysics(),
         itemCount: 1,

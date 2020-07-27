@@ -27,6 +27,7 @@ class ChangePasswordState extends State<ChangePassword> {
   bool loading = false;
   String message = '';
   bool rememberUser = false;
+  int changePassword = 0;
 
   String validPassword(String value) {
     if (value.isEmpty) {
@@ -68,7 +69,30 @@ class ChangePasswordState extends State<ChangePassword> {
     if (this.formKey.currentState.validate()) {
       setState(() {
         this.loading = true;
-        this.rememberUser = (ModalRoute.of(context).settings.arguments as bool) ?? false;
+      });
+
+      if (this.changePassword == 1) {
+        appService<AuthService>().changePassword(this.passwordController.text, this.rememberUser).then((value) async{
+          if (value.success) {
+            appService<NavigationService>().goBack();
+          } else {
+            this.message = 'Error al actualizar';
+            setState(() {
+              this.loading = false;
+            });
+          }
+        }).catchError((onError) {
+          setState(() {
+            this.message = 'Error al actualizar';
+            this.loading = false;
+          });
+        });
+
+        return;
+      }
+
+      setState(() {
+        this.rememberUser = ModalRoute.of(context).settings.arguments is bool ? ModalRoute.of(context).settings.arguments as bool : false;
       });
 
       appService<AuthService>().me().then((value) async {
@@ -121,6 +145,10 @@ class ChangePasswordState extends State<ChangePassword> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      this.changePassword = ModalRoute.of(context).settings.arguments is int ? ModalRoute.of(context).settings.arguments as int : 0;
+    });
+
     return Scaffold(
       backgroundColor: HexColor.fromHex('#000066'),
       key: this.scaffoldKey,

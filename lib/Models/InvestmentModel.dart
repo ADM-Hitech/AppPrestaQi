@@ -11,7 +11,7 @@ class InvestmentModel {
   DateTime endDate;
   int periodId;
   int interestArrears;
-  bool enabled;
+  String enabled;
   double interestPayable;
   double quantityInterestArrears;
   double totalInterest;
@@ -59,7 +59,7 @@ class InvestmentModel {
       endDate: DateTime.tryParse(object['end_Date'] ?? '0000-00-00'),
       periodId: object['period_Id'] as int ?? 0,
       interestArrears: object['interest_Arrears'] as int ?? 0,
-      enabled: object['enabled'] as bool ?? true,
+      enabled: object['enabled'] ?? 'Default',
       interestPayable: object['interest_Payable'] as double ?? 0,
       quantityInterestArrears: object['quantity_Interest_Arrears'] as double ?? 0,
       totalInterest: object['total_Interest'] as double ?? 0,

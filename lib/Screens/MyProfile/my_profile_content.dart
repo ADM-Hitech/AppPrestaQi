@@ -541,25 +541,50 @@ class MyProfileContent extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Container(
-                                width: this.state.screen.width * .9,
-                                child: RichText(
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(77, 77, 77, 1),
-                                    ),
-                                    text: 'Contacta al área de recursos humanos de tu empresa o escribe un correo a ',
-                                    children: [
-                                      TextSpan(
-                                        text: 'soporte@prestaqi.com',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold
+                              if (this.state.user.type == 2) ...[
+                                Container(
+                                  width: this.state.screen.width * .9,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                      ),
+                                      text: 'Para cualquier aclaración o modificación de datos escribe un correo a ',
+                                      children: [
+                                        TextSpan(
+                                          text: 'soporte@prestaqi.com',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold
+                                          )
+                                        ),
+                                        TextSpan(
+                                          text: ' y un ejecutivo se pondrá en contacto contigo.'
                                         )
-                                      )
-                                    ]
+                                      ]
+                                    ),
                                   ),
-                                ),
-                              )
+                                )
+                              ] else ...[
+                                Container(
+                                  width: this.state.screen.width * .9,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: TextStyle(
+                                        color: Color.fromRGBO(77, 77, 77, 1),
+                                      ),
+                                      text: 'Contacta al área de recursos humanos de tu empresa o escribe un correo a ',
+                                      children: [
+                                        TextSpan(
+                                          text: 'soporte@prestaqi.com',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold
+                                          )
+                                        )
+                                      ]
+                                    ),
+                                  ),
+                                )
+                              ]
                             ],
                           );
                         },

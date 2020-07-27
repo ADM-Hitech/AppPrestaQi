@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:prestaQi/Models/InvestmentModel.dart';
 import 'package:prestaQi/Screens/MyInvestments/my_investments_content.dart';
 import 'package:prestaQi/Services/InvestmentsService.dart';
-import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
 import 'package:prestaQi/Widgets/ActionMenuAlert.dart';
@@ -36,7 +35,7 @@ class MyInvestmentsState extends State<MyInvestments> with SingleTickerProviderS
     appService<InvestmentsService>().fetchInvestment().then((value) {
       setState(() {
         this.investments = value;
-        tabController = TabController(length: this.investments.length, vsync: this);
+        this.tabController = TabController(length: this.investments.length, vsync: this);
 
         this.loading = false;
       });

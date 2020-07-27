@@ -121,10 +121,10 @@ class UploadReceiptState extends State<UploadReceipt> {
       });
 
       var newImage = imageLib.decodeImage(this.image.readAsBytesSync());
-      var newSize = this.getNewSize(newImage.width, newImage.height, 0, 350);
+      var newSize = this.getNewSize(newImage.width, newImage.height, 0, 700);
 
-      var thumb = imageLib.copyResize(newImage, width: newSize[0], height: newSize[0]);
-      var finalImage = new File('${dirAplicationDocuments.path}/tes_convert.jpeg')..writeAsBytesSync(imageLib.encodeJpg(thumb));
+      var thumb = imageLib.copyResize(newImage, width: newSize[0], height: newSize[1]);
+      var finalImage = new File('${dirAplicationDocuments.path}/tes_convert.jpeg')..writeAsBytesSync(imageLib.encodeJpg(thumb, quality: 100));
       
       setState(() {
         this.bytesImages = finalImage.readAsBytesSync();
@@ -148,7 +148,19 @@ class UploadReceiptState extends State<UploadReceipt> {
   }
 
   List<int> getNewSize(int width, int height, int porcent, int min) {
-    if (width > height) {
+
+    int maxWidth = min;
+    double ratio = 0;
+
+    if (width > maxWidth) {
+      ratio = maxWidth / width;
+      height = (height * ratio).floor();
+      width = (width * ratio).floor();
+    }
+
+    return [width, height];
+
+    /*if (width > height) {
       var radio = height / width;
       int newWidth = (width - min) * (porcent / 100).floor();
       int newHigth = (((height - min) * radio) * (porcent / 100)).floor();
@@ -158,7 +170,7 @@ class UploadReceiptState extends State<UploadReceipt> {
       int newWidth = ((width - min * radio) * (porcent / 100)).floor();
       int newHigth = ((height - min) * (porcent / 100)).floor();
       return [newWidth, newHigth];
-    }
+    }*/
   }
 
   void submit() {
