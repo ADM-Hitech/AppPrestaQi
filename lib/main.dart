@@ -176,10 +176,13 @@ class AppState extends State<App> {
           bottomAppBarColor: HexColor.fromHex('#33ccff'),
           fontFamily: 'Montserrat'
         ),
-        builder: (context, child) => Navigator(
-          key: appService<DialogService>().dialogNavigationKey,
-          onGenerateRoute: (settings) => MaterialPageRoute(
-            builder: (context) => DialogManager(child: child)
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+          child: Navigator(
+            key: appService<DialogService>().dialogNavigationKey,
+            onGenerateRoute: (settings) => MaterialPageRoute(
+              builder: (context) => DialogManager(child: child)
+            ),
           ),
         ),
         navigatorKey: appService<NavigationService>().navigatorKey,

@@ -8,7 +8,10 @@ import 'package:prestaQi/Modals/ContractModal.dart';
 import 'package:prestaQi/Modals/DetailsAdvancePeriodicModal.dart';
 import 'package:prestaQi/Modals/ErrorRequestAdvanceModal.dart';
 import 'package:prestaQi/Modals/GeneralNoticeModal.dart';
+import 'package:prestaQi/Modals/ShowIframeCartaMandatoModal.dart';
+import 'package:prestaQi/Modals/ShowIframeModal.dart';
 import 'package:prestaQi/Modals/UploadReceipt.dart';
+import 'package:prestaQi/Models/CalculateAdvance.dart';
 import 'package:prestaQi/Models/DataAdvanceCapitalNotification.dart';
 import 'package:prestaQi/Models/InfoBank.dart';
 import 'package:prestaQi/Models/MyAdvanceModel.dart';
@@ -33,8 +36,16 @@ class NavigationService {
     return Navigator.of(context).push(CartaMandatoModal(infoBank: infoBank));
   }
 
+  Future<dynamic> showIframeCartaMandato(BuildContext context, String url, CalculateAdvance calculateAdvance) {
+    return Navigator.of(context).push(ShowIframeCartaMandatoModal(url: url, calculateAdvance: calculateAdvance));
+  }
+
   Future<dynamic> showGeneralNotice(BuildContext context, String url) {
     return Navigator.of(context).push(GeneralNoticeModal(url: url));
+  }
+
+  Future<dynamic> showIframe(BuildContext context, String url, String textAccepted, String textCancel) {
+    return Navigator.of(context).push(ShowIframeModal(url: url, textAccepted: textAccepted, textCancel: textCancel));
   }
 
   Future<dynamic> showCartaMandatoInversionista(BuildContext context, DataAdvanceCapitalNotification info) {

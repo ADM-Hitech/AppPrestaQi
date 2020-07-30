@@ -60,6 +60,7 @@ class UserService {
         user = new MyProfileModel.fromJson(responseObject['data']['user']);
         user.type = responseObject['data']['type'];
         user.typeName = responseObject['data']['typeName'];
+        user.urlCartaMandato = '${this.apiUrl}Users/GetCartaMandato?token=${pref.getString('token')}';
       }
     }
 

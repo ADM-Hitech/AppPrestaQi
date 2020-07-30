@@ -33,6 +33,7 @@ class MyProfileModel {
   DateTime createdAt;
   DateTime updatedAt;
   bool isBlocked;
+  String urlCartaMandato;
 
   MyProfileModel({
     this.firstName,

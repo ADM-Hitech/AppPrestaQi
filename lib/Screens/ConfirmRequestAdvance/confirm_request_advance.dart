@@ -33,6 +33,7 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
   DateFormat formatDate = new DateFormat('dd/MM/yyyy');
   InfoBank infoBank = new InfoBank(accountNumber: '0000', institutionName: '', clabe: '');
   bool loading = true;
+  CalculateAdvance calculateAdvance;
 
   @override
   void initState() {
@@ -53,6 +54,7 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
 
     appService<RequestAdvanceService>().calculateAdvanceWithAmount(this.widget.calculateAdvance.amount).then((value) {
       setState(() {
+        this.calculateAdvance = value;
         this.totalDiscount = value.totalWithhold;
         if (this.dateNextPay.day >= 15) {
           var day = dateUtil.daysInMonth(this.dateNextPay.month, this.dateNextPay.year);
@@ -91,7 +93,8 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
   void acepted() async {
 
     this.infoBank.amount = this.widget.calculateAdvance.amount;
-    var result = await appService<NavigationService>().showCartaMandato(context, this.infoBank);
+    var url = this.widget.calculateAdvance.urlCartaMandato+'&amount=${this.calculateAdvance.amount}&days=${this.calculateAdvance.dayForPayment}&commision=${this.calculateAdvance.comission}&totalAmount=${this.calculateAdvance.totalWithhold}';
+    var result = await appService<NavigationService>().showIframeCartaMandato(context, url, this.calculateAdvance);
     if (result as bool) {
 
       setState(() {

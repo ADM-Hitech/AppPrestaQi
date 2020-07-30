@@ -29,6 +29,7 @@ class RequestAdvanceState extends State<RequestAdvance> {
   bool loading = true;
   bool errorAmount = true;
   bool isBlocked = false;
+  CalculateAdvance calculateAdvance = new CalculateAdvance();
   final TextEditingController valueControl = TextEditingController(text: '');
 
   @override
@@ -58,6 +59,7 @@ class RequestAdvanceState extends State<RequestAdvance> {
     appService<UserService>().getMyProfile().then((user) {
       setState(() {
         this.isBlocked = user.isBlocked;
+        this.calculateAdvance.urlCartaMandato = user.urlCartaMandato;
       });
       
       appService<RequestAdvanceService>().calculateAdvance().then((value) {
@@ -85,9 +87,9 @@ class RequestAdvanceState extends State<RequestAdvance> {
         this.colorAmount = HexColor.fromHex('#ff2626');
       });
     } else {
-      var calculateAdvance = new CalculateAdvance();
-      calculateAdvance.amount = this.valueAdvance;
-      calculateAdvance.maximumAmount = this.maxValue;
+
+      this.calculateAdvance.amount = this.valueAdvance;
+      this.calculateAdvance.maximumAmount = this.maxValue;
 
       appService<NavigationService>().navigateTo('/confirm-request-advance', arguments: calculateAdvance);
     }
