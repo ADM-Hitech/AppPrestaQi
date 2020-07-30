@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider/downloads_path_provider.dart';
@@ -12,7 +11,6 @@ import 'package:prestaQi/Screens/SettingInfoAccount/setting_info_account_content
 import 'package:prestaQi/Services/AuthService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
-import 'package:http/http.dart' as http;
 
 class SettingInfoAccount extends StatefulWidget {
 
