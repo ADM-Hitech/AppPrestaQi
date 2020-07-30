@@ -90,47 +90,80 @@ class SettingInfoAccountContent extends StatelessWidget {
                 ),
               ),
               Center(
-                child: Container(
-                  margin: EdgeInsets.only(top: 60),
-                  width: this.state.screen.width * .8,
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 25),
-                      decoration: BoxDecoration(
-                        color: HexColor.fromHex('#000066'),
-                        borderRadius: BorderRadius.circular(40)
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 20),
-                            alignment: Alignment.center,
-                            child: SvgPicture.asset(
-                              'assets/icons/ico-boton-informe.svg',
-                              color: Color.fromRGBO(202, 206, 230, 1),
-                              width: 23,
-                            )
-                          ),
-                          Center(
-                            child: Text(
-                              'SOLICITAR INFORME', 
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18
+                child: Opacity(
+                  opacity: this.state.loading ? .7 : 1,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 60),
+                    width: this.state.screen.width * .8,
+                    child: GestureDetector(
+                      onTap: this.state.loading ? () {} : this.state.downloadMyInfo,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 25),
+                        decoration: BoxDecoration(
+                          color: HexColor.fromHex('#000066'),
+                          borderRadius: BorderRadius.circular(40)
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 20),
+                              alignment: Alignment.center,
+                              child: SvgPicture.asset(
+                                'assets/icons/ico-boton-informe.svg',
+                                color: Color.fromRGBO(202, 206, 230, 1),
+                                width: 23,
                               )
                             ),
-                          )
-                        ],
+                            Center(
+                              child: Text(
+                                'SOLICITAR INFORME', 
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18
+                                )
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              )
+              ),
+              if (this.state.loading) ...[
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Container(
+                    height: 5,
+                    width: this.state.screen.width * .8,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(202, 206, 230, 1),
+                      borderRadius: BorderRadius.circular(3.5)
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          left: 0,
+                          child: Container(
+                            height: 5,
+                            width: (this.state.screen.width * .8) * (this.state.porcen / 100),
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(51, 51, 255, 1),
+                              borderRadius: BorderRadius.circular(3.5)
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ]
             ],
           );
         },

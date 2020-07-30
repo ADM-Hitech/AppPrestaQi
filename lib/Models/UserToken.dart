@@ -12,6 +12,8 @@ class UserToken {
   String urlContratoMutuoAccredited;
   String urlCartaAvisoGeneral;
   String urlTransferDataPersonal;
+  String uriApi;
+  String token;
 
   UserToken({
     this.givenName,
@@ -26,7 +28,9 @@ class UserToken {
     this.urlGeneralNotice,
     this.urlContratoMutuoAccredited,
     this.urlCartaAvisoGeneral,
-    this.urlTransferDataPersonal
+    this.urlTransferDataPersonal,
+    this.uriApi,
+    this.token
   });
 
   factory UserToken.fromJson(Map<String, dynamic> json) {
