@@ -42,6 +42,11 @@ dependencies:
   path_provider: ^1.6.9
   flutter_app_badger: ^1.1.2
   webview_flutter: ^0.3.22+1
+  dio: ^3.0.9
+  storage_path: ^0.2.0
+  downloads_path_provider: ^0.1.0
+  permission_handler: ^5.0.1+1
+  esys_flutter_share: ^1.0.2
 
 flutter_icons:
   image_path: "assets/icons/icon_app.jpg"
