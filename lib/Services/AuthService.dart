@@ -55,6 +55,10 @@ class AuthService {
     var jwtObject = parseJwt(token);
     UserToken userToken = UserToken.fromJson(jwtObject);
     userToken.urlGeneralNotice = '${this.apiUrl}Users/GetContract?token=${pref.getString('token')}';
+    
+    userToken.urlContratoMutuoAccredited = '${this.apiUrl}Users/GetContratoMutuo?token=${pref.getString('token')}';
+    userToken.urlCartaAvisoGeneral = '${this.apiUrl}Users/GetCartaAvisoGeneral?token=${pref.getString('token')}';
+    userToken.urlTransferDataPersonal = '${this.apiUrl}Users/GetTransferenciaDatosPersonales?token=${pref.getString('token')}';
 
     return userToken;
   }
