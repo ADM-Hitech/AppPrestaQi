@@ -7,6 +7,9 @@ class InfoBank {
   String contractNumber;
   double amount;
   String companyName;
+  int days;
+  int commision;
+  double totalAmount;
 
   InfoBank({
     this.clabe,
@@ -16,7 +19,10 @@ class InfoBank {
     this.lastName,
     this.contractNumber,
     this.amount,
-    this.companyName
+    this.companyName,
+    this.days, 
+    this.commision,
+    this.totalAmount
   });
 
   factory InfoBank.fromJson(Map<String, dynamic> object) {

@@ -97,8 +97,22 @@ class ChangePasswordState extends State<ChangePassword> {
 
       appService<AuthService>().me().then((value) async {
         if (value.type == 3) {
-          bool result = await appService<NavigationService>().showGeneralNotice(context, value.urlGeneralNotice);
+          bool result = await appService<NavigationService>().showIframe(context, value.urlContratoMutuoAccredited, 'Si Acepto', 'No Acepto');
           if (!result) {
+            await appService<AuthService>().logout();
+            appService<NavigationService>().navigateTo('/auth');
+            return;
+          }
+          
+          bool resultAvisoGeneral = await appService<NavigationService>().showIframe(context, value.urlCartaAvisoGeneral, 'Si Acepto', 'No Acepto');
+          if (!resultAvisoGeneral) {
+            await appService<AuthService>().logout();
+            appService<NavigationService>().navigateTo('/auth');
+            return;
+          }
+
+          bool resultTransferDataPerson = await appService<NavigationService>().showIframe(context, value.urlTransferDataPersonal, 'Si Acepto', 'No Acepto');
+          if (!resultTransferDataPerson) {
             await appService<AuthService>().logout();
             appService<NavigationService>().navigateTo('/auth');
             return;

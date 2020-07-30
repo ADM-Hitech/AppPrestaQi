@@ -9,8 +9,17 @@ class CalculateAdvance {
   int paidStatus;
   double maximumAmount;
   int id;
+  double interest;
+  double vat;
+  double subTotal;
+  double interestMoratorium;
+  double dayMoratorium;
+  double promotionalSetting;
+  int dayForPayment;
+  double maximunAmount;
   DateTime createdAt;
   DateTime updatedAt;
+  String urlCartaMandato;
 
   CalculateAdvance({
     this.accreditedId,
@@ -23,8 +32,17 @@ class CalculateAdvance {
     this.paidStatus,
     this.maximumAmount,
     this.id,
+    this.interest,
+    this.vat,
+    this.subTotal,
+    this.interestMoratorium,
+    this.dayMoratorium,
+    this.promotionalSetting,
+    this.dayForPayment,
+    this.maximunAmount,
     this.createdAt,
-    this.updatedAt
+    this.updatedAt,
+    this.urlCartaMandato
   });
 
   factory CalculateAdvance.fromJson(Map<String, dynamic> object) {
@@ -40,7 +58,15 @@ class CalculateAdvance {
       maximumAmount: object['maximum_Amount'] as double,
       id: object['id'] as int,
       createdAt: DateTime.tryParse(object['created_at'] ?? '0000-00-00'),
-      updatedAt: DateTime.tryParse(object['updated_at'] ?? '0000-00-00')
+      updatedAt: DateTime.tryParse(object['updated_at'] ?? '0000-00-00'),
+      interest: object['interest'] as double,
+      vat: object['vat'] as double,
+      subTotal: object['subtotal'] as double,
+      interestMoratorium: object['interest_Moratorium'] as double,
+      dayMoratorium: object['day_Moratorium'] as double,
+      promotionalSetting: object['promotional_Setting'] as double,
+      dayForPayment: object['day_For_Payment'] as int,
+      maximunAmount: object['maximum_Amount'] as double,
     );
   }
 }

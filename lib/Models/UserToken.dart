@@ -9,6 +9,9 @@ class UserToken {
   String iss;
   String aud;
   String urlGeneralNotice;
+  String urlContratoMutuoAccredited;
+  String urlCartaAvisoGeneral;
+  String urlTransferDataPersonal;
 
   UserToken({
     this.givenName,
@@ -20,7 +23,10 @@ class UserToken {
     this.exp,
     this.iss,
     this.aud,
-    this.urlGeneralNotice
+    this.urlGeneralNotice,
+    this.urlContratoMutuoAccredited,
+    this.urlCartaAvisoGeneral,
+    this.urlTransferDataPersonal
   });
 
   factory UserToken.fromJson(Map<String, dynamic> json) {
