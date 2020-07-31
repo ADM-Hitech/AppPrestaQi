@@ -5,6 +5,7 @@ import 'package:downloads_path_provider/downloads_path_provider.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:prestaQi/Models/UserToken.dart';
 import 'package:prestaQi/Screens/SettingInfoAccount/setting_info_account_content.dart';
@@ -56,7 +57,14 @@ class SettingInfoAccountState extends State<SettingInfoAccount> {
         url = url + "Investors/GetFile?type=1";
       }
 
-      var dirDown = await DownloadsPathProvider.downloadsDirectory;
+      var dirDown;
+
+      if (Platform.isIOS) {
+        dirDown = await getApplicationDocumentsDirectory();
+      } else {
+        dirDown = await DownloadsPathProvider.downloadsDirectory;
+      }
+
 
       var permissionStatus = await Permission.storage.request().isGranted;
       if (permissionStatus) {
