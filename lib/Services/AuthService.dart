@@ -59,6 +59,8 @@ class AuthService {
     userToken.urlContratoMutuoAccredited = '${this.apiUrl}Users/GetContratoMutuo?token=${pref.getString('token')}';
     userToken.urlCartaAvisoGeneral = '${this.apiUrl}Users/GetCartaAvisoGeneral?token=${pref.getString('token')}';
     userToken.urlTransferDataPersonal = '${this.apiUrl}Users/GetTransferenciaDatosPersonales?token=${pref.getString('token')}';
+    userToken.urlAvisoPrivacidad = '${this.apiUrl}Users/GetAvisoPrivacidad?token=${pref.getString('token')}';
+    userToken.urlTerminosCondiciones = '${this.apiUrl}Users/GetTerminosCondiciones?token=${pref.getString('token')}';
     userToken.uriApi = this.apiUrl;
     userToken.token = pref.getString('token');
 

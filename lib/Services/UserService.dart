@@ -67,6 +67,20 @@ class UserService {
     return user;
   }
 
+  Future<bool> deleteMyAccount() async {
+
+    SharedPreferences pref = await this.sPrefs;
+    final response = await http.get('${this.apiUrl}Users/DeleteAccount', headers: this.headers(pref));
+
+    if (response.statusCode == 200) {
+      var responseObject = json.decode(response.body);
+
+      return (responseObject['success'] as bool);
+    }
+
+    return false;
+  }
+
   Map<String, String> headers(SharedPreferences pref) {
     return {
       HttpHeaders.authorizationHeader: 'Bearer ${pref.getString('token')}',

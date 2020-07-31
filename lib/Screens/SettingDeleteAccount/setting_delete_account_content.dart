@@ -119,9 +119,7 @@ class SettingDeleteAccountContent extends StatelessWidget {
                   margin: EdgeInsets.only(top: 60),
                   width: this.state.screen.width * .8,
                   child: GestureDetector(
-                    onTap: () {
-                      appService<NavigationService>().showConfirmDeleteAccount(context);
-                    },
+                    onTap: this.state.deleteMyAccount,
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 25),
                       decoration: BoxDecoration(

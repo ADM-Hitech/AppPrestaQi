@@ -100,12 +100,15 @@ class SettingInfoAppContent extends StatelessWidget {
                     )
                   )
                 ),
-                child: Text(
-                  'Aviso de privacidad',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Color.fromRGBO(142, 145, 162, 1)
+                child: GestureDetector(
+                  onTap: this.state.showAvisoPrivacidad,
+                  child: Text(
+                    'Aviso de privacidad',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color.fromRGBO(142, 145, 162, 1)
+                    ),
                   ),
                 ),
               ),
@@ -119,12 +122,15 @@ class SettingInfoAppContent extends StatelessWidget {
                     )
                   )
                 ),
-                child: Text(
-                  'Términos y condiciones',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Color.fromRGBO(142, 145, 162, 1)
+                child: GestureDetector(
+                  onTap: this.state.showTerminos,
+                  child: Text(
+                    'Términos y condiciones',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color.fromRGBO(142, 145, 162, 1)
+                    ),
                   ),
                 ),
               ),

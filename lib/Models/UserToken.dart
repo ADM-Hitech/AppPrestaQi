@@ -12,6 +12,8 @@ class UserToken {
   String urlContratoMutuoAccredited;
   String urlCartaAvisoGeneral;
   String urlTransferDataPersonal;
+  String urlTerminosCondiciones;
+  String urlAvisoPrivacidad;
   String uriApi;
   String token;
 

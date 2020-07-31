@@ -125,7 +125,7 @@ class ConfirmDeleteAccountState extends State<ConfirmDeleteAccount> {
                 child: Container(
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pop(context, true);
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 15),
@@ -153,7 +153,7 @@ class ConfirmDeleteAccountState extends State<ConfirmDeleteAccount> {
                   margin: EdgeInsets.only(top: 20),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pop(context, false);
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(vertical: 15),
