@@ -54,7 +54,7 @@ class SettingInfoAccountState extends State<SettingInfoAccount> {
       if (this.user.type == 3) {
         url = url + "Advances/ExportMyAdvances/${this.user.userId}";
       } else {
-        url = url + "Investors/GetFile?type=1";
+        url = url + "Investors/GetMyInvestments/${this.user.userId}";
       }
 
       var dirDown;

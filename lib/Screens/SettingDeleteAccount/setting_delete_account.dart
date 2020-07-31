@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prestaQi/Screens/SettingDeleteAccount/setting_delete_account_content.dart';
+import 'package:prestaQi/Services/AuthService.dart';
+import 'package:prestaQi/Services/NavigationService.dart';
+import 'package:prestaQi/Services/SetupService.dart';
+import 'package:prestaQi/Services/UserService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
 
 class SettingDeleteAccount extends StatefulWidget {
@@ -18,6 +22,21 @@ class SettingDeleteAccountState extends State<SettingDeleteAccount> {
   void initState() {
     super.initState();
     this.screen = new ScreenResponsive(context);
+  }
+
+  void deleteMyAccount() async {
+    bool accept = await appService<NavigationService>().showConfirmDeleteAccount(context) as bool;
+    if (accept) {
+      appService<UserService>().deleteMyAccount().then((value) => {
+        if (value) {
+          appService<AuthService>().logout().then((value) {
+            appService<NavigationService>().navigateTo('/index-auth');
+          }).catchError((onError) {
+            print(onError);
+          })
+        }
+      }).catchError((onError) {});
+    }
   }
 
   @override
