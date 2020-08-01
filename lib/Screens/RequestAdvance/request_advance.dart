@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:prestaQi/Models/CalculateAdvance.dart';
 import 'package:prestaQi/Screens/RequestAdvance/request_advance_content.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
@@ -51,7 +52,7 @@ class RequestAdvanceState extends State<RequestAdvance> {
         this.errorAmount = true;
       }
 
-      this.valueControl.text = this.valueAdvance.toStringAsFixed(2);
+      this.valueControl.text = NumberFormat.currency(symbol: '').format(this.valueAdvance);
     });
   }
 
@@ -144,6 +145,7 @@ class RequestAdvanceState extends State<RequestAdvance> {
   }
 
   void updateValueWithInput(String value) {
+    value = value.replaceAll(',', '');
     var newValue = double.tryParse(value);
 
     if (newValue != null) {

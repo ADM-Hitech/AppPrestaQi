@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class ShowIframeModal extends ModalRoute<void> {
 
@@ -108,11 +108,10 @@ class ShowIframeState extends State<ShowIframe> {
                     Container(
                       color: Colors.grey,
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height - 285,
-                      child: WebviewScaffold(
-                        url: this.widget.url,
-                        withZoom: false,
-                        
+                      height: MediaQuery.of(context).size.height - 300,
+                      alignment: Alignment.center,
+                      child: WebView(
+                        initialUrl: this.widget.url
                       ),
                     ),
                     SizedBox(
