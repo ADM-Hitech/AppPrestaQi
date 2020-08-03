@@ -122,7 +122,10 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
 
   String getLast4Char() {
     int length = this.infoBank.accountNumber.length;
-    return this.infoBank.accountNumber.substring(length - 4);
+    if (length > 4) {
+      return this.infoBank.accountNumber.substring(length - 4);  
+    }
+    return this.infoBank.accountNumber;
   }
 
   @override

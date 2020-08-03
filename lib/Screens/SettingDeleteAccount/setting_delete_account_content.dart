@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prestaQi/Screens/SettingDeleteAccount/setting_delete_account.dart';
-import 'package:prestaQi/Services/NavigationService.dart';
-import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/HexColor.dart';
 
 class SettingDeleteAccountContent extends StatelessWidget {
