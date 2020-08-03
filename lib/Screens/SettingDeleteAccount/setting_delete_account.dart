@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prestaQi/Models/UserToken.dart';
 import 'package:prestaQi/Screens/SettingDeleteAccount/setting_delete_account_content.dart';
 import 'package:prestaQi/Services/AuthService.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
@@ -17,17 +18,38 @@ class SettingDeleteAccountState extends State<SettingDeleteAccount> {
   
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ScreenResponsive screen;
+  UserToken user;
+  bool loading = true;
 
   @override
   void initState() {
     super.initState();
     this.screen = new ScreenResponsive(context);
+    this.getUser();
+  }
+
+  void getUser() {
+    appService<AuthService>().me().then((value) {
+      setState(() {
+        this.user = value;
+        this.loading = false;
+      });
+    }).catchError((onError) {
+      print(onError);
+      setState(() {
+        this.loading = false;
+      });
+    });
   }
 
   void deleteMyAccount() async {
     bool accept = await appService<NavigationService>().showConfirmDeleteAccount(context) as bool;
     if (accept) {
-      appService<UserService>().deleteMyAccount().then((value) => {
+      setState(() {
+        this.loading = true;
+      });
+      
+      appService<UserService>().deleteMyAccount(this.user.userId, this.user.type).then((value) => {
         if (value) {
           appService<AuthService>().logout().then((value) {
             appService<NavigationService>().navigateTo('/index-auth');

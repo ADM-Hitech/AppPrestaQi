@@ -67,10 +67,10 @@ class UserService {
     return user;
   }
 
-  Future<bool> deleteMyAccount() async {
+  Future<bool> deleteMyAccount(int userId, int type) async {
 
     SharedPreferences pref = await this.sPrefs;
-    final response = await http.get('${this.apiUrl}Administrative/ChangeStatusUser', headers: this.headers(pref));
+    final response = await http.put('${this.apiUrl}Administrative/DeleteAccount', body: "{'UserId': $userId, 'Type': $type}", headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);

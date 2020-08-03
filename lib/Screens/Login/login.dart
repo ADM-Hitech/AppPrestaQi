@@ -77,7 +77,6 @@ class LoginState extends State<Login> {
 
         appService<AuthService>().auth(emailClean, this.passwordController.text, this.rememberUser).then((value) {
           if (value.firstLogin) {
-            //appService<NavigationService>().showContract(context, value.contract);
             appService<NavigationService>().navigateTo('/change-password', arguments: this.rememberUser);
           } else {
             if (value.type == 3) {

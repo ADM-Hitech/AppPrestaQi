@@ -17,8 +17,8 @@ Map<String, dynamic> parseJwt(String token) {
   return payloadMap;
 }
 
-bool validToken(String token) {
-  if (token == null || token.isEmpty) {
+bool validToken(String token, bool isLogin) {
+  if (token == null || token.isEmpty || !isLogin) {
     return false;
   }
 

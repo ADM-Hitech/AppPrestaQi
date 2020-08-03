@@ -61,6 +61,11 @@ class ChangePasswordState extends State<ChangePassword> {
   void initState() {
     super.initState();
     this.screen = new ScreenResponsive(context);
+    this.init();
+  }
+
+  void init() async {
+    await appService<AuthService>().isFirstLogin().catchError((onError) {});
   }
 
   void submit() {

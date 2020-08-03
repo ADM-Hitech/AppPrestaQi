@@ -68,92 +68,103 @@ class SettingDeleteAccountContent extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 30),
-                child: Text(
-                  'Tu cuenta de PrestaQi.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Color.fromRGBO(142, 145, 162, 1)
-                  ),
+              if (this.state.loading) ...[
+                SizedBox(
+                  height: 25,
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                child: Text(
-                  'Tu historia de inversiones.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Color.fromRGBO(142, 145, 162, 1)
+                Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
                   ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 10),
-                child: Text(
-                  'Tus notificaciones.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Color.fromRGBO(142, 145, 162, 1)
-                  ),
-                ),
-              ),
-              Center(
-                child: Container(
+                )
+              ] else ...[
+                Container(
                   margin: EdgeInsets.only(top: 30),
-                  width: 60,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(222, 227, 237, 1),
-                    borderRadius: BorderRadius.circular(4)
-                  ),
-                ),
-              ),
-              Center(
-                child: Container(
-                  margin: EdgeInsets.only(top: 60),
-                  width: this.state.screen.width * .8,
-                  child: GestureDetector(
-                    onTap: this.state.deleteMyAccount,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 25),
-                      decoration: BoxDecoration(
-                        color: HexColor.fromHex('#000066'),
-                        borderRadius: BorderRadius.circular(40)
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(right: 20),
-                            alignment: Alignment.center,
-                            child: SvgPicture.asset(
-                              'assets/icons/ico-borrar.svg',
-                              color: Color.fromRGBO(202, 206, 230, 1),
-                              width: 23,
-                            )
-                          ),
-                          Center(
-                            child: Text(
-                              'SOLICITAR ELIMINACIÓN', 
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18
-                              )
-                            ),
-                          )
-                        ],
-                      ),
+                  child: Text(
+                    'Tu cuenta de PrestaQi.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color.fromRGBO(142, 145, 162, 1)
                     ),
                   ),
                 ),
-              )
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: Text(
+                    this.state.user.typeName == 'Acreditado' ? 'Tu historia de adelantos.' : 'Tu historia de inversiones.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color.fromRGBO(142, 145, 162, 1)
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 10),
+                  child: Text(
+                    'Tus notificaciones.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Color.fromRGBO(142, 145, 162, 1)
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 30),
+                    width: 60,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(222, 227, 237, 1),
+                      borderRadius: BorderRadius.circular(4)
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 60),
+                    width: this.state.screen.width * .8,
+                    child: GestureDetector(
+                      onTap: this.state.deleteMyAccount,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 25),
+                        decoration: BoxDecoration(
+                          color: HexColor.fromHex('#000066'),
+                          borderRadius: BorderRadius.circular(40)
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 20),
+                              alignment: Alignment.center,
+                              child: SvgPicture.asset(
+                                'assets/icons/ico-borrar.svg',
+                                color: Color.fromRGBO(202, 206, 230, 1),
+                                width: 23,
+                              )
+                            ),
+                            Center(
+                              child: Text(
+                                'SOLICITAR ELIMINACIÓN', 
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Montserrat',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18
+                                )
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ]
             ],
           );
         },

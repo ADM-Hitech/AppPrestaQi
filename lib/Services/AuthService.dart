@@ -23,8 +23,9 @@ class AuthService {
   Future<bool> logged() async {
     final SharedPreferences pref = await this.sPrefs;
     String token = pref.getString('token');
+    bool isLoging = pref.getBool('isLogind');
 
-    return validToken(token);
+    return validToken(token, isLoging);
   }
 
   Future<String> getUrlDocument() async {
@@ -91,6 +92,7 @@ class AuthService {
       pref.setString('token', objectResponse['data']['token']);
       pref.setInt('type', authResponse.type);
       pref.setString('typeName', authResponse.typeName);
+      pref.setBool('isLogind', true);
 
       if (remember) {
         pref.setString('rUser', email);
@@ -111,6 +113,15 @@ class AuthService {
     pref.remove('token');
     pref.remove('type');
     pref.remove('typeName');
+    pref.remove('isLogind');
+
+    return true;
+  }
+
+  Future<bool> isFirstLogin() async {
+    final SharedPreferences pref = await this.sPrefs;
+
+    pref.setBool('isLogind', false);
 
     return true;
   }
@@ -154,6 +165,7 @@ class AuthService {
         authResponse.typeName = pref.getString('typeName');
         authResponse.urlNotice = '${this.apiUrl}Users/GetContract?token=${pref.getString('token')}';
         authResponse.success = true;
+        pref.setBool('isLogind', true);
         if (rememberUser) {
           pref.setString('rPass', password);
         }

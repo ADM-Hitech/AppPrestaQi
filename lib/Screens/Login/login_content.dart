@@ -149,7 +149,7 @@ class LoginContent extends StatelessWidget {
               child: Container(
                 width: (this.state.screen.width * .8) + 30,
                 padding: EdgeInsets.only(right: 14),
-                child: this.state.screen.width < 420 ?
+                child: this.state.screen.width < 438 ?
                 Column(
                   children: [
                     Container(

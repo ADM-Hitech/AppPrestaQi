@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:prestaQi/Models/CalculateAdvance.dart';
 import 'package:prestaQi/Models/InfoBank.dart';
+import 'package:prestaQi/Models/MyProfile.dart';
 import 'package:prestaQi/Screens/ConfirmRequestAdvance/confirm_request_advance_content.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/RequestAdvance.dart';
@@ -34,20 +35,25 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
   InfoBank infoBank = new InfoBank(accountNumber: '0000', institutionName: '', clabe: '');
   bool loading = true;
   CalculateAdvance calculateAdvance;
+  MyProfileModel user = new MyProfileModel();
+  int nextDayForPay = 15;
+  DateTime date = DateTime.now();
 
   @override
   void initState() {
     super.initState();
     this.screen = new ScreenResponsive(context);
-    this.fetchInfoRequest();
-    this.fetchInfoBank();
+    if (this.date.day > 15) {
+      this.nextDayForPay = dateUtil.daysInMonth(this.date.month, this.date.year);
+    }
+    this.getUser();
     setState(() {
       this.porcen = (this.widget.calculateAdvance.amount * 100 ) / this.widget.calculateAdvance.maximumAmount;
       this.porcen = this.porcen / 100;
     });
   }
 
-  void fetchInfoRequest() {
+  void fetchInfoRequest(int userId, String periodName) {
     setState(() {
       this.loading = true;
     });
@@ -56,19 +62,45 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
       setState(() {
         this.calculateAdvance = value;
         this.totalDiscount = value.totalWithhold;
-        if (this.dateNextPay.day >= 15) {
-          var day = dateUtil.daysInMonth(this.dateNextPay.month, this.dateNextPay.year);
-          this.dateNextPay = new DateTime(this.dateNextPay.year, this.dateNextPay.month, day);
+
+        if (periodName == 'Mensual') {
+          this.nextDayForPay = dateUtil.daysInMonth(this.date.month, this.date.year);
+          DateTime datePayment = new DateTime(this.date.year, this.date.month, this.nextDayForPay);
+          this.dateNextPay = new DateTime(this.dateNextPay.year, this.dateNextPay.month, datePayment.day);
+
+        } else if (periodName == 'Semanal') {
+          int daynumber = this.date.weekday;
+          int nextSunday = 7 - daynumber;
+          DateTime datePayment = this.date.add(Duration(days: nextSunday));
+          this.dateNextPay = new DateTime(this.dateNextPay.year, this.dateNextPay.month, datePayment.day);
+
         } else {
-          this.dateNextPay = new DateTime(this.dateNextPay.year, this.dateNextPay.month, 15);
+          if (this.dateNextPay.day >= 15) {
+            var day = dateUtil.daysInMonth(this.dateNextPay.month, this.dateNextPay.year);
+            this.dateNextPay = new DateTime(this.dateNextPay.year, this.dateNextPay.month, day);
+          } else {
+            this.dateNextPay = new DateTime(this.dateNextPay.year, this.dateNextPay.month, 15);
+          }
         }
+
+        this.fetchInfoBank();
+
+        this.loading = false;
       });
     }).catchError((onError) {
       print(onError);
-    }).whenComplete(() {
+    });
+  }
+
+  void getUser() {
+    appService<UserService>().getMyProfile().then((value) {
       setState(() {
-        this.loading = false;
+        this.user = value;
       });
+
+      this.fetchInfoRequest(this.user.id, this.user.periodName);
+    }).catchError((onError) {
+      print(onError);
     });
   }
 
