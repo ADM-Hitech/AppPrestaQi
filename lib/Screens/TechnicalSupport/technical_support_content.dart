@@ -315,7 +315,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                         ),
                                       ),
                                       Container(
-                                        child: Text('800 111 2222',
+                                        child: Text('55 6284 8216',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: this.state.getFontSizeData(),
