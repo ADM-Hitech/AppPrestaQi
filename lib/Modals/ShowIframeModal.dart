@@ -78,6 +78,7 @@ class ShowIframeState extends State<ShowIframe> {
 
   bool accept = false;
   bool decline = false;
+  bool loading = true;
 
   @override
   void initState() {
@@ -111,88 +112,102 @@ class ShowIframeState extends State<ShowIframe> {
                       height: MediaQuery.of(context).size.height - 300,
                       alignment: Alignment.center,
                       child: WebView(
-                        initialUrl: this.widget.url
+                        initialUrl: this.widget.url,
+                        debuggingEnabled: true,
+                        onPageFinished: (String value) {
+                          setState(() {
+                            this.loading = false;
+                          });
+                        }
                       ),
                     ),
                     SizedBox(
                       height: 25,
                     ),
-                    if (this.widget.textAccepted != null) ...[
+                    if (this.loading) ...[
                       Container(
-                        child: Row(
-                          children: [
-                            Container(
-                              child: Checkbox(
-                                checkColor: this.accept ? Colors.white : Color.fromRGBO(0, 0, 102, 1),
-                                activeColor: this.accept ? Color.fromRGBO(50, 55, 158, 1) : Colors.white,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    this.accept = value;
-                                    this.decline = !value;
-                                    Navigator.pop(context, true);
-                                  });
-                                },
-                                value: this.accept
-                              )
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width - 151,
-                              child: Text(this.widget.textAccepted),
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                        child: Row(
-                          children: [
-                            Container(
-                              child: Checkbox(
-                                checkColor: this.decline ? Colors.white : Color.fromRGBO(0, 0, 102, 1),
-                                activeColor: this.decline ? Color.fromRGBO(50, 55, 158, 1) : Colors.white,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    this.decline = value;
-                                    this.accept = !value;
-                                    Navigator.pop(context, false);
-                                  });
-                                },
-                                value: this.decline
-                              ),
-                            ),
-                            Container(
-                              child: Text(this.widget.textCancel),
-                            )
-                          ],
+                        child: Center(
+                          child: CircularProgressIndicator(),
                         ),
                       )
                     ] else ...[
-                      Center(
-                        child: Container(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context, true);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 15),
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(0, 0, 102, 1),
-                                borderRadius: BorderRadius.circular(40)
+                      if (this.widget.textAccepted != null) ...[
+                        Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                child: Checkbox(
+                                  checkColor: this.accept ? Colors.white : Color.fromRGBO(0, 0, 102, 1),
+                                  activeColor: this.accept ? Color.fromRGBO(50, 55, 158, 1) : Colors.white,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      this.accept = value;
+                                      this.decline = !value;
+                                      Navigator.pop(context, true);
+                                    });
+                                  },
+                                  value: this.accept
+                                )
                               ),
-                              child: Center(
-                                child: Text(
-                                  'SALIR', 
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Montserrat',
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18
-                                  )
+                              Container(
+                                width: MediaQuery.of(context).size.width - 151,
+                                child: Text(this.widget.textAccepted),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                child: Checkbox(
+                                  checkColor: this.decline ? Colors.white : Color.fromRGBO(0, 0, 102, 1),
+                                  activeColor: this.decline ? Color.fromRGBO(50, 55, 158, 1) : Colors.white,
+                                  onChanged: (bool value) {
+                                    setState(() {
+                                      this.decline = value;
+                                      this.accept = !value;
+                                      Navigator.pop(context, false);
+                                    });
+                                  },
+                                  value: this.decline
+                                ),
+                              ),
+                              Container(
+                                child: Text(this.widget.textCancel),
+                              )
+                            ],
+                          ),
+                        )
+                      ] else ...[
+                        Center(
+                          child: Container(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context, true);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 15),
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(0, 0, 102, 1),
+                                  borderRadius: BorderRadius.circular(40)
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'SALIR', 
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18
+                                    )
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      )
+                        )
+                      ]
                     ],
                   ],
                 ),

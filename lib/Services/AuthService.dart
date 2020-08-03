@@ -25,7 +25,7 @@ class AuthService {
     String token = pref.getString('token');
     bool isLoging = pref.getBool('isLogind');
 
-    return validToken(token, isLoging);
+    return validToken(token, isLoging ?? false);
   }
 
   Future<String> getUrlDocument() async {

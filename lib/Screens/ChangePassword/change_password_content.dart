@@ -25,7 +25,7 @@ class ChangePasswordContent extends StatelessWidget {
             child: Align(
               alignment: Alignment.topRight,
               child: Container(
-                margin: EdgeInsets.only(right: 25, top: 25),
+                margin: EdgeInsets.only(right: 25),
                 width: 45,
                 height: 45,
                 child: GestureDetector(
@@ -43,15 +43,15 @@ class ChangePasswordContent extends StatelessWidget {
             ),
           ),
           Container(
-            height: this.state.screen.height - 80,
+            height: this.state.screen.height - 160,
             width: this.state.screen.width,
             child: Form(
               key: this.state.formKey,
-              child: ListView(
+              child: Column(
                 children: [
                   Center(
                     child: Container(
-                      child: Image.asset('assets/icons/change_password_icon.png', width: 100),
+                      child: Image.asset('assets/icons/change_password_icon.png', width: 80),
                     ),
                   ),
                   SizedBox(
@@ -64,7 +64,7 @@ class ChangePasswordContent extends StatelessWidget {
                           color: HexColor.fromHex('#3333ff'),
                           fontFamily: 'Montserrat',
                           fontWeight: FontWeight.bold,
-                          fontSize: 30
+                          fontSize: 26
                         )
                       ),
                     ),
@@ -77,7 +77,7 @@ class ChangePasswordContent extends StatelessWidget {
                       width: this.state.screen.width * .8,
                       child: Text(
                         'Ingresa tu nueva contraseña a continuación, es para protección de tu cuenta.', 
-                        style: TextStyle(color: Colors.white, fontSize: 23),
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                         textAlign: TextAlign.center,
                       ),
                     ),
