@@ -7,9 +7,11 @@ import 'package:prestaQi/Models/Alert.dart';
 import 'package:prestaQi/Models/AppProviderModel.dart';
 import 'package:prestaQi/Models/DataAdvanceCapitalNotification.dart';
 import 'package:prestaQi/Models/UserToken.dart';
+import 'package:prestaQi/Services/AuthService.dart';
 import 'package:prestaQi/Services/DialogService.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
+import 'package:prestaQi/Services/UserService.dart';
 import 'package:prestaQi/Widgets/DialogManager.dart';
 import 'package:prestaQi/Widgets/StartupView.dart';
 import 'package:prestaQi/app_provider.dart';
@@ -46,7 +48,7 @@ class App extends StatefulWidget {
   AppState createState() => AppState();
 }
 
-class AppState extends State<App> {
+class AppState extends State<App> with WidgetsBindingObserver {
 
   UserToken userToken = new UserToken();
   int countNotification = 0;
@@ -54,8 +56,21 @@ class AppState extends State<App> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     //para consultar los argumentos del router 
     //ModalRoute.of(context).settings.arguments;
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+
+    if (state == AppLifecycleState.resumed) {
+      appService<UserService>().getMyProfile().then((value) => {
+        if (value.enabled != null && !value.enabled) {
+          this.logAuth()
+        }
+      }).catchError((onError) => {});
+    }
   }
 
   @override
@@ -86,29 +101,33 @@ class AppState extends State<App> {
           title = event['aps']['alert']['title'] ?? '';
         }
 
-        if (event['Capital_Id'] != null) {
-          newAlert = new Alert(
-            data: new DataAdvanceCapitalNotification(
-              amount: double.tryParse(event['Amount']),
-              capitalId: int.tryParse(event['Capital_Id']),
-              createdAt: DateTime.tryParse(event['created_at'])
-            ),
-            icon: event['icon'],
-            id: int.tryParse(event['notification_id']) ?? Random().nextInt(100),
-            message: message,
-            title: title
-          );
+        if (message == 'deleteuser') {
+          //logout
+          this.logAuth();
         } else {
-          newAlert = new Alert(
-            data: {},
-            icon: event['icon'],
-            id: int.tryParse(event['notification_id']) ?? Random().nextInt(100),
-            message: message,
-            title: title
-          );
+          if (event['Capital_Id'] != null) {
+            newAlert = new Alert(
+              data: new DataAdvanceCapitalNotification(
+                amount: double.tryParse(event['Amount']),
+                capitalId: int.tryParse(event['Capital_Id']),
+                createdAt: DateTime.tryParse(event['created_at'])
+              ),
+              icon: event['icon'],
+              id: int.tryParse(event['notification_id']) ?? Random().nextInt(100),
+              message: message,
+              title: title
+            );
+          } else {
+            newAlert = new Alert(
+              data: {},
+              icon: event['icon'],
+              id: int.tryParse(event['notification_id']) ?? Random().nextInt(100),
+              message: message,
+              title: title
+            );
+          }
         }
 
-        print(newAlert);
       } else {
         if (event['data']['Capital_Id'] != null) {
 
@@ -125,22 +144,31 @@ class AppState extends State<App> {
           );
 
         } else {
-          newAlert = new Alert(
-            data: {},
-            icon: event['data']['icon'],
-            id: int.tryParse(event['data']['notification_id']) ?? Random().nextInt(100),
-            message: event['notification']['body'] ?? '',
-            title: event['notification']['title'] ?? ''
-          );
+          String message = event['notification']['body'] ?? '';
+
+          if (message == 'deleteuser') {
+            //logout
+            this.logAuth();
+          } else{
+            newAlert = new Alert(
+              data: {},
+              icon: event['data']['icon'],
+              id: int.tryParse(event['data']['notification_id']) ?? Random().nextInt(100),
+              message: message,
+              title: event['notification']['title'] ?? ''
+            );
+          }
         } 
       }
 
-      pNotification.addAlert(newAlert);
+      if (newAlert == null) {
+        pNotification.addAlert(newAlert);
+        setState(() {
+          this.countNotification++;
+          this.updateAppBadger();
+        });
+      }
 
-      setState(() {
-        this.countNotification++;
-        this.updateAppBadger();
-      });
     });
   }
 
@@ -159,6 +187,14 @@ class AppState extends State<App> {
     setState(() {
       this.countNotification = pNotification.count;
       this.updateAppBadger();
+    });
+  }
+
+  void logAuth() async {
+    appService<AuthService>().logout().then((value) {
+      appService<NavigationService>().navigateTo('/index-auth');
+    }).catchError((onError) {
+      print(onError);
     });
   }
 
