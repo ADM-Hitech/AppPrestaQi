@@ -80,11 +80,11 @@ class AdvancePeriodicContent extends StatelessWidget {
                                 onTap: () {
                                   appService<NavigationService>().showDetailsAdvancePeriodic(context, advance);
                                 },
-                                child: Container(child: Center(child: Text('\$${advance.amount}', style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline)))),  
+                                child: Container(child: Center(child: Text('\$${this.state.numberFormat.format(advance.amount)}', style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline)))),  
                               )
                             ),
                             DataCell(
-                              Container(child: Center(child: Text('\$${advance.totalWithhold}')))
+                              Container(child: Center(child: Text('\$${this.state.numberFormat.format(advance.totalWithhold)}')))
                             ),
                             DataCell(
                               Container(child: Center(child: Text('${advance.id.toString().padLeft(4, '0')}')))

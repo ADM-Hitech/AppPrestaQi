@@ -78,6 +78,7 @@ class IframeCartaMandatoState extends State<IframeCartaMandato> {
 
   bool accept = false;
   bool decline = false;
+  bool loading = true;
 
   @override
   void initState() {
@@ -106,73 +107,80 @@ class IframeCartaMandatoState extends State<IframeCartaMandato> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      color: Colors.grey,
+                      color: Colors.white,
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height - 300,
-                      child: WebView(
-                        onPageStarted: (String val) {
-                          print(val);
-                        },
-                        onPageFinished: (String val) {
-                          print(val);
-                        },
-                        onWebResourceError: (WebResourceError err) {
-                          print(err);
-                        },
-                        initialUrl: this.widget.url,
-
+                      child: Opacity(
+                        opacity: this.loading ? .2 : 1,
+                        child: WebView(
+                          initialUrl: this.widget.url,
+                          debuggingEnabled: true,
+                          onPageFinished: (String value) {
+                            setState(() {
+                              this.loading = false;
+                            });
+                          }
+                        ),
                       ),
                     ),
                     SizedBox(
                       height: 25,
                     ),
-                    Container(
-                      child: Row(
-                        children: [
-                          Container(
-                            child: Checkbox(
-                              checkColor: this.accept ? Colors.white : Color.fromRGBO(0, 0, 102, 1),
-                              activeColor: this.accept ? Color.fromRGBO(50, 55, 158, 1) : Colors.white,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  this.accept = value;
-                                  this.decline = !value;
-                                  Navigator.pop(context, true);
-                                });
-                              },
-                              value: this.accept
-                            )
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width - 151,
-                            child: Text('Si Acepto'),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      child: Row(
-                        children: [
-                          Container(
-                            child: Checkbox(
-                              checkColor: this.decline ? Colors.white : Color.fromRGBO(0, 0, 102, 1),
-                              activeColor: this.decline ? Color.fromRGBO(50, 55, 158, 1) : Colors.white,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  this.decline = value;
-                                  this.accept = !value;
-                                  Navigator.pop(context, false);
-                                });
-                              },
-                              value: this.decline
+                    if (this.loading) ...[
+                      Container(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    ] else ...[
+                      Container(
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Checkbox(
+                                checkColor: this.accept ? Colors.white : Color.fromRGBO(0, 0, 102, 1),
+                                activeColor: this.accept ? Color.fromRGBO(50, 55, 158, 1) : Colors.white,
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    this.accept = value;
+                                    this.decline = !value;
+                                    Navigator.pop(context, true);
+                                  });
+                                },
+                                value: this.accept
+                              )
                             ),
-                          ),
-                          Container(
-                            child: Text('No Acepto'),
-                          )
-                        ],
+                            Container(
+                              width: MediaQuery.of(context).size.width - 151,
+                              child: Text('Si Acepto'),
+                            )
+                          ],
+                        ),
                       ),
-                    )
+                      Container(
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Checkbox(
+                                checkColor: this.decline ? Colors.white : Color.fromRGBO(0, 0, 102, 1),
+                                activeColor: this.decline ? Color.fromRGBO(50, 55, 158, 1) : Colors.white,
+                                onChanged: (bool value) {
+                                  setState(() {
+                                    this.decline = value;
+                                    this.accept = !value;
+                                    Navigator.pop(context, false);
+                                  });
+                                },
+                                value: this.decline
+                              ),
+                            ),
+                            Container(
+                              child: Text('No Acepto'),
+                            )
+                          ],
+                        ),
+                      )
+                    ]
                   ],
                 ),
               )

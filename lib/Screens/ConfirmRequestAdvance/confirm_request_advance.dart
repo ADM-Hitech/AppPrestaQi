@@ -160,6 +160,14 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
     return this.infoBank.accountNumber;
   }
 
+  String getAmount() {
+    return NumberFormat.currency(symbol: '').format(this.widget.calculateAdvance.amount);
+  }
+
+  String getAmountDiscount() {
+    return NumberFormat.currency(symbol: '').format(this.totalDiscount);
+  }
+
   @override
   Widget build(BuildContext context) {
     

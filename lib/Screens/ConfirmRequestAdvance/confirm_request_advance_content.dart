@@ -58,7 +58,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                       child: FittedBox(
                         fit: BoxFit.contain,
                         child: Text(
-                          '\$${this.state.widget.calculateAdvance.amount.toStringAsFixed(2)}',
+                          '\$${this.state.getAmount()}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color.fromRGBO(0, 0, 102, 1)
@@ -155,7 +155,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(child: Text('Total a descontar', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                          Container(child: Text('\$${this.state.totalDiscount.toStringAsFixed(2)}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                          Container(child: Text('\$${this.state.getAmountDiscount()}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                         ],
                       ),
                     ),

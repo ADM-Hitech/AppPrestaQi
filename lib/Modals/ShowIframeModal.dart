@@ -107,18 +107,21 @@ class ShowIframeState extends State<ShowIframe> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      color: Colors.grey,
+                      color: Colors.white,
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height - 300,
                       alignment: Alignment.center,
-                      child: WebView(
-                        initialUrl: this.widget.url,
-                        debuggingEnabled: true,
-                        onPageFinished: (String value) {
-                          setState(() {
-                            this.loading = false;
-                          });
-                        }
+                      child: Opacity(
+                        opacity: this.loading ? .2 : 1,
+                        child: WebView(
+                          initialUrl: this.widget.url,
+                          debuggingEnabled: true,
+                          onPageFinished: (String value) {
+                            setState(() {
+                              this.loading = false;
+                            });
+                          }
+                        ),
                       ),
                     ),
                     SizedBox(
