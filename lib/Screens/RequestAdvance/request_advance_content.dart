@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
+import 'package:intl/intl.dart';
 import 'package:prestaQi/Screens/RequestAdvance/request_advance.dart';
 
 import '../../Utils/HexColor.dart';
@@ -212,7 +213,7 @@ class RequestAdvanceContent extends StatelessWidget{
                                 ),
                                 child: FlutterSlider(
                                   min: 0,
-                                  max: 24483.0,
+                                  max: this.state.maxValue,
                                   step: FlutterSliderStep(step: 50),
                                   values: [this.state.valueAdvance],
                                   tooltip: FlutterSliderTooltip(
@@ -274,7 +275,7 @@ class RequestAdvanceContent extends StatelessWidget{
                                       ),
                                     ),
                                     Container(
-                                      child: Text('\$${this.state.maxValue}',
+                                      child: Text('\$${NumberFormat.currency(symbol: '').format(this.state.maxValue)}',
                                       style: TextStyle(
                                           color: Color.fromRGBO(77, 77, 77, 1),
                                           fontFamily: 'Montserrat',
