@@ -20,30 +20,7 @@ class ChangePasswordContent extends StatelessWidget {
       child: ListView(
         children: [
           Container(
-            height: 80,
-            width: 80,
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                margin: EdgeInsets.only(right: 25),
-                width: 45,
-                height: 45,
-                child: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    if (this.state.changePassword == 1) {
-                      appService<NavigationService>().goBack();
-                    } else {
-                      appService<NavigationService>().navigateTo('/auth');
-                    }
-                  },
-                  child: Icon(Icons.close, color: Colors.white, size: 45),
-                ),
-              ),
-            ),
-          ),
-          Container(
-            height: this.state.screen.height - 160,
+            height: this.state.screen.height,
             width: this.state.screen.width,
             child: Form(
               key: this.state.formKey,

@@ -171,6 +171,29 @@ class ChangePasswordState extends State<ChangePassword> {
     return Scaffold(
       backgroundColor: HexColor.fromHex('#000066'),
       key: this.scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        leading: Container(),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(right: 25),
+            width: 45,
+            height: 45,
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: () {
+                if (this.changePassword == 1) {
+                  appService<NavigationService>().goBack();
+                } else {
+                  appService<NavigationService>().navigateTo('/auth');
+                }
+              },
+              child: Icon(Icons.close, color: Colors.white, size: 45),
+            ),
+          )
+        ],
+      ),
       body: ChangePasswordContent(state: this),
       extendBodyBehindAppBar: true,
     );
