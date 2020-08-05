@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_xlider/flutter_xlider.dart';
 import 'package:prestaQi/Screens/RequestAdvance/request_advance.dart';
 
 import '../../Utils/HexColor.dart';
@@ -209,13 +210,50 @@ class RequestAdvanceContent extends StatelessWidget{
                                   inactiveTrackColor: Color.fromRGBO(202, 206, 230, 1),
                                   thumbColor: Color.fromRGBO(51, 51, 254, 1)
                                 ),
-                                child: Slider(
-                                  value: this.state.valueAdvance,
-                                  min: 0.0,
-                                  max: this.state.maxValue,
-                                  activeColor: Color.fromRGBO(51, 51, 254, 1),
-                                  inactiveColor: Color.fromRGBO(202, 206, 230, 1),
-                                  onChanged: this.state.updateValueAdvance
+                                child: FlutterSlider(
+                                  min: 0,
+                                  max: 24483.0,
+                                  step: FlutterSliderStep(step: 50),
+                                  values: [this.state.valueAdvance],
+                                  tooltip: FlutterSliderTooltip(
+                                    disabled: true,
+                                  ),
+                                  onDragging: (int i, dynamic value, dynamic c) => {
+                                    this.state.updateValueAdvance(value as double)
+                                  },
+                                  trackBar: FlutterSliderTrackBar(
+                                    activeTrackBarHeight: 10,
+                                    inactiveTrackBarHeight: 10,
+                                    activeTrackBar: BoxDecoration(
+                                      color: HexColor.fromHex('#3333ff'),
+                                      borderRadius: BorderRadius.circular(5)
+                                    ),
+                                    inactiveTrackBar: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5)
+                                    )
+                                  ),
+                                  handlerHeight: 30,
+                                  handlerWidth: 30,
+                                  handler: FlutterSliderHandler(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: HexColor.fromHex('#3333ff'),
+                                        borderRadius: BorderRadius.circular(15)
+                                      ),
+                                      width: 30,
+                                      height: 30,
+                                      child: Center(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: HexColor.fromHex('#2865ff'),
+                                            borderRadius: BorderRadius.circular(7)
+                                          ),
+                                          width: 14,
+                                          height: 14,
+                                        ),
+                                      ),
+                                    )
+                                  ),
                                 ),
                               ),
                             ),
