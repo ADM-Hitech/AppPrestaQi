@@ -159,18 +159,6 @@ class UploadReceiptState extends State<UploadReceipt> {
     }
 
     return [width, height];
-
-    /*if (width > height) {
-      var radio = height / width;
-      int newWidth = (width - min) * (porcent / 100).floor();
-      int newHigth = (((height - min) * radio) * (porcent / 100)).floor();
-      return [newWidth, newHigth];
-    } else {
-      var radio = width / height;
-      int newWidth = ((width - min * radio) * (porcent / 100)).floor();
-      int newHigth = ((height - min) * (porcent / 100)).floor();
-      return [newWidth, newHigth];
-    }*/
   }
 
   void submit() {
@@ -180,15 +168,6 @@ class UploadReceiptState extends State<UploadReceipt> {
       this.error = '';
       this.border = Colors.grey;
     });
-
-    if (this.changeStatus.fileByte == null) {
-      setState(() {
-        this.loading = false;
-        this.border = Colors.red;
-      });
-
-      return;
-    }
 
     appService<InvestmentsService>().changeStatusCapital(this.changeStatus).then((value) {
       if (value) {

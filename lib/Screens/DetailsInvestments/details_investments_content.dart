@@ -45,21 +45,10 @@ class DetailsInvestmentsContent extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 15, left: 25, right: 25),
                 child: Text(
-                  'Contrato de mutuo con interés número:',
+                  'Contrato de mutuo acuerdo con interés',
                   style: TextStyle(
                     color: Color.fromRGBO(77, 77, 77, 1),
                     fontSize: 16
-                  )
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 25, right: 25),
-                child: Text(
-                  'XXX333ABC123',
-                  style: TextStyle(
-                    color: Color.fromRGBO(77, 77, 77, 1),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 23
                   )
                 ),
               ),
@@ -86,7 +75,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
                     ),
                     Container(
                       child: Text(
-                        '15%',
+                        '${this.state.widget.investment.interestRate}%',
                         style: TextStyle(
                           color: Color.fromRGBO(77, 77, 77, 1),
                           fontSize: 19,
@@ -102,7 +91,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
               ),
               Container(
                 width: this.state.screen.width,
-                height: (55 * (this.state.widget.childs.length + 1)).toDouble(),
+                height: (55 * (this.state.widget.investment.details.length + 1)).toDouble(),
                 margin: EdgeInsets.symmetric(horizontal: 25),
                 child: ListView(
                   scrollDirection: Axis.horizontal,
@@ -240,7 +229,7 @@ class DetailsInvestmentsContent extends StatelessWidget {
                           ),
                         ),
                         Column(
-                          children: this.state.widget.childs.map((detail) => 
+                          children: this.state.widget.investment.details.map((detail) => 
                             Container(
                               padding: EdgeInsets.symmetric(vertical: 15),
                               decoration: BoxDecoration(

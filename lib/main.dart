@@ -10,6 +10,7 @@ import 'package:prestaQi/Models/UserToken.dart';
 import 'package:prestaQi/Services/AuthService.dart';
 import 'package:prestaQi/Services/DialogService.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
+import 'package:prestaQi/Services/NotificationService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Services/UserService.dart';
 import 'package:prestaQi/Widgets/DialogManager.dart';
@@ -70,6 +71,8 @@ class AppState extends State<App> with WidgetsBindingObserver {
           this.logAuth()
         }
       }).catchError((onError) => {});
+
+      this.getNotifications();
     }
   }
 
@@ -161,7 +164,7 @@ class AppState extends State<App> with WidgetsBindingObserver {
         } 
       }
 
-      if (newAlert == null) {
+      if (newAlert != null) {
         pNotification.addAlert(newAlert);
         setState(() {
           this.countNotification++;
@@ -196,6 +199,18 @@ class AppState extends State<App> with WidgetsBindingObserver {
     }).catchError((onError) {
       print(onError);
     });
+  }
+
+  void getNotifications() async {
+    final pNotification = Provider.of<NotificationProvider>(context, listen: false);
+
+    appService<NotificationService>().getNotification().then((value) {
+      pNotification.addAlerts(value);
+      setState(() {
+        this.countNotification = this.countNotification + value.length;
+        this.updateAppBadger();
+      });
+    }).catchError((onError) {});
   }
 
   @override

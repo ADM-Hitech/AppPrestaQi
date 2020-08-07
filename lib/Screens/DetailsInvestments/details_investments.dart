@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
-import 'package:prestaQi/Models/DetailsInvestmentModel.dart';
+import 'package:prestaQi/Models/InvestmentModel.dart';
 import 'package:prestaQi/Screens/DetailsInvestments/details_investments_content.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
 
 class DetailsInvestments extends StatefulWidget {
 
-  final List<DetailsInvestmentModel> childs;
+  final InvestmentModel investment;
 
-  DetailsInvestments({this.childs});
+  DetailsInvestments({this.investment});
 
   @override
   DetailsInvestmentsState createState() => DetailsInvestmentsState();

@@ -12,6 +12,7 @@ class MyProfileModel {
   int interestRate;
   String seniorityCompany;
   DateTime birthDate;
+  DateTime startDatePrestaQi;
   int age;
   int genderId;
   int institutionId;
@@ -67,7 +68,8 @@ class MyProfileModel {
     this.id,
     this.createdAt,
     this.updatedAt,
-    this.isBlocked
+    this.isBlocked,
+    this.startDatePrestaQi
   });
 
   factory MyProfileModel.fromJson(Map<String, dynamic> object) {
@@ -103,7 +105,8 @@ class MyProfileModel {
       id: object['id'] as int ?? 0,
       createdAt: DateTime.tryParse(object['created_at'] ?? '0000-00-00'),
       updatedAt: DateTime.tryParse(object['created_at'] ?? '0000-00-00'),
-      isBlocked: object['is_Blocked'] as bool ?? false
+      isBlocked: object['is_Blocked'] as bool ?? false,
+      startDatePrestaQi: DateTime.tryParse(object['start_Date_Prestaqi'] ?? '0000-00-00')
     );
   }
 

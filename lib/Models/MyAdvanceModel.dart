@@ -11,6 +11,8 @@ class MyAdvanceModel {
   int id;
   DateTime createdAt;
   DateTime updatedAt;
+  int interestRate;
+  double interest;
 
   MyAdvanceModel({
     this.accreditedId,
@@ -24,7 +26,9 @@ class MyAdvanceModel {
     this.maximumAmount,
     this.id,
     this.createdAt,
-    this.updatedAt
+    this.updatedAt,
+    this.interestRate,
+    this.interest = 0
   });
 
   factory MyAdvanceModel.fromJson(Map<String, dynamic> object) {
@@ -40,7 +44,9 @@ class MyAdvanceModel {
       maximumAmount: object['maximum_Amount'] as double,
       id: object['id'] as int,
       createdAt: DateTime.tryParse(object['created_at'] ?? '0000-00-00'),
-      updatedAt: DateTime.tryParse(object['updated_at'] ?? '0000-00-00')
+      updatedAt: DateTime.tryParse(object['updated_at'] ?? '0000-00-00'),
+      interestRate: object['interest_Rate'] as int,
+      interest: object['interest'] as double
     );
   }
 }

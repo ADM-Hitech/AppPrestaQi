@@ -215,7 +215,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       child: FittedBox(
                                         fit: BoxFit.contain,
                                         child: Text(
-                                          '\$${this.widget.myAdvanceModel.amount.toStringAsFixed(2)}',
+                                          NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.myAdvanceModel.amount),
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Color.fromRGBO(0, 0, 102, 1)
@@ -316,7 +316,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(child: Text('Tasa de interés', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text('15%', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        Container(child: Text('${this.widget.myAdvanceModel.interestRate}%', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
                                   ),
@@ -334,7 +334,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(child: Text('Interés', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text('\$15.00', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        Container(child: Text(NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.myAdvanceModel.interest), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
                                   ),
@@ -352,7 +352,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(child: Text('Comisión', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text('\$${this.widget.myAdvanceModel.comission.toStringAsFixed(2)}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        Container(child: Text(NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.myAdvanceModel.comission), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
                                   ),
@@ -370,7 +370,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(child: Text('Total a Pagar', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text('\$${this.widget.myAdvanceModel.totalWithhold.toStringAsFixed(2)}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        Container(child: Text(NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.myAdvanceModel.totalWithhold), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
                                   ),

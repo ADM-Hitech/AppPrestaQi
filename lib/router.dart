@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prestaQi/Models/CalculateAdvance.dart';
 import 'package:prestaQi/Models/DetailsInvestmentModel.dart';
+import 'package:prestaQi/Models/InvestmentModel.dart';
 import 'package:prestaQi/Models/MyAdvanceModel.dart';
 import 'package:prestaQi/Models/UserToken.dart';
 import 'package:prestaQi/Screens/AdvancePeriodic/advance_periodic.dart';
@@ -82,9 +83,9 @@ Route<dynamic> generateRoute(RouteSettings settings, UserToken userToken) {
       return MaterialPageRoute<void>(builder: (context) => MyInvestments(), settings: settings);
     break;
     case '/details-investments':
-      var childs = settings.arguments is List<DetailsInvestmentModel> ? settings.arguments : new List<DetailsInvestmentModel>();
+      var investment = settings.arguments is InvestmentModel ? settings.arguments : new InvestmentModel();
 
-      return MaterialPageRoute<void>(builder: (ontext) => DetailsInvestments(childs: childs), settings: settings);
+      return MaterialPageRoute<void>(builder: (ontext) => DetailsInvestments(investment: investment), settings: settings);
     break;
     default:
       return MaterialPageRoute<void>(builder: (context) => Container(child: Text(settings.name)), settings: settings);

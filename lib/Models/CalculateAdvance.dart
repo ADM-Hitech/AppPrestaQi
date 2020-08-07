@@ -1,3 +1,5 @@
+import 'package:prestaQi/Models/MyProfile.dart';
+
 class CalculateAdvance {
   int accreditedId;
   double amount;
@@ -20,6 +22,7 @@ class CalculateAdvance {
   DateTime createdAt;
   DateTime updatedAt;
   String urlCartaMandato;
+  MyProfileModel user;
 
   CalculateAdvance({
     this.accreditedId,
@@ -42,7 +45,8 @@ class CalculateAdvance {
     this.maximunAmount,
     this.createdAt,
     this.updatedAt,
-    this.urlCartaMandato
+    this.urlCartaMandato,
+    this.user
   });
 
   factory CalculateAdvance.fromJson(Map<String, dynamic> object) {

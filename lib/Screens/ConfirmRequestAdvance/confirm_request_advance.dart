@@ -61,6 +61,7 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
     appService<RequestAdvanceService>().calculateAdvanceWithAmount(this.widget.calculateAdvance.amount).then((value) {
       setState(() {
         this.calculateAdvance = value;
+        this.calculateAdvance.user = this.user;
         this.totalDiscount = value.totalWithhold;
 
         if (periodName == 'Mensual') {

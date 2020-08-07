@@ -266,7 +266,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   width: this.state.screen.width * .8,
                                   child: GestureDetector(
                                     onTap: () {
-                                      appService<NavigationService>().navigateTo('/details-investments', arguments: investmen.details);
+                                      appService<NavigationService>().navigateTo('/details-investments', arguments: investmen);
                                     },
                                     child: Container(
                                       padding: EdgeInsets.symmetric(vertical: 25),
