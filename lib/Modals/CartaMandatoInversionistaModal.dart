@@ -82,6 +82,7 @@ class CartaMandatoState extends State<CartaMandato> {
   DateFormat dateFormat = new DateFormat('dd/MM/yyyy');
   MyProfileModel user;
   bool loading = true;
+  NumberFormat numberFormat = new NumberFormat.currency(symbol: '', decimalDigits: 0);
 
   @override
   void initState() {
@@ -180,7 +181,7 @@ class CartaMandatoState extends State<CartaMandato> {
                                   text: 'POR MEDIO DE LA PRESENTE, AL AMPARO DEL CONTRATO DE MUTUO CON INTERÉS NÚMERO ${this.widget.info.capitalId.toString().padLeft(4, '0')} QUE CELEBRÓ CON MI REPRESENTADA EN FECHA',
                                   children: [
                                     TextSpan(text: ' ${this.dateFormat.format(this.user.startDatePrestaQi)}, LE SOLICITO PONGA A DISPOSICIÓN DE MI PRESENTADA LA CANTIDAD DE'),
-                                    TextSpan(text: ' \$${this.getAmount()} (${this.getDecimalAmount().padLeft(2, '0')}/100 M.N),'),
+                                    TextSpan(text: ' \$${this.numberFormat.format(this.getAmount())} (${this.getDecimalAmount().padLeft(2, '0')}/100 M.N),'),
                                     TextSpan(text: ' LA CUAL DEBERÁ EFECTUAR MEDIANTE DEPOSITO BANCARIO O TRANSFERENCIA ELECTRÓNICA DE FONDOS, A LA CUENTA BANCARIA NUMERO [*], DE LA INSTITUCIÓN BANCARIA DENOMINADA [*],'),
                                     TextSpan(text: ' CON CLABE INTERBANCARIA [*] A NOMBRE DE'),
                                     TextSpan(text: ' PRESTAQI, S.A.P.I DE C.V.,'),
