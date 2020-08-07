@@ -147,7 +147,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(child: Text('Principal', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                    Container(child: Text('\$${investmen.amount}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                    Container(child: Text('\$${this.state.numberFormat.format(investmen.amount)}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
@@ -183,7 +183,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(child: Text('Pago de interés anual', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                    Container(child: Text('\$${investmen.annualInterestPayment}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                    Container(child: Text('\$${this.state.numberFormat.format(investmen.annualInterestPayment)}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
@@ -208,7 +208,7 @@ class MyInvestmentsContent extends StatelessWidget {
                                         )
                                       )
                                     ),
-                                    Container(child: Text('\$${investmen.total}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                    Container(child: Text('\$${this.state.numberFormat.format(investmen.total)}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
