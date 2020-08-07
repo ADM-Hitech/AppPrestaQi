@@ -30,6 +30,12 @@ class NotificationProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void clearAlert() {
+    this._alerts = new List<Alert>();
+
+    notifyListeners();
+  }
+
   List<Alert> get listAlerts => this._alerts;
 
   get count => this._alerts.length;

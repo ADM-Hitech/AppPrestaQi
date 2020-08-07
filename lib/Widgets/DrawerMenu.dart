@@ -4,6 +4,8 @@ import 'package:prestaQi/Models/UserToken.dart';
 import 'package:prestaQi/Services/AuthService.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/SetupService.dart';
+import 'package:prestaQi/providers/NotificationProvider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Utils/HexColor.dart';
@@ -49,6 +51,11 @@ class DrawerMenuState extends State<DrawerMenu> {
 
   void logAuth() async {
     var response = await appService<NavigationService>().showConfirmLogout(context) ?? false;
+    var pNotification = Provider.of<NotificationProvider>(context, listen: false);
+
+    setState(() {
+      pNotification.clearAlert();
+    });
 
     if (response) {
       appService<AuthService>().logout().then((value) {
