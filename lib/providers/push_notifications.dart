@@ -18,7 +18,14 @@ class PushNotificationProvider {
 
   void initNotifications() {
 
-    _firebaseMessaging.requestNotificationPermissions();
+    _firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(sound: true, badge: true, alert: true)
+    );
+
+    _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings event) {
+      print('Settgins register $event');
+    });
+    
     _firebaseMessaging.getToken().then((tokenDevices) async {
       final SharedPreferences pref = await this.sPrefs;
       pref.setString('token_device', tokenDevices);

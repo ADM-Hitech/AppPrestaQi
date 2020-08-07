@@ -48,7 +48,7 @@ class DrawerMenuState extends State<DrawerMenu> {
   }
 
   void logAuth() async {
-    var response = await appService<NavigationService>().showConfirmLogout(context);
+    var response = await appService<NavigationService>().showConfirmLogout(context) ?? false;
 
     if (response) {
       appService<AuthService>().logout().then((value) {

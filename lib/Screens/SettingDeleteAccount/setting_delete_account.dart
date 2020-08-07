@@ -43,7 +43,7 @@ class SettingDeleteAccountState extends State<SettingDeleteAccount> {
   }
 
   void deleteMyAccount() async {
-    bool accept = await appService<NavigationService>().showConfirmDeleteAccount(context) as bool;
+    bool accept = await appService<NavigationService>().showConfirmDeleteAccount(context) as bool ?? false;
     if (accept) {
       setState(() {
         this.loading = true;

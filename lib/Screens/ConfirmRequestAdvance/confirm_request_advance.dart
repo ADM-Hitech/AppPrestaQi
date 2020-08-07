@@ -127,7 +127,7 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
 
     this.infoBank.amount = this.widget.calculateAdvance.amount;
     var url = this.widget.calculateAdvance.urlCartaMandato+'&amount=${this.calculateAdvance.amount}&days=${this.calculateAdvance.dayForPayment}&commision=${this.calculateAdvance.comission}&totalAmount=${this.calculateAdvance.totalWithhold}';
-    var result = await appService<NavigationService>().showIframeCartaMandato(context, url, this.calculateAdvance);
+    var result = await appService<NavigationService>().showIframeCartaMandato(context, url, this.calculateAdvance) ?? false;
     if (result as bool) {
 
       setState(() {

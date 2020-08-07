@@ -36,10 +36,10 @@ class NotificationState extends State<Notification> {
 
   void openNotification(Alert alert) async {
     if (alert.data is DataAdvanceCapitalNotification) {
-      bool aceptContract = await appService<NavigationService>().showCartaMandatoInversionista(context, alert.data);
+      bool aceptContract = await appService<NavigationService>().showCartaMandatoInversionista(context, alert.data) ?? false;
 
       if (aceptContract) {
-        bool uploaded = await appService<NavigationService>().showUploadFile(context, alert.data);
+        bool uploaded = await appService<NavigationService>().showUploadFile(context, alert.data) ?? false;
         if (uploaded) {
           appService<NotificationService>().disabledNotification(alert.id).then((value) {
             Provider.of<NotificationProvider>(context, listen: false).deleteAlert(alert);
