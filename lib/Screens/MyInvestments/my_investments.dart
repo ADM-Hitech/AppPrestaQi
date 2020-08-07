@@ -23,6 +23,7 @@ class MyInvestmentsState extends State<MyInvestments> with SingleTickerProviderS
   List<InvestmentModel> investments = new List<InvestmentModel>();
   bool loading = true;
   DateFormat formatDate = new DateFormat('dd/MM/yyyy');
+  NumberFormat numberFormat = new NumberFormat.currency(symbol: '', decimalDigits: 2);
 
   @override
   void initState() {

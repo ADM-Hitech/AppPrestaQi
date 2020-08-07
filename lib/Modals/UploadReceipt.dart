@@ -232,6 +232,17 @@ class UploadReceiptState extends State<UploadReceipt> {
                               )
                             ),
                           ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text('(OPCIONAL)',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color.fromRGBO(0, 0, 102, 1),
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold
+                              )
+                            ),
+                          ),
                           SizedBox(
                             height: 25,
                           ),

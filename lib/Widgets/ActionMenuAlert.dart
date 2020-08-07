@@ -67,8 +67,8 @@ class ActionMenuAlertState extends State<ActionMenuAlert> with SingleTickerProvi
                 top: 17,
                 right: 8,
                 child: Container(
-                  width: 9 + offsetAnimation.value,
-                  height: 9 + offsetAnimation.value,
+                  width: 9,
+                  height: 9,
                   decoration: BoxDecoration(
                     color: Colors.redAccent,
                     borderRadius: BorderRadius.circular(4.5)
