@@ -21,7 +21,7 @@ class InvestmentsService {
     final SharedPreferences pref = await this.sPref;
     List<InvestmentModel> investments = new List<InvestmentModel>();
 
-    final response = await http.post('${this.apiUrl}Capitals/GetMyInvestments', body: '{}', headers: this.headers(pref));
+    final response = await http.post(new Uri.https(this.apiUrl, '/api/Capitals/GetMyInvestments'), body: '{}', headers: this.headers(pref));
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
       if (responseObject['success'] as bool) {
@@ -36,7 +36,7 @@ class InvestmentsService {
 
   Future<bool> changeStatusCapital(ChangeStatusCallCapital newStatus) async {
     final SharedPreferences pref = await this.sPref;
-    final response = await http.post('${this.apiUrl}Capitals/ChangeStatus', body: newStatus.toJson(), headers: this.headers(pref));
+    final response = await http.post(new Uri.https(this.apiUrl, '/api/Capitals/ChangeStatus'), body: newStatus.toJson(), headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
