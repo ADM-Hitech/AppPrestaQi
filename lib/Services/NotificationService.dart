@@ -20,7 +20,7 @@ class NotificationService {
   Future<bool> disabledNotification(int id) async {
     final SharedPreferences pref = await this.sPref;
 
-    final response = await http.put('${this.apiUrl}Notifications/DisableNotification', body: '{"NotificationIds": [$id]}', headers: this.headers(pref));
+    final response = await http.put(new Uri.https(this.apiUrl, '/api/Notifications/DisableNotification'), body: '{"NotificationIds": [$id]}', headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       return true;
@@ -32,7 +32,7 @@ class NotificationService {
   Future<bool> disabledNotifications(List<int> ids) async {
     final SharedPreferences pref = await this.sPref;
 
-    final response = await http.put('${this.apiUrl}Notifications/DisableNotification', body: '{"NotificationIds": $ids}', headers: this.headers(pref));
+    final response = await http.put(new Uri.https(this.apiUrl, '/api/Notifications/DisableNotification'), body: '{"NotificationIds": $ids}', headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       return true;
@@ -45,7 +45,7 @@ class NotificationService {
     final SharedPreferences pref = await this.sPref;
     List<Alert> alerts = new List<Alert>();
 
-    final response = await http.get('${this.apiUrl}Notifications', headers: this.headers(pref));
+    final response = await http.get(new Uri.https(this.apiUrl, '/api/Notifications'), headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var objectResponse = json.decode(response.body);

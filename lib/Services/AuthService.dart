@@ -55,13 +55,13 @@ class AuthService {
     String token = pref.getString('token');
     var jwtObject = parseJwt(token);
     UserToken userToken = UserToken.fromJson(jwtObject);
-    userToken.urlGeneralNotice = '${this.apiUrl}Users/GetContract?token=${pref.getString('token')}';
+    userToken.urlGeneralNotice = 'https://${this.apiUrl}/api/Users/GetContract?token=${pref.getString('token')}';
     
-    userToken.urlContratoMutuoAccredited = '${this.apiUrl}Users/GetContratoMutuo?token=${pref.getString('token')}';
-    userToken.urlCartaAvisoGeneral = '${this.apiUrl}Users/GetCartaAvisoGeneral?token=${pref.getString('token')}';
-    userToken.urlTransferDataPersonal = '${this.apiUrl}Users/GetTransferenciaDatosPersonales?token=${pref.getString('token')}';
-    userToken.urlAvisoPrivacidad = '${this.apiUrl}Users/GetAvisoPrivacidad?token=${pref.getString('token')}';
-    userToken.urlTerminosCondiciones = '${this.apiUrl}Users/GetTerminosCondiciones?token=${pref.getString('token')}';
+    userToken.urlContratoMutuoAccredited = 'https://${this.apiUrl}/api/Users/GetContratoMutuo?token=${pref.getString('token')}';
+    userToken.urlCartaAvisoGeneral = 'https://${this.apiUrl}/api/Users/GetCartaAvisoGeneral?token=${pref.getString('token')}';
+    userToken.urlTransferDataPersonal = 'https://${this.apiUrl}/api/Users/GetTransferenciaDatosPersonales?token=${pref.getString('token')}';
+    userToken.urlAvisoPrivacidad = 'https://${this.apiUrl}/api/Users/GetAvisoPrivacidad?token=${pref.getString('token')}';
+    userToken.urlTerminosCondiciones = 'https://${this.apiUrl}/api/Users/GetTerminosCondiciones?token=${pref.getString('token')}';
     userToken.uriApi = this.apiUrl;
     userToken.token = pref.getString('token');
 
@@ -74,7 +74,7 @@ class AuthService {
     AuthResponse authResponse = new AuthResponse();
     LoginModel login = new LoginModel(mail: email, password: password);
 
-    final response = await http.post('${this.apiUrl}Login', 
+    final response = await http.post(new Uri.https(this.apiUrl, '/api/Login'), 
       body: login.toJson(),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
@@ -130,7 +130,7 @@ class AuthService {
     
     LoginModel login = new LoginModel(mail: email);
 
-    final response = await http.put('${this.apiUrl}Administrative/RecoveryPassword', 
+    final response = await http.put(new Uri.https(this.apiUrl, '/api/Administrative/RecoveryPassword'), 
       body: login.toJsonRecoveryPassword(),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
@@ -156,7 +156,7 @@ class AuthService {
     AuthResponse authResponse = new AuthResponse();
     authResponse.success = true;
 
-    final response = await http.put('${this.apiUrl}Administrative/ChangePassword', body: '{"password": "$password"}', headers: this.headers(pref));
+    final response = await http.put(new Uri.https(this.apiUrl, '/api/Administrative/ChangePassword'), body: '{"password": "$password"}', headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
@@ -179,7 +179,7 @@ class AuthService {
     final SharedPreferences pref = await this.sPrefs;
 
     this.me().then((value) async {
-      final response = await http.post('${this.apiUrl}Devices', body: '{"device_id": "${pref.getString('token_device')}", "user_id": ${value.userId}, "user_type": ${value.type}}', headers: this.headers(pref));
+      final response = await http.post(new Uri.https(this.apiUrl, '/api/Devices'), body: '{"device_id": "${pref.getString('token_device')}", "user_id": ${value.userId}, "user_type": ${value.type}}', headers: this.headers(pref));
       if (response.statusCode == 200) {
         print(response);
       }

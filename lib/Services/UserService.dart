@@ -28,7 +28,7 @@ class UserService {
       accountNumber: ''
     );
 
-    final response = await http.get('${this.apiUrl}Users/GetUser', headers: this.headers(pref));
+    final response = await http.get(new Uri.https(this.apiUrl, '/api/Users/GetUser'), headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
@@ -51,7 +51,7 @@ class UserService {
 
     SharedPreferences pref = await this.sPrefs;
     MyProfileModel user = new MyProfileModel();
-    final response = await http.get('${this.apiUrl}Users/GetUser', headers: this.headers(pref));
+    final response = await http.get(new Uri.https(this.apiUrl, '/api/Users/GetUser'), headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
@@ -60,7 +60,7 @@ class UserService {
         user = new MyProfileModel.fromJson(responseObject['data']['user']);
         user.type = responseObject['data']['type'];
         user.typeName = responseObject['data']['typeName'];
-        user.urlCartaMandato = '${this.apiUrl}Users/GetCartaMandato?token=${pref.getString('token')}';
+        user.urlCartaMandato = 'https://${this.apiUrl}/api/Users/GetCartaMandato?token=${pref.getString('token')}';
       }
     }
 
@@ -70,7 +70,7 @@ class UserService {
   Future<bool> deleteMyAccount(int userId, int type) async {
 
     SharedPreferences pref = await this.sPrefs;
-    final response = await http.put('${this.apiUrl}Administrative/DeleteAccount', body: "{'UserId': $userId, 'Type': $type}", headers: this.headers(pref));
+    final response = await http.put(new Uri.https(this.apiUrl, '/api/Administrative/DeleteAccount'), body: "{'UserId': $userId, 'Type': $type}", headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);

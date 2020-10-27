@@ -20,7 +20,7 @@ class RequestAdvanceService {
   Future<bool> requestAdvance(double amount) async {
     final SharedPreferences pref = await this.sPrefs;
 
-    final response = await http.post('${this.apiUrl}Advances', body: "{'amount': $amount}", headers: this.headers(pref));
+    final response = await http.post(new Uri.https(this.apiUrl, '/api/Advances'), body: "{'amount': $amount}", headers: this.headers(pref));
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
       if (responseObject['success'] as bool) {
@@ -34,7 +34,7 @@ class RequestAdvanceService {
   Future<double> calculateAdvance() async {
     final SharedPreferences pref = await this.sPrefs;
 
-    final response = await http.post('${this.apiUrl}Advances/CalculateAdvance', body: '{}', headers: this.headers(pref));
+    final response = await http.post(new Uri.https(this.apiUrl, '/api/Advances/CalculateAdvance'), body: '{}', headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
@@ -53,7 +53,7 @@ class RequestAdvanceService {
   Future<CalculateAdvance> calculateAdvanceWithAmount(double amount) async {
     final SharedPreferences pref = await this.sPrefs;
 
-    final response = await http.post('${this.apiUrl}Advances/CalculateAdvance', body: "{'amount': $amount}", headers: this.headers(pref));
+    final response = await http.post(new Uri.https(this.apiUrl, '/api/Advances/CalculateAdvance'), body: "{'amount': $amount}", headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
@@ -72,7 +72,7 @@ class RequestAdvanceService {
   Future<List<MyAdvanceModel>> getMyAdvances(int userId) async {
     final SharedPreferences pref = await this.sPrefs;
     List<MyAdvanceModel> result = new List<MyAdvanceModel>();
-    final response = await http.get('${this.apiUrl}Advances/GetByAccredited/$userId', headers: this.headers(pref));
+    final response = await http.get(new Uri.https(this.apiUrl, '/api/Advances/GetByAccredited/$userId'), headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
