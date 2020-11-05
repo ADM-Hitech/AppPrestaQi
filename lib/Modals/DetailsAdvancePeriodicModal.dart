@@ -458,9 +458,9 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                             ),
                                             padding: EdgeInsets.symmetric(vertical: 10),
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                Container(child: Text(formatDate.format(detail.datePayment), style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18)))
+                                                Container(child: Text(formatDate.format(detail.datePayment), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                               ],
                                             ),
                                           )
