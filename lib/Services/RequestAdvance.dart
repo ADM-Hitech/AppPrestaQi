@@ -2,9 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:prestaQi/Models/CalculateAdvance.dart';
-import 'package:prestaQi/Models/DetailsAdvance.dart';
-import 'package:prestaQi/Models/MyAdvanceModel.dart';
 import 'package:prestaQi/Models/PreAdvance.dart';
 import 'package:prestaQi/Models/RegisterAdvances.dart';
 import 'package:prestaQi/Services/SetupService.dart';

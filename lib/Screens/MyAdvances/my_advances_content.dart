@@ -83,7 +83,7 @@ class MyAdvancesContent extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            if (this.state.forPayment.id > 0) {
+                            if (this.state.forPayment.id != null) {
                               appService<NavigationService>().showDetailForPayment(context, this.state.forPayment);
                             } else {
                               appService<NavigationService>().navigateTo('/advance-periodic', arguments: this.state.myAdvancesActive);
@@ -95,7 +95,7 @@ class MyAdvancesContent extends StatelessWidget {
                             sizeText: this.state.getFontSize(),
                           ),
                         ),
-                        if (this.state.forPayment.id > 0) ...[
+                        if (this.state.forPayment.id != null) ...[
                           SizedBox(
                             height: 25,
                           ),

@@ -65,7 +65,7 @@ class UserService {
         user = new MyProfileModel.fromJson(responseObject['data']['user']);
         user.type = responseObject['data']['type'];
         user.typeName = responseObject['data']['typeName'];
-        user.urlCartaMandato = 'https://${this.apiUrl}/api/Users/GetCartaMandato?token=${pref.getString('token')}';
+        user.urlCartaMandato = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetCartaMandato?token=${pref.getString('token')}';
       }
     }
 
