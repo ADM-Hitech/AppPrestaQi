@@ -90,7 +90,9 @@ class MyAdvancesContent extends StatelessWidget {
                             }
                           },
                           child: MyAdvanceAfter(
-                            date: new DateTime(this.state.date.year, this.state.date.month, this.state.nextDayForPay),
+                            date: this.state.nextDateForPay == null 
+                              ? new DateTime(this.state.date.year, this.state.date.month, this.state.nextDayForPay)
+                              : this.state.nextDateForPay,
                             total: this.state.totalDiscount,
                             sizeText: this.state.getFontSize(),
                           ),

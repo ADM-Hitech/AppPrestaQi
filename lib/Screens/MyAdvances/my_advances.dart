@@ -30,6 +30,7 @@ class MyAdvancesState extends State<MyAdvances> {
   double totalDiscount = 0;
   DateTime date = DateTime.now();
   int nextDayForPay = 15;
+  DateTime nextDateForPay;
   DateUtil dateUtil = new DateUtil();
   bool loading = true;
   List<String> months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -52,8 +53,12 @@ class MyAdvancesState extends State<MyAdvances> {
         this.forPayment = details.forPayment;
         if (this.forPayment.id != null) {
           this.totalDiscount = this.forPayment.totalPayment;
+          this.nextDateForPay = this.forPayment.datePayment;
         } else {
           this.totalDiscount = this.myAdvancesActive.fold(0, (double value, element) => value + (element.paidStatus == 0 ? element.totalWithhold : 0));
+          if (this.myAdvancesActive.length > 0) {
+            this.nextDateForPay = this.myAdvancesActive[0].limitDate;
+          }
         }
 
         this.loading = false;
