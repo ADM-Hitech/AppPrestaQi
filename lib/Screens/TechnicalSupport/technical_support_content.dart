@@ -143,7 +143,7 @@ class TechnicalSupportContent extends StatelessWidget {
                                         ),
                                       ),
                                       Container(
-                                        child: Text('55 22-33 44-55',
+                                        child: Text('55 2890 1258',
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: this.state.getFontSizeData(),

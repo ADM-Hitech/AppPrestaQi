@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:prestaQi/Models/AuthResponse.dart';
 import 'package:prestaQi/Models/Login.dart';
 import 'package:prestaQi/Models/UserToken.dart';
@@ -74,7 +75,9 @@ class AuthService {
     AuthResponse authResponse = new AuthResponse();
     LoginModel login = new LoginModel(mail: email, password: password);
 
-    final response = await http.post(new Uri.https(this.apiUrl, '/api/Login'), 
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Login') : new Uri.http(this.apiUrl, '/api/Login');
+
+    final response = await http.post(url, 
       body: login.toJson(),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
@@ -130,7 +133,9 @@ class AuthService {
     
     LoginModel login = new LoginModel(mail: email);
 
-    final response = await http.put(new Uri.https(this.apiUrl, '/api/Administrative/RecoveryPassword'), 
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Administrative/RecoveryPassword') : new Uri.http(this.apiUrl, '/api/Administrative/RecoveryPassword');
+
+    final response = await http.put(url, 
       body: login.toJsonRecoveryPassword(),
       headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
@@ -156,7 +161,9 @@ class AuthService {
     AuthResponse authResponse = new AuthResponse();
     authResponse.success = true;
 
-    final response = await http.put(new Uri.https(this.apiUrl, '/api/Administrative/ChangePassword'), body: '{"password": "$password"}', headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Administrative/ChangePassword') : new Uri.http(this.apiUrl, '/api/Administrative/ChangePassword');
+
+    final response = await http.put(url, body: '{"password": "$password"}', headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
@@ -178,8 +185,10 @@ class AuthService {
   Future<void> addDeviceToUser() async {
     final SharedPreferences pref = await this.sPrefs;
 
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Devices') : new Uri.http(this.apiUrl, '/api/Devices');
+
     this.me().then((value) async {
-      final response = await http.post(new Uri.https(this.apiUrl, '/api/Devices'), body: '{"device_id": "${pref.getString('token_device')}", "user_id": ${value.userId}, "user_type": ${value.type}}', headers: this.headers(pref));
+      final response = await http.post(url, body: '{"device_id": "${pref.getString('token_device')}", "user_id": ${value.userId}, "user_type": ${value.type}}', headers: this.headers(pref));
       if (response.statusCode == 200) {
         print(response);
       }

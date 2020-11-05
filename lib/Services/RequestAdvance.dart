@@ -1,8 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:prestaQi/Models/CalculateAdvance.dart';
+import 'package:prestaQi/Models/DetailsAdvance.dart';
 import 'package:prestaQi/Models/MyAdvanceModel.dart';
+import 'package:prestaQi/Models/PreAdvance.dart';
+import 'package:prestaQi/Models/RegisterAdvances.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/app_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +24,9 @@ class RequestAdvanceService {
   Future<bool> requestAdvance(double amount) async {
     final SharedPreferences pref = await this.sPrefs;
 
-    final response = await http.post(new Uri.https(this.apiUrl, '/api/Advances'), body: "{'amount': $amount}", headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Advances') : new Uri.http(this.apiUrl, '/api/Advances');
+
+    final response = await http.post(url, body: "{'amount': $amount}", headers: this.headers(pref));
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
       if (responseObject['success'] as bool) {
@@ -34,14 +40,16 @@ class RequestAdvanceService {
   Future<double> calculateAdvance() async {
     final SharedPreferences pref = await this.sPrefs;
 
-    final response = await http.post(new Uri.https(this.apiUrl, '/api/Advances/CalculateAdvance'), body: '{}', headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Advances/CalculateAdvance') : new Uri.http(this.apiUrl, '/api/Advances/CalculateAdvance');
+
+    final response = await http.post(url, body: '{}', headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
       if (responseObject['success'] as bool) {
-        CalculateAdvance responseCalculate = CalculateAdvance.fromJson(responseObject['data']); 
+        PreAdvance responseCalculate = PreAdvance.fromJson(responseObject['data']); 
 
-        return responseCalculate.maximumAmount;
+        return responseCalculate.advance.maximunAmount;
       }
 
       return 1;
@@ -50,35 +58,39 @@ class RequestAdvanceService {
     }
   }
 
-  Future<CalculateAdvance> calculateAdvanceWithAmount(double amount) async {
+  Future<PreAdvance> calculateAdvanceWithAmount(double amount) async {
     final SharedPreferences pref = await this.sPrefs;
 
-    final response = await http.post(new Uri.https(this.apiUrl, '/api/Advances/CalculateAdvance'), body: "{'amount': $amount}", headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Advances/CalculateAdvance') : new Uri.http(this.apiUrl, '/api/Advances/CalculateAdvance');
+
+    final response = await http.post(url, body: "{'amount': $amount}", headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
       if (responseObject['success'] as bool) {
-        CalculateAdvance responseCalculate = CalculateAdvance.fromJson(responseObject['data']); 
+        PreAdvance responseCalculate = PreAdvance.fromJson(responseObject['data']); 
 
         return responseCalculate;
       }
 
-      return new CalculateAdvance();
+      return new PreAdvance();
     } else {
-      return new CalculateAdvance();
+      return new PreAdvance();
     }
   }
 
-  Future<List<MyAdvanceModel>> getMyAdvances(int userId) async {
+  Future<RegisterAdvances> getMyAdvances(int userId) async {
     final SharedPreferences pref = await this.sPrefs;
-    List<MyAdvanceModel> result = new List<MyAdvanceModel>();
-    final response = await http.get(new Uri.https(this.apiUrl, '/api/Advances/GetByAccredited/$userId'), headers: this.headers(pref));
+    RegisterAdvances result = new RegisterAdvances();
+
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Advances/GetByAccredited/$userId') : new Uri.http(this.apiUrl, '/api/Advances/GetByAccredited/$userId');
+
+    final response = await http.get(url, headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
       if (responseObject['success'] as bool) {
-        Iterable collection = responseObject['data'] as Iterable;
-        result = collection.map((advance) => MyAdvanceModel.fromJson(advance)).toList();
+        result = RegisterAdvances.fromJson(responseObject['data']);
       }
     }
 

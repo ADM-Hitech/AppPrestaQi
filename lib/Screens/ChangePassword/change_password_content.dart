@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prestaQi/Screens/ChangePassword/change_password.dart';
-
-import '../../Services/NavigationService.dart';
-import '../../Services/SetupService.dart';
 import '../../Utils/HexColor.dart';
 
 class ChangePasswordContent extends StatelessWidget {

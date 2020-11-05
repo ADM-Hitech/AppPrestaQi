@@ -9,13 +9,15 @@ class MyAdvanceBefore extends StatelessWidget {
   final int folio;
   final double total;
   final double sizeText;
+  final bool active;
 
   MyAdvanceBefore({
     Key key, 
     @required this.date, 
     @required this.folio, 
     @required this.total,
-    this.sizeText = 20
+    this.sizeText = 20,
+    this.active = false
   }): super(key: key);
 
   @override
@@ -45,49 +47,57 @@ class MyAdvanceBefore extends StatelessWidget {
           Container(
             width: 10,
             decoration: BoxDecoration(
-              color: Color.fromRGBO(202, 206, 230, 1),
+              color: this.active ? Color.fromRGBO(51, 51, 255, 1) : Color.fromRGBO(202, 206, 230, 1),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(25),
                 bottomLeft: Radius.circular(25)
               )
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(left: 5),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: Text(
-                    DateFormat.MMMMd('es').format(this.date),
-                    style: TextStyle(
-                      color: Color.fromRGBO(142, 145, 162, 1),
-                      fontSize: this.sizeText,
-                      fontWeight: FontWeight.bold
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(left: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        DateFormat.MMMMd('es').format(this.date),
+                        style: TextStyle(
+                          color: this.active ? Color.fromRGBO(0, 0, 102, 1) : Color.fromRGBO(142, 145, 162, 1),
+                          fontSize: this.sizeText,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  child: Text(
-                    DateFormat.jm().format(this.date),
-                    style: TextStyle(
-                      color: Color.fromRGBO(142, 145, 162, 1),
-                      fontSize: this.sizeText - 5
+                  Container(
+                    child: Text(
+                      DateFormat.jm().format(this.date),
+                      style: TextStyle(
+                        color: this.active ? Color.fromRGBO(0, 0, 102, 1) : Color.fromRGBO(142, 145, 162, 1),
+                        fontSize: this.sizeText - 5
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  child: Text(
-                    'Folio: ${this.folio.toString().padLeft(6, '0')}',
-                    style: TextStyle(
-                      color: Color.fromRGBO(142, 145, 162, 1),
-                      fontSize: this.sizeText,
-                      fontWeight: FontWeight.bold
+                  Container(
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        'Folio: ${this.folio.toString().padLeft(6, '0')}',
+                        style: TextStyle(
+                          color: this.active ? Color.fromRGBO(0, 0, 102, 1) : Color.fromRGBO(142, 145, 162, 1),
+                          fontSize: this.sizeText,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
           Container(
@@ -99,7 +109,7 @@ class MyAdvanceBefore extends StatelessWidget {
               child: Text(
                 NumberFormat('\$ #,##0.00', 'es_Us').format(this.total),
                 style: TextStyle(
-                  color: Color.fromRGBO(142, 145, 162, 1),
+                  color: this.active ? Color.fromRGBO(0, 0, 102, 1) : Color.fromRGBO(142, 145, 162, 1),
                   fontSize: this.sizeText,
                   fontWeight: FontWeight.bold
                 ),

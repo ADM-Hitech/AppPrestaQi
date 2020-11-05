@@ -5,16 +5,18 @@ import 'package:prestaQi/Modals/CartaMandatoModal.dart';
 import 'package:prestaQi/Modals/ConfirmDeleteAccountModal.dart';
 import 'package:prestaQi/Modals/ConfirmLogoutModal.dart';
 import 'package:prestaQi/Modals/ContractModal.dart';
+import 'package:prestaQi/Modals/DetailForPaymentPeriodicModal.dart';
 import 'package:prestaQi/Modals/DetailsAdvancePeriodicModal.dart';
 import 'package:prestaQi/Modals/ErrorRequestAdvanceModal.dart';
 import 'package:prestaQi/Modals/GeneralNoticeModal.dart';
 import 'package:prestaQi/Modals/ShowIframeCartaMandatoModal.dart';
 import 'package:prestaQi/Modals/ShowIframeModal.dart';
 import 'package:prestaQi/Modals/UploadReceipt.dart';
+import 'package:prestaQi/Models/Advance.dart';
 import 'package:prestaQi/Models/CalculateAdvance.dart';
 import 'package:prestaQi/Models/DataAdvanceCapitalNotification.dart';
 import 'package:prestaQi/Models/InfoBank.dart';
-import 'package:prestaQi/Models/MyAdvanceModel.dart';
+import 'package:prestaQi/Models/DetailsAdvance.dart' as DetailAdvance;
 
 class NavigationService {
 
@@ -36,7 +38,7 @@ class NavigationService {
     return Navigator.of(context).push(CartaMandatoModal(infoBank: infoBank));
   }
 
-  Future<dynamic> showIframeCartaMandato(BuildContext context, String url, CalculateAdvance calculateAdvance) {
+  Future<dynamic> showIframeCartaMandato(BuildContext context, String url, Advance calculateAdvance) {
     return Navigator.of(context).push(ShowIframeCartaMandatoModal(url: url, calculateAdvance: calculateAdvance));
   }
 
@@ -64,8 +66,12 @@ class NavigationService {
     return Navigator.of(context).push(ErrorRequestAdvanceModal());
   }
 
-  Future<dynamic> showDetailsAdvancePeriodic(BuildContext context, MyAdvanceModel myAdvanceModel) {
+  Future<dynamic> showDetailsAdvancePeriodic(BuildContext context, Advance myAdvanceModel) {
     return Navigator.of(context).push(DetailsAdvancePeriodicModal(myAdvanceModel: myAdvanceModel));
+  }
+
+  Future<dynamic> showDetailForPayment(BuildContext context, DetailAdvance.DetailsAdvance detail) {
+    return Navigator.of(context).push(DetailForPaymentPeriodicModal(detail: detail));
   }
 
   Future<dynamic> showConfirmDeleteAccount(BuildContext context) {

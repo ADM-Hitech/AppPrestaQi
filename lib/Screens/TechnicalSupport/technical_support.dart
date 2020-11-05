@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prestaQi/Screens/TechnicalSupport/technical_support_content.dart';
-import 'package:prestaQi/Services/NavigationService.dart';
-import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/ScreenResponsive.dart';
 import 'package:prestaQi/Widgets/ActionMenuAlert.dart';
 import 'package:prestaQi/Widgets/DrawerMenu.dart';

@@ -32,6 +32,7 @@ class RequestAdvanceState extends State<RequestAdvance> {
   bool isBlocked = false;
   CalculateAdvance calculateAdvance = new CalculateAdvance();
   final TextEditingController valueControl = TextEditingController(text: '');
+  bool insufficientBalance = false;
 
   @override
   void initState() {
@@ -65,6 +66,7 @@ class RequestAdvanceState extends State<RequestAdvance> {
       
       appService<RequestAdvanceService>().calculateAdvance().then((value) {
         setState(() {
+          this.insufficientBalance = value <= 0;
           this.maxValue = value <= 0 ? 1 : value;
           this.loading = false;
         });

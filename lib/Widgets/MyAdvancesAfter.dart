@@ -50,31 +50,39 @@ class MyAdvanceAfter extends StatelessWidget {
               )
             ),
           ),
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: Text(
-                    'Saldo Total',
-                    style: TextStyle(
-                      color: Color.fromRGBO(0, 0, 102, 1),
-                      fontSize: this.sizeText - 3,
+          Expanded(
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        'Saldo Total',
+                        style: TextStyle(
+                          color: Color.fromRGBO(0, 0, 102, 1),
+                          fontSize: this.sizeText - 3,
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                Container(
-                  child: Text(
-                    'a descontar\r\nel ${DateFormat.MMMMd('es').format(this.date)}',
-                    style: TextStyle(
-                      color: Color.fromRGBO(0, 0, 102, 1),
-                      fontSize: this.sizeText,
-                      fontWeight: FontWeight.bold
+                  Container(
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Text(
+                        'a descontar\r\nel ${DateFormat.MMMMd('es').format(this.date)}',
+                        style: TextStyle(
+                          color: Color.fromRGBO(0, 0, 102, 1),
+                          fontSize: this.sizeText,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
           Container(

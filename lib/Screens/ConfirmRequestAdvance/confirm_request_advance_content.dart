@@ -159,16 +159,48 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(child: Text('Fecha de cobro', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                          Container(child: Text(this.state.formatDate.format(this.state.dateNextPay), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
-                        ],
+                    if(this.state.detailsDates.length <= 0)
+                      Container(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(child: Text('Fecha de cobro', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
+                            Container(child: Text(this.state.formatDate.format(this.state.dateNextPay), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                          ],
+                        ),
                       ),
-                    )
+                    if (this.state.detailsDates.length > 0) ...[
+
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 20),
+                        child: Text('Fechas de cobro', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 20, fontWeight: FontWeight.bold))
+                      ),
+
+                      Column(
+                        children: this.state.detailsDates.map((detail) =>
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  color: Color.fromRGBO(222, 227, 237, 1),
+                                  width: 1
+                                ),
+                              )
+                            ),
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(child: Text(this.state.formatDate.format(detail.datePayment), style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
+                                Container(child: Text('\$${this.state.formatCurrency(detail.totalPayment)}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                              ],
+                            ),
+                          )
+                        ).toList(),
+                      )
+                    ]
+
                   ],
                 ),
               ),

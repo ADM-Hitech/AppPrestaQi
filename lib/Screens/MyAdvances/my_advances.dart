@@ -1,7 +1,8 @@
 import 'package:date_util/date_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:prestaQi/Models/MyAdvanceModel.dart';
+import 'package:prestaQi/Models/Advance.dart';
+import 'package:prestaQi/Models/DetailsAdvance.dart';
 import 'package:prestaQi/Models/MyProfile.dart';
 import 'package:prestaQi/Screens/MyAdvances/my_advances_content.dart';
 import 'package:prestaQi/Services/RequestAdvance.dart';
@@ -23,8 +24,9 @@ class MyAdvancesState extends State<MyAdvances> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ScreenResponsive screen;
   MyProfileModel user = new MyProfileModel();
-  List<MyAdvanceModel> myAdvances = new List<MyAdvanceModel>();
-  List<MyAdvanceModel> myAdvancesActive = new List<MyAdvanceModel>();
+  List<Advance> myAdvances = new List<Advance>();
+  List<Advance> myAdvancesActive = new List<Advance>();
+  DetailsAdvance forPayment;
   double totalDiscount = 0;
   DateTime date = DateTime.now();
   int nextDayForPay = 15;
@@ -43,69 +45,12 @@ class MyAdvancesState extends State<MyAdvances> {
   }
 
   void fetchMyAdvances(int userId, String periodName) async {
-    appService<RequestAdvanceService>().getMyAdvances(userId).then((value) {
+    appService<RequestAdvanceService>().getMyAdvances(userId).then((details) {
       setState(() {
-        value.forEach((element) {
-
-          if (periodName == 'Mensual') {
-            this.nextDayForPay = dateUtil.daysInMonth(this.date.month, this.date.year);
-            DateTime datePayment = new DateTime(this.date.year, this.date.month, this.nextDayForPay);
-            DateTime dateBefore = new DateTime(this.date.year, this.date.month, 1);
-            
-            this.nextDayForPay = datePayment.day;
-
-            if (element.dateAdvance.isAfter(dateBefore) && element.dateAdvance.isBefore(datePayment)) {
-              this.myAdvancesActive.add(element);
-              if (element.paidStatus == 0) {
-                this.totalDiscount += element.totalWithhold;
-              }
-            } else {
-              this.myAdvances.add(element);
-            }
-            
-          } else if (periodName == 'Semanal') {
-            int daynumber = this.date.weekday;
-            int nextSunday = 7 - daynumber;
-            DateTime datePayment = this.date.add(Duration(days: nextSunday));
-
-            this.nextDayForPay = datePayment.day;
-
-            if (element.dateAdvance.isAfter(datePayment.add(Duration(days: -6))) && element.dateAdvance.isBefore(datePayment)) {
-              this.myAdvancesActive.add(element);
-              if (element.paidStatus == 0) {
-                this.totalDiscount += element.totalWithhold;
-              }
-            } else {
-              this.myAdvances.add(element);
-            }
-
-          } else {
-            if (element.dateAdvance.month == this.date.month) {
-              if (this.nextDayForPay == 15 && (element.dateAdvance.day >= 1 && element.dateAdvance.day <= 15)) {
-                
-                this.myAdvancesActive.add(element);
-                if (element.paidStatus == 0) {
-                  this.totalDiscount += element.totalWithhold;
-                }
-
-              } else if (this.nextDayForPay != 15 && (element.dateAdvance.day >= 16 && element.dateAdvance.day <= this.nextDayForPay)) { 
-                
-                this.myAdvancesActive.add(element);
-                if (element.paidStatus == 0) {
-                  this.totalDiscount += element.totalWithhold;
-                }
-
-              } else {
-                
-                this.myAdvances.add(element);
-
-              }
-            } else {
-              this.myAdvances.add(element);
-            }
-          }
-
-        });
+        this.myAdvancesActive = details.currents;
+        this.myAdvances = details.befores;
+        this.forPayment = details.forPayment;
+        this.totalDiscount = this.myAdvancesActive.fold(0, (double value, element) => value + (element.paidStatus == 0 ? element.totalWithhold : 0));
 
         this.loading = false;
       });

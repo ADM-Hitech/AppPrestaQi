@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:prestaQi/Models/CalculateAdvance.dart';
+import 'package:prestaQi/Models/DetailsAdvance.dart';
 import 'package:prestaQi/Models/InfoBank.dart';
 import 'package:prestaQi/Models/MyProfile.dart';
+import 'package:prestaQi/Models/PreAdvance.dart';
 import 'package:prestaQi/Screens/ConfirmRequestAdvance/confirm_request_advance_content.dart';
 import 'package:prestaQi/Services/NavigationService.dart';
 import 'package:prestaQi/Services/RequestAdvance.dart';
@@ -34,10 +36,11 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
   DateFormat formatDate = new DateFormat('dd/MM/yyyy');
   InfoBank infoBank = new InfoBank(accountNumber: '0000', institutionName: '', clabe: '');
   bool loading = true;
-  CalculateAdvance calculateAdvance;
+  PreAdvance calculateAdvance;
   MyProfileModel user = new MyProfileModel();
   int nextDayForPay = 15;
   DateTime date = DateTime.now();
+  List<DetailsAdvance> detailsDates = new List<DetailsAdvance>();
 
   @override
   void initState() {
@@ -62,25 +65,22 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
       setState(() {
         this.calculateAdvance = value;
         this.calculateAdvance.user = this.user;
-        this.totalDiscount = value.totalWithhold;
+        this.totalDiscount = value.advance.totalWithhold;
+        this.dateNextPay = value.advance.limitDate;
 
-        if (periodName == 'Mensual') {
-          this.nextDayForPay = dateUtil.daysInMonth(this.date.month, this.date.year);
-          DateTime datePayment = new DateTime(this.date.year, this.date.month, this.nextDayForPay);
-          this.dateNextPay = new DateTime(this.dateNextPay.year, this.dateNextPay.month, datePayment.day);
+        var total = calculateAdvance.advance.totalWithhold;
 
-        } else if (periodName == 'Semanal') {
-          int daynumber = this.date.weekday;
-          int nextSunday = 7 - daynumber;
-          DateTime datePayment = this.date.add(Duration(days: nextSunday));
-          this.dateNextPay = new DateTime(this.dateNextPay.year, this.dateNextPay.month, datePayment.day);
-
-        } else {
-          if (this.dateNextPay.day >= 15) {
-            var day = dateUtil.daysInMonth(this.dateNextPay.month, this.dateNextPay.year);
-            this.dateNextPay = new DateTime(this.dateNextPay.year, this.dateNextPay.month, day);
-          } else {
-            this.dateNextPay = new DateTime(this.dateNextPay.year, this.dateNextPay.month, 15);
+        if (this.calculateAdvance.details.length > 0) {
+          for (var i = 0; i <= this.calculateAdvance.details.length - 1; i++) {
+            if (total > 0) {
+              if (total <= this.calculateAdvance.details[i].totalPayment) {
+                this.detailsDates.add(new DetailsAdvance(datePayment: this.calculateAdvance.details[i].datePayment, totalPayment: total));
+                total = 0;
+              } else {
+                this.detailsDates.add(new DetailsAdvance(datePayment: this.calculateAdvance.details[i].datePayment, totalPayment: this.calculateAdvance.details[i].totalPayment));
+                total -= this.calculateAdvance.details[i].totalPayment;
+              }
+            }
           }
         }
 
@@ -126,8 +126,8 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
   void acepted() async {
 
     this.infoBank.amount = this.widget.calculateAdvance.amount;
-    var url = this.widget.calculateAdvance.urlCartaMandato+'&amount=${this.calculateAdvance.amount}&days=${this.calculateAdvance.dayForPayment}&commision=${this.calculateAdvance.comission}&totalAmount=${this.calculateAdvance.totalWithhold}';
-    var result = await appService<NavigationService>().showIframeCartaMandato(context, url, this.calculateAdvance) ?? false;
+    var url = this.widget.calculateAdvance.urlCartaMandato+'&amount=${this.calculateAdvance.advance.amount}&days=${this.calculateAdvance.advance.dayForPayment}&commision=${this.calculateAdvance.advance.comission}&totalAmount=${this.calculateAdvance.advance.totalWithhold}';
+    var result = await appService<NavigationService>().showIframeCartaMandato(context, url, this.calculateAdvance.advance) ?? false;
     if (result as bool) {
 
       setState(() {
@@ -167,6 +167,10 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
 
   String getAmountDiscount() {
     return NumberFormat.currency(symbol: '').format(this.totalDiscount);
+  }
+
+  String formatCurrency(double amount) {
+    return NumberFormat.currency(symbol: '').format(amount);
   }
 
   @override

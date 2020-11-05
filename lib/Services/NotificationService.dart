@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/app_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +21,9 @@ class NotificationService {
   Future<bool> disabledNotification(int id) async {
     final SharedPreferences pref = await this.sPref;
 
-    final response = await http.put(new Uri.https(this.apiUrl, '/api/Notifications/DisableNotification'), body: '{"NotificationIds": [$id]}', headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Notifications/DisableNotification') : new Uri.http(this.apiUrl, '/api/Notifications/DisableNotification');
+
+    final response = await http.put(url, body: '{"NotificationIds": [$id]}', headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       return true;
@@ -32,7 +35,9 @@ class NotificationService {
   Future<bool> disabledNotifications(List<int> ids) async {
     final SharedPreferences pref = await this.sPref;
 
-    final response = await http.put(new Uri.https(this.apiUrl, '/api/Notifications/DisableNotification'), body: '{"NotificationIds": $ids}', headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Notifications/DisableNotification') : new Uri.http(this.apiUrl, '/api/Notifications/DisableNotification');
+
+    final response = await http.put(url, body: '{"NotificationIds": $ids}', headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       return true;
@@ -45,7 +50,9 @@ class NotificationService {
     final SharedPreferences pref = await this.sPref;
     List<Alert> alerts = new List<Alert>();
 
-    final response = await http.get(new Uri.https(this.apiUrl, '/api/Notifications'), headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Notifications') : new Uri.http(this.apiUrl, '/api/Notifications');
+
+    final response = await http.get(url, headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var objectResponse = json.decode(response.body);

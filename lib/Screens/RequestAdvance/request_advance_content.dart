@@ -202,6 +202,44 @@ class RequestAdvanceContent extends StatelessWidget{
                                 child: Text('Servicio bloqueado', style: TextStyle(fontSize: 18, color: Colors.red),),
                               ),
                             )
+                          ] else if (this.state.insufficientBalance) ...[
+                            Center(
+                              child: Container(
+                                child: Text('No cuentas con saldo disponible para solicitar un prestamo.', style: TextStyle(fontSize: 18, color: Colors.red), textAlign: TextAlign.center,),
+                              ),
+                            ),
+                            SizedBox(
+                              height: this.state.getSpacesBetweenButton(),
+                            ),
+                            Center(
+                              child: Opacity(
+                                opacity: .6,
+                                child: Container(
+                                  width: this.state.screen.width * .8,
+                                  child: GestureDetector(
+                                    onTap: () {},
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(vertical: 25),
+                                      decoration: BoxDecoration(
+                                        color: HexColor.fromHex('#000066'),
+                                        borderRadius: BorderRadius.circular(40)
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'SOLICITAR', 
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Montserrat',
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18
+                                          )
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
                           ] else ...[
                             Container(
                               width: this.state.screen.width,

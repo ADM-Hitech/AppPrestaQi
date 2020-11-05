@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:prestaQi/Models/CalculateAdvance.dart';
-import 'package:webview_flutter/platform_interface.dart';
+import 'package:prestaQi/Models/Advance.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ShowIframeCartaMandatoModal extends ModalRoute<void> {
 
   final String url;
-  final CalculateAdvance calculateAdvance;
+  final Advance calculateAdvance;
 
   ShowIframeCartaMandatoModal({Key key, this.url, this.calculateAdvance});
 
@@ -66,7 +65,7 @@ class ShowIframeCartaMandatoModal extends ModalRoute<void> {
 class IframeCartaMandato extends StatefulWidget {
 
   final String url;
-  final CalculateAdvance calculateAdvance;
+  final Advance calculateAdvance;
 
   IframeCartaMandato({this.url, this.calculateAdvance});
     

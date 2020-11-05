@@ -83,7 +83,11 @@ class MyAdvancesContent extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            appService<NavigationService>().navigateTo('/advance-periodic', arguments: this.state.myAdvancesActive);
+                            if (this.state.forPayment.id > 0) {
+                              appService<NavigationService>().showDetailForPayment(context, this.state.forPayment);
+                            } else {
+                              appService<NavigationService>().navigateTo('/advance-periodic', arguments: this.state.myAdvancesActive);
+                            }
                           },
                           child: MyAdvanceAfter(
                             date: new DateTime(this.state.date.year, this.state.date.month, this.state.nextDayForPay),
@@ -91,6 +95,44 @@ class MyAdvancesContent extends StatelessWidget {
                             sizeText: this.state.getFontSize(),
                           ),
                         ),
+                        if (this.state.forPayment.id > 0) ...[
+                          SizedBox(
+                            height: 25,
+                          ),
+                          Container(
+                            width: this.state.screen.width * .55,
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: Text('Adelantos del periodo',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(142, 145, 162, 1),
+                                  fontWeight: FontWeight.bold
+                                )
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 25,
+                          ),
+                          Container(
+                            child: Column(
+                              children: this.state.myAdvancesActive.map((advance) => 
+                                GestureDetector(
+                                  onTap: () {
+                                    appService<NavigationService>().showDetailsAdvancePeriodic(context, advance);
+                                  },
+                                  child: MyAdvanceBefore(
+                                    date: advance.dateAdvance,
+                                    folio: advance.id,
+                                    total: advance.totalWithhold,
+                                    sizeText: this.state.getFontSize(),
+                                    active: true,
+                                  ),
+                                )
+                              ).toList(),
+                            ),
+                          )
+                        ],
                         SizedBox(
                           height: 25,
                         ),

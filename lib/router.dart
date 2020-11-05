@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prestaQi/Models/Advance.dart';
 import 'package:prestaQi/Models/CalculateAdvance.dart';
-import 'package:prestaQi/Models/DetailsInvestmentModel.dart';
 import 'package:prestaQi/Models/InvestmentModel.dart';
-import 'package:prestaQi/Models/MyAdvanceModel.dart';
 import 'package:prestaQi/Models/UserToken.dart';
 import 'package:prestaQi/Screens/AdvancePeriodic/advance_periodic.dart';
 import 'package:prestaQi/Screens/ChangePassword/change_password.dart';
@@ -51,7 +50,7 @@ Route<dynamic> generateRoute(RouteSettings settings, UserToken userToken) {
       return MaterialPageRoute<void>(builder: (context) => MyAdvances(), settings: settings);
     break;
     case '/advance-periodic':
-      var childs = settings.arguments is List<MyAdvanceModel> ? settings.arguments : new List<MyAdvanceModel>();
+      var childs = settings.arguments is List<Advance> ? settings.arguments : new List<Advance>();
 
       return MaterialPageRoute<void>(builder: (context) => AdvancePeriodic(childs: childs), settings: settings);
     break;

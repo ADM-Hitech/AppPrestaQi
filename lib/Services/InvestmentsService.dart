@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:prestaQi/Models/ChangeStatusCallCapital.dart';
 import 'package:prestaQi/Models/InvestmentModel.dart';
 import 'package:prestaQi/Services/SetupService.dart';
@@ -21,7 +22,9 @@ class InvestmentsService {
     final SharedPreferences pref = await this.sPref;
     List<InvestmentModel> investments = new List<InvestmentModel>();
 
-    final response = await http.post(new Uri.https(this.apiUrl, '/api/Capitals/GetMyInvestments'), body: '{}', headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Capitals/GetMyInvestments') : new Uri.http(this.apiUrl, '/api/Capitals/GetMyInvestments');
+
+    final response = await http.post(url, body: '{}', headers: this.headers(pref));
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
       if (responseObject['success'] as bool) {
@@ -36,7 +39,9 @@ class InvestmentsService {
 
   Future<bool> changeStatusCapital(ChangeStatusCallCapital newStatus) async {
     final SharedPreferences pref = await this.sPref;
-    final response = await http.post(new Uri.https(this.apiUrl, '/api/Capitals/ChangeStatus'), body: newStatus.toJson(), headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Capitals/ChangeStatus') : new Uri.http(this.apiUrl, '/api/Capitals/ChangeStatus');
+
+    final response = await http.post(url, body: newStatus.toJson(), headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);

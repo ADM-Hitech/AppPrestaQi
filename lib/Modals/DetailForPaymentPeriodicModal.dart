@@ -1,16 +1,13 @@
 import 'package:date_util/date_util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:prestaQi/Models/Advance.dart';
-import 'package:prestaQi/Models/InfoBank.dart';
-import 'package:prestaQi/Services/SetupService.dart';
-import 'package:prestaQi/Services/UserService.dart';
+import 'package:prestaQi/Models/DetailsAdvance.dart';
 
-class DetailsAdvancePeriodicModal extends ModalRoute<void> {
+class DetailForPaymentPeriodicModal extends ModalRoute<void> {
 
-  final Advance myAdvanceModel;
+  final DetailsAdvance detail;
 
-  DetailsAdvancePeriodicModal({this.myAdvanceModel});
+  DetailForPaymentPeriodicModal({this.detail});
 
   @override
   Duration get transitionDuration => Duration(milliseconds: 100);
@@ -48,7 +45,7 @@ class DetailsAdvancePeriodicModal extends ModalRoute<void> {
 
   Widget _buildOverlayContent(BuildContext context) {
 
-    return DetailsAdvance(myAdvanceModel: this.myAdvanceModel);
+    return DetailForPaymentPeriodic(detail: this.detail);
   }
 
   @override
@@ -65,17 +62,17 @@ class DetailsAdvancePeriodicModal extends ModalRoute<void> {
   }
 }
 
-class DetailsAdvance extends StatefulWidget {
+class DetailForPaymentPeriodic extends StatefulWidget {
 
-  final Advance myAdvanceModel;
+  final DetailsAdvance detail;
 
-  DetailsAdvance({this.myAdvanceModel});
-    
+  DetailForPaymentPeriodic({this.detail});
+
   @override
-  DetailsAdvanceState createState() => DetailsAdvanceState();
+  DetailForPaymentPeriodicState createState() => DetailForPaymentPeriodicState();
 }
 
-class DetailsAdvanceState extends State<DetailsAdvance> {
+class DetailForPaymentPeriodicState extends State<DetailForPaymentPeriodic> {
 
   bool accept = false;
   bool decline = false;
@@ -84,7 +81,6 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
   DateUtil dateUtil = new DateUtil();
   DateTime date = DateTime.now();
   bool loading = true;
-  InfoBank infoBank = new InfoBank(accountNumber: '0000', institutionName: '', clabe: '');
 
   @override
   void initState() {
@@ -96,31 +92,11 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
     setState(() {
       this.date = new DateTime(this.date.year, this.date.month, this.nextDayForPay);
     });
-
-    this.fetchInfoBank();
-  }
-
-  void fetchInfoBank() {
-    setState(() {
-      this.loading = true;
-    });
-
-    appService<UserService>().getInfoBanck().then((value) {
-      setState(() {
-        this.infoBank = value;
-      });
-    }).catchError((onError) {
-      print(onError);
-    }).whenComplete(() {
-      setState(() {
-        this.loading = false;
-      });
-    });
   }
 
   String getLast4Char() {
-    int length = this.infoBank.accountNumber.length;
-    return this.infoBank.accountNumber.substring(length - 4);
+    int length = this.widget.detail.accountNumber.length;
+    return this.widget.detail.accountNumber.substring(length - 4);
   }
 
   @override
@@ -155,7 +131,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  child: Text('FOLIO ${this.widget.myAdvanceModel.id.toString().padLeft(4, '0')}',
+                                  child: Text('FOLIO ${this.widget.detail.id.toString().padLeft(4, '0')}',
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                       color: Color.fromRGBO(0, 0, 102, 1),
@@ -198,7 +174,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                 child: Column(
                                   children: [
                                     Container(
-                                      child: Text('Cantidad solicitada',
+                                      child: Text('Cantidad',
                                         style: TextStyle(
                                           fontSize: 20, 
                                           color: Color.fromRGBO(142, 145, 162, 1),
@@ -215,7 +191,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       child: FittedBox(
                                         fit: BoxFit.contain,
                                         child: Text(
-                                          NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.myAdvanceModel.amount),
+                                          NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.detail.principalPayment),
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Color.fromRGBO(0, 0, 102, 1)
@@ -256,11 +232,6 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                           SizedBox(
                             height: 25,
                           ),
-                          (this.loading) ?
-                            Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          :
                           Center(
                             child: Container(
                               width: MediaQuery.of(context).size.width * .8,
@@ -280,7 +251,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(child: Text('Banco', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text(this.infoBank.institutionName, style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        Container(child: Text(this.widget.detail.bankName, style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
                                   ),
@@ -315,44 +286,8 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Container(child: Text('Tasa de interés', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text('${this.widget.myAdvanceModel.interestRate}%', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: Color.fromRGBO(222, 227, 237, 1),
-                                          width: 1
-                                        ),
-                                      )
-                                    ),
-                                    padding: EdgeInsets.symmetric(vertical: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
                                         Container(child: Text('Interés', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text(NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.myAdvanceModel.interest), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: Color.fromRGBO(222, 227, 237, 1),
-                                          width: 1
-                                        ),
-                                      )
-                                    ),
-                                    padding: EdgeInsets.symmetric(vertical: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(child: Text('Comisión', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text(NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.myAdvanceModel.comission), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        Container(child: Text(NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.detail.interest), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
                                   ),
@@ -370,7 +305,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(child: Text('IVA', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text(NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.myAdvanceModel.vat), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        Container(child: Text(NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.detail.vat), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
                                   ),
@@ -388,25 +323,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(child: Text('Total a Pagar', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text(NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.myAdvanceModel.totalWithhold), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: Color.fromRGBO(222, 227, 237, 1),
-                                          width: 1
-                                        ),
-                                      )
-                                    ),
-                                    padding: EdgeInsets.symmetric(vertical: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(child: Text('Fecha de solicitud', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text(formatDate.format(this.widget.myAdvanceModel.dateAdvance), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        Container(child: Text(NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.detail.totalPayment), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
                                   ),
@@ -424,7 +341,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(child: Text('Fecha de cobro', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text(formatDate.format(this.date), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        Container(child: Text(formatDate.format(this.widget.detail.datePayment), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
                                   ),
@@ -434,7 +351,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(child: Text('Folio', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text(this.widget.myAdvanceModel.id.toString().padLeft(4, '0'), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        Container(child: Text(this.widget.detail.id.toString().padLeft(4, '0'), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
                                   )

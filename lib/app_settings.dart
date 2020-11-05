@@ -5,6 +5,6 @@ class AppSettings {
   String apiUrl;
 
   AppSettings() {
-    this.apiUrl = kReleaseMode ? 'prestaqi.com:81' : 'prestaqi.com:81';
+    this.apiUrl = kReleaseMode ? 'prestaqi.com:81' : '52.255.138.106';
   }
 }

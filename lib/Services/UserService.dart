@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:prestaQi/Models/InfoBank.dart';
 import 'package:prestaQi/Models/MyProfile.dart';
 import 'package:prestaQi/Models/UserToken.dart';
@@ -28,7 +29,9 @@ class UserService {
       accountNumber: ''
     );
 
-    final response = await http.get(new Uri.https(this.apiUrl, '/api/Users/GetUser'), headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Users/GetUser') : new Uri.http(this.apiUrl, '/api/Users/GetUser');
+
+    final response = await http.get(url, headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
@@ -51,7 +54,9 @@ class UserService {
 
     SharedPreferences pref = await this.sPrefs;
     MyProfileModel user = new MyProfileModel();
-    final response = await http.get(new Uri.https(this.apiUrl, '/api/Users/GetUser'), headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Users/GetUser') : new Uri.http(this.apiUrl, '/api/Users/GetUser');
+    
+    final response = await http.get(url, headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
@@ -70,7 +75,9 @@ class UserService {
   Future<bool> deleteMyAccount(int userId, int type) async {
 
     SharedPreferences pref = await this.sPrefs;
-    final response = await http.put(new Uri.https(this.apiUrl, '/api/Administrative/DeleteAccount'), body: "{'UserId': $userId, 'Type': $type}", headers: this.headers(pref));
+    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Administrative/DeleteAccount') : new Uri.http(this.apiUrl, '/api/Administrative/DeleteAccount');
+
+    final response = await http.put(url, body: "{'UserId': $userId, 'Type': $type}", headers: this.headers(pref));
 
     if (response.statusCode == 200) {
       var responseObject = json.decode(response.body);
