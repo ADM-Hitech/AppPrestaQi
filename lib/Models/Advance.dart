@@ -1,3 +1,5 @@
+import 'dart:convert' as convert;
+
 class Advance {
   int accreditedId;
   double amount;
@@ -20,6 +22,7 @@ class Advance {
   double initial;
   double finalAmount;
   int id;
+  List<DetailsByAdvance> detailsByAdvance;
 
   Advance({
     this.accreditedId,
@@ -42,10 +45,13 @@ class Advance {
     this.maximunAmount,
     this.initial,
     this.finalAmount,
-    this.id
+    this.id,
+    this.detailsByAdvance
   });
 
   factory Advance.fromJson(Map<String, dynamic> object) {
+    Iterable details = (object['details'] as Iterable) ?? convert.json.decode('[]');
+
     return Advance(
       accreditedId: object['accredited_Id'] as int,
       amount: object['amount'] as double,
@@ -67,7 +73,25 @@ class Advance {
       maximunAmount: object['maximum_Amount'] as double,
       initial: object['initial'] as double,
       finalAmount: object['final'] as double,
-      id: object['id'] as int
+      id: object['id'] as int,
+      detailsByAdvance: details.map((d) => DetailsByAdvance.fromJson(d)).toList()
+    );
+  }
+}
+
+class DetailsByAdvance {
+  DateTime datePayment;
+  double amount;
+
+  DetailsByAdvance({
+    this.datePayment,
+    this.amount
+  });
+
+  factory DetailsByAdvance.fromJson(Map<String, dynamic> object) {
+    return DetailsByAdvance(
+      datePayment: DateTime.tryParse(object['detail']['date_Payment'] ?? '0000-00-00'),
+      amount: object['amount']
     );
   }
 }

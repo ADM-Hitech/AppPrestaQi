@@ -191,7 +191,7 @@ class DetailForPaymentPeriodicState extends State<DetailForPaymentPeriodic> {
                                       child: FittedBox(
                                         fit: BoxFit.contain,
                                         child: Text(
-                                          NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.detail.principalPayment),
+                                          NumberFormat('\$ #,##0.00', 'es_Us').format(this.widget.detail.totalPayment),
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Color.fromRGBO(0, 0, 102, 1)

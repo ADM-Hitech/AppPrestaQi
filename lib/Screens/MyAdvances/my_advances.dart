@@ -50,7 +50,11 @@ class MyAdvancesState extends State<MyAdvances> {
         this.myAdvancesActive = details.currents;
         this.myAdvances = details.befores;
         this.forPayment = details.forPayment;
-        this.totalDiscount = this.myAdvancesActive.fold(0, (double value, element) => value + (element.paidStatus == 0 ? element.totalWithhold : 0));
+        if (this.forPayment.id != null) {
+          this.totalDiscount = this.forPayment.totalPayment;
+        } else {
+          this.totalDiscount = this.myAdvancesActive.fold(0, (double value, element) => value + (element.paidStatus == 0 ? element.totalWithhold : 0));
+        }
 
         this.loading = false;
       });

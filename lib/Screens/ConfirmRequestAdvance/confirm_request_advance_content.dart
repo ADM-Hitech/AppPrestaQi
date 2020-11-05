@@ -192,8 +192,7 @@ class ConfirmRequestAdvanceContent extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(child: Text(this.state.formatDate.format(detail.datePayment), style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                Container(child: Text('\$${this.state.formatCurrency(detail.totalPayment)}', style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                Container(child: Text(this.state.formatDate.format(detail.datePayment), style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18)))
                               ],
                             ),
                           )

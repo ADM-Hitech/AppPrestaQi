@@ -410,24 +410,26 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       ],
                                     ),
                                   ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: Color.fromRGBO(222, 227, 237, 1),
-                                          width: 1
-                                        ),
-                                      )
-                                    ),
-                                    padding: EdgeInsets.symmetric(vertical: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(child: Text('Fecha de cobro', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text(formatDate.format(this.date), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
-                                      ],
-                                    ),
-                                  ),
+                                  if (!(this.widget.myAdvanceModel.detailsByAdvance != null && this.widget.myAdvanceModel.detailsByAdvance.length > 0))
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          bottom: BorderSide(
+                                            color: Color.fromRGBO(222, 227, 237, 1),
+                                            width: 1
+                                          ),
+                                        )
+                                      ),
+                                      padding: EdgeInsets.symmetric(vertical: 10),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(child: Text('Fecha de cobro', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
+                                          Container(child: Text(formatDate.format(this.date), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        ],
+                                      ),
+                                    )
+                                  ,
                                   Container(
                                     padding: EdgeInsets.symmetric(vertical: 10),
                                     child: Row(
@@ -437,7 +439,34 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                         Container(child: Text(this.widget.myAdvanceModel.id.toString().padLeft(4, '0'), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
-                                  )
+                                  ),
+                                  if (this.widget.myAdvanceModel.detailsByAdvance != null && this.widget.myAdvanceModel.detailsByAdvance.length > 0) ...[
+                                    Container(
+                                      margin: EdgeInsets.symmetric(vertical: 20),
+                                      child: Text('Fechas de cobro', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 20, fontWeight: FontWeight.bold))
+                                    ),
+                                    Column(
+                                        children: this.widget.myAdvanceModel.detailsByAdvance.map((detail) =>
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                bottom: BorderSide(
+                                                  color: Color.fromRGBO(222, 227, 237, 1),
+                                                  width: 1
+                                                ),
+                                              )
+                                            ),
+                                            padding: EdgeInsets.symmetric(vertical: 10),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Container(child: Text(formatDate.format(detail.datePayment), style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18)))
+                                              ],
+                                            ),
+                                          )
+                                        ).toList(),
+                                      )
+                                  ]
                                 ],
                               ),
                             ),
