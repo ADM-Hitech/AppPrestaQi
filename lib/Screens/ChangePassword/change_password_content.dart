@@ -17,7 +17,7 @@ class ChangePasswordContent extends StatelessWidget {
       child: ListView(
         children: [
           Container(
-            height: this.state.screen.height,
+            height: this.state.screen.height + 40,
             width: this.state.screen.width,
             child: Form(
               key: this.state.formKey,
