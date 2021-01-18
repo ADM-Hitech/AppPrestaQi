@@ -205,7 +205,7 @@ class RequestAdvanceContent extends StatelessWidget{
                           ] else if (this.state.insufficientBalance) ...[
                             Center(
                               child: Container(
-                                child: Text('No cuentas con saldo disponible para solicitar un prestamo.', style: TextStyle(fontSize: 18, color: Colors.red), textAlign: TextAlign.center,),
+                                child: Text('No cuentas con saldo disponible para solicitar un adelanto.', style: TextStyle(fontSize: 18, color: Colors.red), textAlign: TextAlign.center,),
                               ),
                             ),
                             SizedBox(
