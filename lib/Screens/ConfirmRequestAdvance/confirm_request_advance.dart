@@ -127,6 +127,21 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
 
     this.infoBank.amount = this.widget.calculateAdvance.amount;
     var url = this.widget.calculateAdvance.urlCartaMandato+'&amount=${this.calculateAdvance.advance.amount}&days=${this.calculateAdvance.advance.dayForPayment}&commision=${this.calculateAdvance.advance.comission}&totalAmount=${this.calculateAdvance.advance.totalWithhold}';
+
+    String dates = "";
+    if (detailsDates.length > 0) {
+      for (num i = 0; i < detailsDates.length; i++) {
+        dates += formatDate.format(detailsDates[i].datePayment);
+        if (i != (detailsDates.length - 1)) {
+          dates += ",";
+        }
+      }
+    } else {
+      dates = formatDate.format(dateNextPay);
+    }
+
+    url += "&dates=$dates";
+
     var result = await appService<NavigationService>().showIframeCartaMandato(context, url, this.calculateAdvance.advance) ?? false;
     if (result as bool) {
 
@@ -166,6 +181,11 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
   }
 
   String getAmountDiscount() {
+    
+    if (this.calculateAdvance != null && this.calculateAdvance.details.length > 0) {
+      return NumberFormat.currency(symbol: '').format(this.calculateAdvance.details.fold(0, (value, element) => value + element.totalPayment));
+    }
+
     return NumberFormat.currency(symbol: '').format(this.totalDiscount);
   }
 
