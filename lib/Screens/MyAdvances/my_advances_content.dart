@@ -124,7 +124,7 @@ class MyAdvancesContent extends StatelessWidget {
                                     appService<NavigationService>().showDetailsAdvancePeriodic(context, advance);
                                   },
                                   child: MyAdvanceBefore(
-                                    date: advance.dateAdvance,
+                                    date: advance.created,
                                     folio: advance.id,
                                     total: advance.totalWithhold,
                                     sizeText: this.state.getFontSize(),
@@ -161,7 +161,7 @@ class MyAdvancesContent extends StatelessWidget {
                                   appService<NavigationService>().showDetailsAdvancePeriodic(context, advance);
                                 },
                                 child: MyAdvanceBefore(
-                                  date: advance.dateAdvance,
+                                  date: advance.created,
                                   folio: advance.id,
                                   total: advance.totalWithhold,
                                   sizeText: this.state.getFontSize(),

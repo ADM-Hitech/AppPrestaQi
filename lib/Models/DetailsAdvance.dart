@@ -13,6 +13,7 @@ class DetailsAdvance {
   int id;
   String bankName;
   String accountNumber;
+  DateTime created;
 
   DetailsAdvance({
     this.advanceId,
@@ -28,7 +29,8 @@ class DetailsAdvance {
     this.accreditedId,
     this.id,
     this.bankName,
-    this.accountNumber
+    this.accountNumber,
+    this.created
   });
 
   factory DetailsAdvance.fromJson(Map<String, dynamic> object) {
@@ -46,7 +48,8 @@ class DetailsAdvance {
       accreditedId: object['accredited_Id'] as int,
       id: object['id'] as int,
       bankName: object['bank_Name'],
-      accountNumber: object['account_Number']
+      accountNumber: object['account_Number'],
+      created: DateTime.tryParse(object['created_at'] ?? '0000-00-00')
     );
   }
 }

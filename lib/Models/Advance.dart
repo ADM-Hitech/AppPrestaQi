@@ -23,6 +23,7 @@ class Advance {
   double finalAmount;
   int id;
   List<DetailsByAdvance> detailsByAdvance;
+  DateTime created;
 
   Advance({
     this.accreditedId,
@@ -46,7 +47,8 @@ class Advance {
     this.initial,
     this.finalAmount,
     this.id,
-    this.detailsByAdvance
+    this.detailsByAdvance,
+    this.created
   });
 
   factory Advance.fromJson(Map<String, dynamic> object) {
@@ -74,7 +76,8 @@ class Advance {
       initial: object['initial'] as double,
       finalAmount: object['final'] as double,
       id: object['id'] as int,
-      detailsByAdvance: details.map((d) => DetailsByAdvance.fromJson(d)).toList()
+      detailsByAdvance: details.map((d) => DetailsByAdvance.fromJson(d)).toList(),
+      created: DateTime.tryParse(object['created_at'] ?? '0000-00-00')
     );
   }
 }

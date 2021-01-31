@@ -73,7 +73,7 @@ class AdvancePeriodicContent extends StatelessWidget {
                         DataRow(
                           cells: [
                             DataCell(
-                              Container(child: Center(child: Text(this.state.formatDate.format(advance.dateAdvance))))
+                              Container(child: Center(child: Text(this.state.formatDate.format(advance.created))))
                             ),
                             DataCell(
                               GestureDetector(

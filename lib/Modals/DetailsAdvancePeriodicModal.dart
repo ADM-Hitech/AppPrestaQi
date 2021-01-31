@@ -406,7 +406,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(child: Text('Fecha de solicitud', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                        Container(child: Text(formatDate.format(this.widget.myAdvanceModel.dateAdvance), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                        Container(child: Text(formatDate.format(this.widget.myAdvanceModel.created), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                       ],
                                     ),
                                   ),
@@ -425,7 +425,7 @@ class DetailsAdvanceState extends State<DetailsAdvance> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(child: Text('Fecha de cobro', style: TextStyle(color: Color.fromRGBO(142, 145, 162, 1), fontSize: 18))),
-                                          Container(child: Text(formatDate.format(this.date), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
+                                          Container(child: Text(formatDate.format(this.widget.myAdvanceModel.limitDate), style: TextStyle(color: Color.fromRGBO(77, 77, 77, 1), fontSize: 18, fontWeight: FontWeight.bold)))
                                         ],
                                       ),
                                     )
