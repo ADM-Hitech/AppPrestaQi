@@ -181,11 +181,6 @@ class ConfirmRequestAdvanceState extends State<ConfirmRequestAdvance> {
   }
 
   String getAmountDiscount() {
-    
-    if (this.calculateAdvance != null && this.calculateAdvance.details.length > 0) {
-      return NumberFormat.currency(symbol: '').format(this.calculateAdvance.details.fold(0, (value, element) => value + element.totalPayment));
-    }
-
     return NumberFormat.currency(symbol: '').format(this.totalDiscount);
   }
 
