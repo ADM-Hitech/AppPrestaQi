@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prestaQi/Models/Alert.dart';
@@ -239,7 +240,7 @@ class AppState extends State<App> with WidgetsBindingObserver {
         navigatorKey: appService<NavigationService>().navigatorKey,
         onGenerateRoute: (settings) => generateRoute(settings, userToken),
         home: StartupView(),
-        debugShowCheckedModeBanner: false,
+        debugShowCheckedModeBanner: !kReleaseMode,
       ),
     );
   }

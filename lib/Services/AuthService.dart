@@ -56,13 +56,13 @@ class AuthService {
     String token = pref.getString('token');
     var jwtObject = parseJwt(token);
     UserToken userToken = UserToken.fromJson(jwtObject);
-    userToken.urlGeneralNotice = 'https://${this.apiUrl}/api/Users/GetContract?token=${pref.getString('token')}';
+    userToken.urlGeneralNotice = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetContract?token=${pref.getString('token')}';
     
-    userToken.urlContratoMutuoAccredited = 'https://${this.apiUrl}/api/Users/GetContratoMutuo?token=${pref.getString('token')}';
-    userToken.urlCartaAvisoGeneral = 'https://${this.apiUrl}/api/Users/GetCartaAvisoGeneral?token=${pref.getString('token')}';
-    userToken.urlTransferDataPersonal = 'https://${this.apiUrl}/api/Users/GetTransferenciaDatosPersonales?token=${pref.getString('token')}';
-    userToken.urlAvisoPrivacidad = 'https://${this.apiUrl}/api/Users/GetAvisoPrivacidad?token=${pref.getString('token')}';
-    userToken.urlTerminosCondiciones = 'https://${this.apiUrl}/api/Users/GetTerminosCondiciones?token=${pref.getString('token')}';
+    userToken.urlContratoMutuoAccredited = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetContratoMutuo?token=${pref.getString('token')}';
+    userToken.urlCartaAvisoGeneral = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetCartaAvisoGeneral?token=${pref.getString('token')}';
+    userToken.urlTransferDataPersonal = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetTransferenciaDatosPersonales?token=${pref.getString('token')}';
+    userToken.urlAvisoPrivacidad = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetAvisoPrivacidad?token=${pref.getString('token')}';
+    userToken.urlTerminosCondiciones = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetTerminosCondiciones?token=${pref.getString('token')}';
     userToken.uriApi = this.apiUrl;
     userToken.token = pref.getString('token');
 
