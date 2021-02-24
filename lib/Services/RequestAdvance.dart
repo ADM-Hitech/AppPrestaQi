@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:prestaQi/Models/PreAdvance.dart';
 import 'package:prestaQi/Models/RegisterAdvances.dart';
 import 'package:prestaQi/Services/SetupService.dart';
@@ -21,7 +20,7 @@ class RequestAdvanceService {
   Future<bool> requestAdvance(double amount) async {
     final SharedPreferences pref = await this.sPrefs;
 
-    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Advances') : new Uri.http(this.apiUrl, '/api/Advances');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Advances') : new Uri.http(this.apiUrl, '/api/Advances');
 
     final response = await http.post(url, body: "{'amount': $amount}", headers: this.headers(pref));
     if (response.statusCode == 200) {
@@ -37,7 +36,7 @@ class RequestAdvanceService {
   Future<double> calculateAdvance() async {
     final SharedPreferences pref = await this.sPrefs;
 
-    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Advances/CalculateAdvance') : new Uri.http(this.apiUrl, '/api/Advances/CalculateAdvance');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Advances/CalculateAdvance') : new Uri.http(this.apiUrl, '/api/Advances/CalculateAdvance');
 
     final response = await http.post(url, body: '{}', headers: this.headers(pref));
 
@@ -58,7 +57,7 @@ class RequestAdvanceService {
   Future<PreAdvance> calculateAdvanceWithAmount(double amount) async {
     final SharedPreferences pref = await this.sPrefs;
 
-    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Advances/CalculateAdvance') : new Uri.http(this.apiUrl, '/api/Advances/CalculateAdvance');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Advances/CalculateAdvance') : new Uri.http(this.apiUrl, '/api/Advances/CalculateAdvance');
 
     final response = await http.post(url, body: "{'amount': $amount}", headers: this.headers(pref));
 
@@ -80,7 +79,7 @@ class RequestAdvanceService {
     final SharedPreferences pref = await this.sPrefs;
     RegisterAdvances result = new RegisterAdvances();
 
-    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Advances/GetByAccredited/$userId') : new Uri.http(this.apiUrl, '/api/Advances/GetByAccredited/$userId');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Advances/GetByAccredited/$userId') : new Uri.http(this.apiUrl, '/api/Advances/GetByAccredited/$userId');
 
     final response = await http.get(url, headers: this.headers(pref));
 

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:prestaQi/Models/InfoBank.dart';
 import 'package:prestaQi/Models/MyProfile.dart';
 import 'package:prestaQi/Models/UserToken.dart';
@@ -29,7 +28,7 @@ class UserService {
       accountNumber: ''
     );
 
-    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Users/GetUser') : new Uri.http(this.apiUrl, '/api/Users/GetUser');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Users/GetUser') : new Uri.http(this.apiUrl, '/api/Users/GetUser');
 
     final response = await http.get(url, headers: this.headers(pref));
 
@@ -54,7 +53,7 @@ class UserService {
 
     SharedPreferences pref = await this.sPrefs;
     MyProfileModel user = new MyProfileModel();
-    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Users/GetUser') : new Uri.http(this.apiUrl, '/api/Users/GetUser');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Users/GetUser') : new Uri.http(this.apiUrl, '/api/Users/GetUser');
     
     final response = await http.get(url, headers: this.headers(pref));
 
@@ -65,7 +64,7 @@ class UserService {
         user = new MyProfileModel.fromJson(responseObject['data']['user']);
         user.type = responseObject['data']['type'];
         user.typeName = responseObject['data']['typeName'];
-        user.urlCartaMandato = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetCartaMandato?token=${pref.getString('token')}';
+        user.urlCartaMandato = (appService<AppSettings>().envProd ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetCartaMandato?token=${pref.getString('token')}';
       }
     }
 
@@ -75,7 +74,7 @@ class UserService {
   Future<bool> deleteMyAccount(int userId, int type) async {
 
     SharedPreferences pref = await this.sPrefs;
-    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Administrative/DeleteAccount') : new Uri.http(this.apiUrl, '/api/Administrative/DeleteAccount');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Administrative/DeleteAccount') : new Uri.http(this.apiUrl, '/api/Administrative/DeleteAccount');
 
     final response = await http.put(url, body: "{'UserId': $userId, 'Type': $type}", headers: this.headers(pref));
 

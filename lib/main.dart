@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prestaQi/Models/Alert.dart';
@@ -17,6 +16,7 @@ import 'package:prestaQi/Services/UserService.dart';
 import 'package:prestaQi/Widgets/DialogManager.dart';
 import 'package:prestaQi/Widgets/StartupView.dart';
 import 'package:prestaQi/app_provider.dart';
+import 'package:prestaQi/app_settings.dart';
 import 'package:prestaQi/providers/NotificationProvider.dart';
 import 'package:prestaQi/providers/push_notifications.dart';
 import 'package:prestaQi/router.dart';
@@ -240,7 +240,7 @@ class AppState extends State<App> with WidgetsBindingObserver {
         navigatorKey: appService<NavigationService>().navigatorKey,
         onGenerateRoute: (settings) => generateRoute(settings, userToken),
         home: StartupView(),
-        debugShowCheckedModeBanner: !kReleaseMode,
+        debugShowCheckedModeBanner: !appService<AppSettings>().envProd,
       ),
     );
   }

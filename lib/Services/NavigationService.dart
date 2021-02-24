@@ -13,7 +13,6 @@ import 'package:prestaQi/Modals/ShowIframeCartaMandatoModal.dart';
 import 'package:prestaQi/Modals/ShowIframeModal.dart';
 import 'package:prestaQi/Modals/UploadReceipt.dart';
 import 'package:prestaQi/Models/Advance.dart';
-import 'package:prestaQi/Models/CalculateAdvance.dart';
 import 'package:prestaQi/Models/DataAdvanceCapitalNotification.dart';
 import 'package:prestaQi/Models/InfoBank.dart';
 import 'package:prestaQi/Models/DetailsAdvance.dart' as DetailAdvance;

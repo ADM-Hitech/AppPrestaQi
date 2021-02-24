@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:prestaQi/Models/AuthResponse.dart';
 import 'package:prestaQi/Models/Login.dart';
 import 'package:prestaQi/Models/UserToken.dart';
@@ -56,13 +55,13 @@ class AuthService {
     String token = pref.getString('token');
     var jwtObject = parseJwt(token);
     UserToken userToken = UserToken.fromJson(jwtObject);
-    userToken.urlGeneralNotice = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetContract?token=${pref.getString('token')}';
+    userToken.urlGeneralNotice = (appService<AppSettings>().envProd ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetContract?token=${pref.getString('token')}';
     
-    userToken.urlContratoMutuoAccredited = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetContratoMutuo?token=${pref.getString('token')}';
-    userToken.urlCartaAvisoGeneral = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetCartaAvisoGeneral?token=${pref.getString('token')}';
-    userToken.urlTransferDataPersonal = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetTransferenciaDatosPersonales?token=${pref.getString('token')}';
-    userToken.urlAvisoPrivacidad = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetAvisoPrivacidad?token=${pref.getString('token')}';
-    userToken.urlTerminosCondiciones = (kReleaseMode ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetTerminosCondiciones?token=${pref.getString('token')}';
+    userToken.urlContratoMutuoAccredited = (appService<AppSettings>().envProd ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetContratoMutuo?token=${pref.getString('token')}';
+    userToken.urlCartaAvisoGeneral = (appService<AppSettings>().envProd ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetCartaAvisoGeneral?token=${pref.getString('token')}';
+    userToken.urlTransferDataPersonal = (appService<AppSettings>().envProd ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetTransferenciaDatosPersonales?token=${pref.getString('token')}';
+    userToken.urlAvisoPrivacidad = (appService<AppSettings>().envProd ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetAvisoPrivacidad?token=${pref.getString('token')}';
+    userToken.urlTerminosCondiciones = (appService<AppSettings>().envProd ? 'https://' : 'http://') + '${this.apiUrl}/api/Users/GetTerminosCondiciones?token=${pref.getString('token')}';
     userToken.uriApi = this.apiUrl;
     userToken.token = pref.getString('token');
 
@@ -75,7 +74,7 @@ class AuthService {
     AuthResponse authResponse = new AuthResponse();
     LoginModel login = new LoginModel(mail: email, password: password);
 
-    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Login') : new Uri.http(this.apiUrl, '/api/Login');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Login') : new Uri.http(this.apiUrl, '/api/Login');
 
     final response = await http.post(url, 
       body: login.toJson(),
@@ -133,7 +132,7 @@ class AuthService {
     
     LoginModel login = new LoginModel(mail: email);
 
-    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Administrative/RecoveryPassword') : new Uri.http(this.apiUrl, '/api/Administrative/RecoveryPassword');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Administrative/RecoveryPassword') : new Uri.http(this.apiUrl, '/api/Administrative/RecoveryPassword');
 
     final response = await http.put(url, 
       body: login.toJsonRecoveryPassword(),
@@ -161,7 +160,7 @@ class AuthService {
     AuthResponse authResponse = new AuthResponse();
     authResponse.success = true;
 
-    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Administrative/ChangePassword') : new Uri.http(this.apiUrl, '/api/Administrative/ChangePassword');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Administrative/ChangePassword') : new Uri.http(this.apiUrl, '/api/Administrative/ChangePassword');
 
     final response = await http.put(url, body: '{"password": "$password"}', headers: this.headers(pref));
 
@@ -185,7 +184,7 @@ class AuthService {
   Future<void> addDeviceToUser() async {
     final SharedPreferences pref = await this.sPrefs;
 
-    Uri url = kReleaseMode ? new Uri.https(this.apiUrl, '/api/Devices') : new Uri.http(this.apiUrl, '/api/Devices');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Devices') : new Uri.http(this.apiUrl, '/api/Devices');
 
     this.me().then((value) async {
       final response = await http.post(url, body: '{"device_id": "${pref.getString('token_device')}", "user_id": ${value.userId}, "user_type": ${value.type}}', headers: this.headers(pref));
