@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:prestaQi/Models/DatesPeriod.dart';
 import 'package:prestaQi/Models/PreAdvance.dart';
 import 'package:prestaQi/Models/RegisterAdvances.dart';
 import 'package:prestaQi/Services/SetupService.dart';
@@ -79,7 +80,7 @@ class RequestAdvanceService {
     final SharedPreferences pref = await this.sPrefs;
     RegisterAdvances result = new RegisterAdvances();
 
-    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Advances/GetByAccredited/$userId') : new Uri.http(this.apiUrl, '/api/Advances/GetByAccredited/$userId');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Advances/GetByAccredited/109') : new Uri.http(this.apiUrl, '/api/Advances/GetByAccredited/109');
 
     final response = await http.get(url, headers: this.headers(pref));
 
@@ -87,6 +88,25 @@ class RequestAdvanceService {
       var responseObject = json.decode(response.body);
       if (responseObject['success'] as bool) {
         result = RegisterAdvances.fromJson(responseObject['data']);
+      }
+    }
+
+    return result;
+  }
+
+  Future<DatesPeriod> getDatesPeriod() async {
+    final SharedPreferences pref = await this.sPrefs;
+    DatesPeriod result = DatesPeriod.fromJson({});
+
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Accrediteds/GetCurrentPeriod') : new Uri.http(this.apiUrl, '/api/Accrediteds/GetCurrentPeriod');
+
+    final response = await http.get(url, headers: this.headers(pref));
+
+    if (response.statusCode == 200) {
+      var responseObject = json.decode(response.body);
+
+      if (responseObject['success'] as bool) {
+        result = DatesPeriod.fromJson(responseObject['data']);
       }
     }
 

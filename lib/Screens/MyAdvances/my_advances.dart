@@ -42,6 +42,7 @@ class MyAdvancesState extends State<MyAdvances> {
     if (this.date.day > 15) {
       this.nextDayForPay = dateUtil.daysInMonth(this.date.month, this.date.year);
     }
+    //this.fetchDatesPeriod();
     this.getUser();
   }
 
@@ -53,12 +54,8 @@ class MyAdvancesState extends State<MyAdvances> {
         this.forPayment = details.forPayment;
         if (this.forPayment.id != null) {
           this.totalDiscount = this.forPayment.totalPayment;
-          this.nextDateForPay = this.forPayment.datePayment;
         } else {
           this.totalDiscount = this.myAdvancesActive.fold(0, (double value, element) => value + (element.paidStatus == 0 ? element.totalWithhold : 0));
-          if (this.myAdvancesActive.length > 0) {
-            this.nextDateForPay = this.myAdvancesActive[0].limitDate;
-          }
         }
 
         this.loading = false;
@@ -73,7 +70,6 @@ class MyAdvancesState extends State<MyAdvances> {
   }
 
   void getUser() {
-    //appService<AuthService>().me().then((value) {
     appService<UserService>().getMyProfile().then((value) {
       setState(() {
         this.user = value;
@@ -83,6 +79,12 @@ class MyAdvancesState extends State<MyAdvances> {
     }).catchError((onError) {
       print(onError);
     });
+  }
+
+  void fetchDatesPeriod() {
+    appService<RequestAdvanceService>().getDatesPeriod().then((value) {
+      this.nextDateForPay = value.finish;
+    }).catchError((onError) {});
   }
 
   double getFontSize() {
