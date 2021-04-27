@@ -80,7 +80,7 @@ class RequestAdvanceService {
     final SharedPreferences pref = await this.sPrefs;
     RegisterAdvances result = new RegisterAdvances();
 
-    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Advances/GetByAccredited/109') : new Uri.http(this.apiUrl, '/api/Advances/GetByAccredited/109');
+    Uri url = appService<AppSettings>().envProd ? new Uri.https(this.apiUrl, '/api/Advances/GetByAccredited/$userId') : new Uri.http(this.apiUrl, '/api/Advances/GetByAccredited/$userId');
 
     final response = await http.get(url, headers: this.headers(pref));
 
