@@ -1,4 +1,0 @@
-#Wed Feb 24 14:10:16 CST 2021
-base.0=H\:\\proyectos\\AppPrestaQi\\build\\app\\intermediates\\transforms\\r8\\release\\0\\classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
