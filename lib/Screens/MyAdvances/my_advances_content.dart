@@ -1,10 +1,7 @@
+import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:prestaQi/Screens/MyAdvances/my_advances.dart';
-import 'package:prestaQi/Services/NavigationService.dart';
-import 'package:prestaQi/Services/SetupService.dart';
 import 'package:prestaQi/Utils/HexColor.dart';
-import 'package:prestaQi/Widgets/MyAdvancesAfter.dart';
-import 'package:prestaQi/Widgets/MyAdvancesBefore.dart';
 
 class MyAdvancesContent extends StatelessWidget {
 
@@ -66,108 +63,49 @@ class MyAdvancesContent extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: this.state.screen.width * .75,
-                          child: FittedBox(
-                            fit: BoxFit.contain,
-                            child: Text(
-                              'Mis adelantos',
-                              style: TextStyle(
-                                color: Color.fromRGBO(0, 0, 102, 1),
-                                fontWeight: FontWeight.bold
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 25,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            if (this.state.forPayment.id != null) {
-                              appService<NavigationService>().showDetailForPayment(context, this.state.forPayment);
-                            } else {
-                              appService<NavigationService>().navigateTo('/advance-periodic', arguments: this.state.myAdvancesActive);
-                            }
-                          },
-                          child: MyAdvanceAfter(
-                            date: this.state.nextDateForPay == null 
-                              ? new DateTime(this.state.date.year, this.state.date.month, this.state.nextDayForPay)
-                              : this.state.nextDateForPay,
-                            total: this.state.totalDiscount,
-                            sizeText: this.state.getFontSize(),
-                          ),
-                        ),
-                        if (this.state.forPayment.id != null) ...[
-                          SizedBox(
-                            height: 25,
-                          ),
-                          Container(
-                            width: this.state.screen.width * .55,
-                            child: FittedBox(
-                              fit: BoxFit.contain,
-                              child: Text('Adelantos del periodo',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(142, 145, 162, 1),
-                                  fontWeight: FontWeight.bold
-                                )
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25,
-                          ),
-                          Container(
-                            child: Column(
-                              children: this.state.myAdvancesActive.map((advance) => 
-                                GestureDetector(
-                                  onTap: () {
-                                    appService<NavigationService>().showDetailsAdvancePeriodic(context, advance);
-                                  },
-                                  child: MyAdvanceBefore(
-                                    date: advance.created,
-                                    folio: advance.id,
-                                    total: advance.totalWithhold,
-                                    sizeText: this.state.getFontSize(),
-                                    active: true,
+                          width: (this.state.screen.width * .75) + 25,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(child: FittedBox(
+                                fit: BoxFit.contain,
+                                child: Text(
+                                  'Mis adelantos',
+                                  style: TextStyle(
+                                    color: Color.fromRGBO(0, 0, 102, 1),
+                                    fontWeight: FontWeight.bold
                                   ),
-                                )
-                              ).toList(),
-                            ),
-                          )
-                        ],
-                        SizedBox(
-                          height: 25,
-                        ),
-                        Container(
-                          width: this.state.screen.width * .55,
-                          child: FittedBox(
-                            fit: BoxFit.contain,
-                            child: Text('Adelantos anteriores',
-                              style: TextStyle(
-                                color: Color.fromRGBO(142, 145, 162, 1),
-                                fontWeight: FontWeight.bold
-                              )
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 25,
-                        ),
-                        Container(
-                          child: Column(
-                            children: this.state.myAdvances.map((advance) => 
-                              GestureDetector(
-                                onTap: () {
-                                  appService<NavigationService>().showDetailsAdvancePeriodic(context, advance);
-                                },
-                                child: MyAdvanceBefore(
-                                  date: advance.created,
-                                  folio: advance.id,
-                                  total: advance.totalWithhold,
-                                  sizeText: this.state.getFontSize(),
+                                ),
+                              )),
+                              Container(
+                                margin: EdgeInsets.only(left: 25),
+                                child: IconButton(
+                                  iconSize: 37,
+                                  color: Theme.of(context).primaryColor,
+                                  alignment: Alignment.bottomCenter,
+                                  icon: Icon(Icons.download_rounded),
+                                  onPressed: this.state.downloading ? null : this.state.downloadPDF
                                 ),
                               )
-                            ).toList(),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 25,
+                        ),
+                        if (this.state.downloading)
+                          Container(
+                            child: LinearProgressIndicator(
+                              value: this.state.progress
+                            ),
+                          )
+                        ,
+                        Container(
+                          height: this.state.screen.height - 250,
+                          child: PDFViewer(
+                            document: this.state.doc,
+
                           ),
                         )
                       ],
