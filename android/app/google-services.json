@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "457128115939",
+    "firebase_url": "https://prestaqi-c1f13.firebaseio.com",
+    "project_id": "prestaqi-c1f13",
+    "storage_bucket": "prestaqi-c1f13.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457128115939:android:a7fe2c5fd91b05cc61cfd6",
+        "android_client_info": {
+          "package_name": "com.prestaqi.prestaqi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457128115939-ur3jm1nfhona5q9st480i5grtfvfa5fk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.prestaqi.prestaqi",
+            "certificate_hash": "f14c185b86b9f18ba5e0c2868a1e6dc89ce1f68c"
+          }
+        },
+        {
+          "client_id": "457128115939-8h39sp9g48m19lpodj0b7ib8h8r5ijl8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2g6LfiC5M0AQVMkB-5mP5sNDVvWnw1J4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457128115939-8h39sp9g48m19lpodj0b7ib8h8r5ijl8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "457128115939-be62omv5muhvbombr7obm9jraf7m79dg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.prestaqi.prestaqi"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457128115939:android:e74fadda721ecab761cfd6",
+        "android_client_info": {
+          "package_name": "com.prestaqi.prestaqi.prestaQi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457128115939-rip5e5kg49bpneskbugigb0h2db52t4s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.prestaqi.prestaqi.prestaQi",
+            "certificate_hash": "f14c185b86b9f18ba5e0c2868a1e6dc89ce1f68c"
+          }
+        },
+        {
+          "client_id": "457128115939-8h39sp9g48m19lpodj0b7ib8h8r5ijl8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2g6LfiC5M0AQVMkB-5mP5sNDVvWnw1J4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457128115939-8h39sp9g48m19lpodj0b7ib8h8r5ijl8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "457128115939-be62omv5muhvbombr7obm9jraf7m79dg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.prestaqi.prestaqi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
