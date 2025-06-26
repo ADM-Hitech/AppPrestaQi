@@ -11,7 +11,7 @@ import '../services/setup.service.dart';
 import '../utils/hexcolor.dart';
 
 class DrawerMenu extends StatefulWidget {
-  const DrawerMenu({ Key? key }): super(key: key);
+  const DrawerMenu({ super.key });
 
   @override
   DrawerMenuState createState() => DrawerMenuState();
@@ -34,7 +34,7 @@ class DrawerMenuState extends State<DrawerMenu> {
         user = value;
       });
     }).catchError((onError) {
-      print(onError);
+      
     });
   }
 
@@ -182,7 +182,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                               margin: const EdgeInsets.only(right: 15),
                               child: SvgPicture.asset(
                                 'assets/icons/ico-candado.svg',
-                                color: const Color.fromRGBO(202, 206, 230, 1),
+                                colorFilter: ColorFilter.mode(const Color.fromRGBO(202, 206, 230, 1), BlendMode.srcIn),
                                 width: 20,
                               ),
                             ),
@@ -212,7 +212,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                                 margin: const EdgeInsets.only(right: 15),
                                 child: SvgPicture.asset(
                                   'assets/icons/ico-inversiones.svg',
-                                  color: const Color.fromRGBO(202, 206, 230, 1),
+                                  colorFilter: ColorFilter.mode(const Color.fromRGBO(202, 206, 230, 1), BlendMode.srcIn),
                                   width: 20,
                                 ),
                               ),
@@ -242,7 +242,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                                 margin: const EdgeInsets.only(right: 15),
                                 child: SvgPicture.asset(
                                   'assets/icons/ico-menu-adelantos.svg',
-                                  color: const Color.fromRGBO(202, 206, 230, 1),
+                                  colorFilter: ColorFilter.mode(const Color.fromRGBO(202, 206, 230, 1), BlendMode.srcIn),
                                   width: 20,
                                 ),
                               ),
@@ -272,7 +272,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                                 margin: const EdgeInsets.only(right: 15),
                                 child: SvgPicture.asset(
                                   'assets/icons/ico-menu-adelantos.svg',
-                                  color: const Color.fromRGBO(202, 206, 230, 1),
+                                  colorFilter: ColorFilter.mode(const Color.fromRGBO(202, 206, 230, 1), BlendMode.srcIn),
                                   width: 20,
                                 ),
                               ),
@@ -301,7 +301,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                               margin: const EdgeInsets.only(right: 15),
                               child: SvgPicture.asset(
                                 'assets/icons/ico-menu-perfil.svg',
-                                color: const Color.fromRGBO(202, 206, 230, 1),
+                                colorFilter: ColorFilter.mode(const Color.fromRGBO(202, 206, 230, 1), BlendMode.srcIn),
                                 width: 20,
                               ),
                             ),
@@ -329,7 +329,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                               margin: const EdgeInsets.only(right: 15),
                               child: SvgPicture.asset(
                                 'assets/icons/ico-menu-soporte-tecnico.svg',
-                                color: const Color.fromRGBO(202, 206, 230, 1),
+                                colorFilter: ColorFilter.mode(const Color.fromRGBO(202, 206, 230, 1), BlendMode.srcIn),
                                 width: 20,
                               ),
                             ),
@@ -357,7 +357,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                               margin: const EdgeInsets.only(right: 15),
                               child: SvgPicture.asset(
                                 'assets/icons/ico-menu-ajustes.svg',
-                                color: const Color.fromRGBO(202, 206, 230, 1),
+                                colorFilter: ColorFilter.mode(const Color.fromRGBO(202, 206, 230, 1), BlendMode.srcIn),
                                 width: 20,
                               ),
                             ),
@@ -383,7 +383,7 @@ class DrawerMenuState extends State<DrawerMenu> {
                               margin: const EdgeInsets.only(right: 15),
                               child: SvgPicture.asset(
                                 'assets/icons/ico-menu-cerrar-sesion.svg',
-                                color: const Color.fromRGBO(202, 206, 230, 1),
+                                colorFilter: ColorFilter.mode(const Color.fromRGBO(202, 206, 230, 1), BlendMode.srcIn),
                                 width: 20,
                               ),
                             ),

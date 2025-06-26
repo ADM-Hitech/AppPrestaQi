@@ -6,11 +6,11 @@ class AppProvider extends InheritedWidget {
   final Function updateCountNotification;
 
   const AppProvider({
-    Key? key,
-    required Widget child,
+    super.key,
+    required super.child,
     required this.countNotification,
     required this.updateCountNotification
-  }) : super(key: key, child: child);
+  });
 
   @override
   bool updateShouldNotify(AppProvider oldWidget) => true;

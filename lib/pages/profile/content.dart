@@ -148,7 +148,7 @@ Widget profileBody({
                                       margin: const EdgeInsets.only(right: 15),
                                       child: SvgPicture.asset(
                                         'assets/icons/ico-perfil-user.svg',
-                                        color: const Color.fromRGBO(40, 101, 255, 1),
+                                        colorFilter: ColorFilter.mode(const Color.fromRGBO(40, 101, 255, 1), BlendMode.srcIn),
                                         width: 22,
                                       ),
                                     ),
@@ -238,7 +238,7 @@ Widget profileBody({
                                         margin: const EdgeInsets.only(right: 15),
                                         child: SvgPicture.asset(
                                           'assets/icons/ico-perfil-tarjeta.svg',
-                                          color: const Color.fromRGBO(40, 101, 255, 1),
+                                          colorFilter: ColorFilter.mode(const Color.fromRGBO(40, 101, 255, 1), BlendMode.srcIn),
                                           width: 22,
                                         ),
                                       ),
@@ -369,7 +369,7 @@ Widget profileBody({
                                       margin: const EdgeInsets.only(right: 15),
                                       child: SvgPicture.asset(
                                         'assets/icons/ico-perfil-datos.svg',
-                                        color: const Color.fromRGBO(40, 101, 255, 1),
+                                        colorFilter: ColorFilter.mode(const Color.fromRGBO(40, 101, 255, 1), BlendMode.srcIn),
                                         width: 22,
                                       ),
                                     ),

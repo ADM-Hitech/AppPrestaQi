@@ -38,6 +38,6 @@ class NotificationProvider with ChangeNotifier {
 
   List<NotificationModel> get listAlers => _alert;
 
-  get count => _alert.length;
-  get countNews => _alert.where((element) => !element.read).length;
+  int get count => _alert.length;
+  int get countNews => _alert.where((element) => !element.read).length;
 }

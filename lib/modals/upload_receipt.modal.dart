@@ -30,7 +30,7 @@ class UploadReceiptModal extends ModalRoute<void> {
   bool get barrierDismissible => false;
 
   @override
-  Color get barrierColor => Colors.black.withOpacity(0.4);
+  Color get barrierColor => Colors.black.withValues(alpha: 0.4);
 
   @override
   String? get barrierLabel => null;
@@ -140,9 +140,13 @@ class UploadReceiptState extends State<UploadReceipt> {
       }
 
     } on PlatformException {
-      print('Error');
+      setState(() {
+        error = "Error al seleccionar el archivo";
+      });
     } catch (e) {
-      print(e);
+      setState(() {
+        error = "Error al seleccionar el archivo";
+      });
     }
   }
 
@@ -271,7 +275,8 @@ class UploadReceiptState extends State<UploadReceipt> {
                                     Align(
                                         child: SvgPicture.asset(
                                           'assets/icons/ico-subir-archivo.svg',
-                                          color: const Color.fromRGBO(0, 0, 102, 1),
+                                          colorFilter: ColorFilter.mode(const Color.fromRGBO(0, 0, 102, 1), BlendMode.srcIn),
+
                                           width: 100,
                                         ),
                                     )

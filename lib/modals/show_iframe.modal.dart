@@ -19,7 +19,7 @@ class ShowIframeModal extends ModalRoute<void> {
   bool get barrierDismissible => false;
 
   @override
-  Color get barrierColor => Colors.black.withOpacity(0.4);
+  Color get barrierColor => Colors.black.withValues(alpha: 0.4);
 
   @override
   String? get barrierLabel => null;
@@ -68,7 +68,7 @@ class ShowIframe extends StatefulWidget {
   final String? textAccepted;
   final String? textCancel;
 
-  ShowIframe({required this.url, this.textAccepted, this.textCancel});
+  const ShowIframe({super.key, required this.url, this.textAccepted, this.textCancel});
     
   @override
   ShowIframeState createState() => ShowIframeState();

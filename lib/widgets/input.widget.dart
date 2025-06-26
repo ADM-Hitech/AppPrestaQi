@@ -77,7 +77,7 @@ Widget inputWidget<T>({
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide(color: overrideBorderColor),
         ) : null,
-        errorText: error != null ? error : snapshot.hasError ? snapshot.error.toString() : null
+        errorText: error ?? (snapshot.hasError ? snapshot.error.toString() : null)
       );
     }
 
@@ -103,7 +103,7 @@ Widget inputWidget<T>({
         borderRadius: BorderRadius.circular(8.0),
         borderSide: BorderSide(color: overrideBorderColor)
       ),
-      errorText: error != null ? error : snapshot.hasError ? snapshot.error.toString() : null
+      errorText: error ?? (snapshot.hasError ? snapshot.error.toString() : null)
     );
   }
 

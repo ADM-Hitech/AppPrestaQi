@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:prestaqi/models/user_token.model.dart';
 import 'package:prestaqi/pages/settings_info_account/content.dart';
 import 'package:prestaqi/services/app.service.dart';
@@ -37,7 +36,9 @@ class SettingInfoAccountState extends State<SettingInfoAccountPage> {
         user = value;
       });
     }).catchError((onError) {
-      print(onError);
+      setState(() {
+        porcen = 0;
+      });
     });
   }
 
@@ -53,7 +54,7 @@ class SettingInfoAccountState extends State<SettingInfoAccountPage> {
         url = "$url/capitals/ExportMyInvestment?type=1"; //"Investors/GetMyInvestments/${this.user.userId}";
       }
 
-      var dirDown;
+      Directory? dirDown;
 
       if (Platform.isIOS) {
         dirDown = await getApplicationDocumentsDirectory();
@@ -68,7 +69,7 @@ class SettingInfoAccountState extends State<SettingInfoAccountPage> {
 
       await dio.download(
         url,
-        "${dirDown.path}/miInformación.xlsx", 
+        "${dirDown!.path}/miInformación.xlsx", 
         onReceiveProgress: (rec, total) {
         
         setState(() {
@@ -91,7 +92,6 @@ class SettingInfoAccountState extends State<SettingInfoAccountPage> {
       setState(() {
         loading = false;
       });
-      print(e);
     }
   }
   

@@ -140,7 +140,7 @@ Widget settingDeleteAccountBody({
                             alignment: Alignment.center,
                             child: SvgPicture.asset(
                               'assets/icons/ico-borrar.svg',
-                              color: Color.fromRGBO(202, 206, 230, 1),
+                              colorFilter: ColorFilter.mode(const Color.fromRGBO(202, 206, 230, 1), BlendMode.srcIn),
                               width: 23,
                             )
                           ),

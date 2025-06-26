@@ -4,7 +4,7 @@ import 'package:prestaqi/widgets/app_bar.widget.dart';
 import 'package:prestaqi/widgets/drawer_menu.widget.dart';
 
 class TechnicalSupportPage extends StatefulWidget {
-  const TechnicalSupportPage({ Key? key }): super(key: key);
+  const TechnicalSupportPage({ super.key });
 
   @override
   TechnicalSupportState createState() => TechnicalSupportState();

@@ -10,7 +10,7 @@ import 'package:prestaqi/widgets/app_bar.widget.dart';
 import 'package:prestaqi/widgets/drawer_menu.widget.dart';
 
 class MyAdvancePage extends StatefulWidget {
-  const MyAdvancePage({ Key? key }) : super(key: key);
+  const MyAdvancePage({ super.key });
 
   @override
   MyAdvanceState createState() => MyAdvanceState();
@@ -61,7 +61,7 @@ class MyAdvanceState extends State<MyAdvancePage> {
 
   void downloadPDF() async {}
 
-  void fetchAdvances(periodName) async {
+  void fetchAdvances(String periodName) async {
     serveice.getAdvances().then((value) {
       setState(() {
         advancesActive = value.currents;
@@ -90,9 +90,10 @@ class MyAdvanceState extends State<MyAdvancePage> {
       }),
 
       fetchAdvances(user.periodName)
+    // ignore: body_might_complete_normally_catch_error
     }).catchError((onError) {
       setState(() {
-        print(onError);
+        loading = false;
       });
     });
   }

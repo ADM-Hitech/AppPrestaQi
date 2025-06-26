@@ -62,35 +62,33 @@ Widget itemNotification({
               child: const Icon(Icons.notifications, color: Colors.white),
             )
           ],
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: width - 130,
-                  child: Text(
-                    notification.title,
-                    style: const TextStyle(
-                      color: Color.fromRGBO(77, 77, 77, 1),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16
-                    ),
-                    maxLines: 50,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: width - 130,
+                child: Text(
+                  notification.title,
+                  style: const TextStyle(
+                    color: Color.fromRGBO(77, 77, 77, 1),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16
+                  ),
+                  maxLines: 50,
+                ),
+              ),
+              SizedBox(
+                width: width - 130,
+                child: Text(
+                  notification.message,
+                  style: const TextStyle(
+                    color: Color.fromRGBO(142, 145, 162, 1),
+                    fontSize: 15
                   ),
                 ),
-                Container(
-                  width: width - 130,
-                  child: Text(
-                    notification.message,
-                    style: const TextStyle(
-                      color: Color.fromRGBO(142, 145, 162, 1),
-                      fontSize: 15
-                    ),
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           )
         ],
       ),

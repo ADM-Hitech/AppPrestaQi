@@ -44,9 +44,7 @@ class NotificationState extends State<NotificationPage> {
             setState(() {
               notifications = notifications.where((element) => element.id != alert.id).toList();
             });
-          }).catchError((onError) {
-            print(onError);
-          });
+          }).catchError((onError) {});
         }
       }
     }
@@ -67,7 +65,11 @@ class NotificationState extends State<NotificationPage> {
       appService<NotificationService>().disabledNotifications(deleteAlert).then((value) => null).catchError((onError) {});
 
       AppProvider.of(context)?.updateCountNotification();
-    } on PlatformException {}
+    } on PlatformException {
+      setState(() {
+        loading = false;
+      });
+    }
     
     goBack();
   }

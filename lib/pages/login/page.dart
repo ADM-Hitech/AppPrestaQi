@@ -9,7 +9,7 @@ import 'package:prestaqi/services/setup.service.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({ Key? key }) : super(key: key);
+  const LoginPage({ super.key });
 
   @override
   LoginState createState() => LoginState();
@@ -35,7 +35,7 @@ class LoginState extends State<LoginPage> {
   }
 
   void submit() {
-    final pNotification = Provider.of<NotificationProvider>(context, listen: false);
+    Provider.of<NotificationProvider>(context, listen: false);
 
     bloc.changeLoading(true);
 

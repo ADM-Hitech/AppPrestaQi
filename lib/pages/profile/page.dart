@@ -7,7 +7,7 @@ import 'package:prestaqi/widgets/app_bar.widget.dart';
 import 'package:prestaqi/widgets/drawer_menu.widget.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({ Key? key }) : super(key: key);
+  const ProfilePage({ super.key });
 
   @override
   ProfileState createState() => ProfileState();

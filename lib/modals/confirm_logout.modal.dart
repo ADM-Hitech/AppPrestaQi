@@ -13,7 +13,7 @@ class ConfirmLogoutModal extends ModalRoute<void> {
   bool get barrierDismissible => false;
 
   @override
-  Color get barrierColor => Colors.black.withOpacity(0.4);
+  Color get barrierColor => Colors.black.withValues(alpha: 0.4);
 
   @override
   String? get barrierLabel => null;
@@ -89,7 +89,7 @@ class ConfirmLogoutState extends State<ConfirmLogout> {
             Center(
               child: SvgPicture.asset(
                 'assets/icons/ico-alerta.svg',
-                color: const Color.fromRGBO(255, 51, 102, 1),
+                colorFilter: ColorFilter.mode(const Color.fromRGBO(255, 51, 102, 1), BlendMode.srcIn),
                 width: 80,
               ),
             ),

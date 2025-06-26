@@ -3,7 +3,7 @@ import 'package:prestaqi/pages/settings_security/content.dart';
 import 'package:prestaqi/widgets/app_bar.widget.dart';
 
 class SettingSecurityPage extends StatefulWidget {
-  const SettingSecurityPage({ Key? key }): super(key: key);
+  const SettingSecurityPage({ super.key });
 
   @override
   SettingSecurityState createState() => SettingSecurityState();

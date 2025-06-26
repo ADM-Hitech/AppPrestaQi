@@ -3,7 +3,7 @@ import 'package:prestaqi/models/startup_view.model.dart';
 import 'package:prestaqi/providers/startup_view.provicer.dart';
 
 class StatupView extends StatelessWidget {
-  const StatupView({ Key? key }) : super(key: key);
+  const StatupView({ super.key });
 
   @override
   Widget build(BuildContext context) {

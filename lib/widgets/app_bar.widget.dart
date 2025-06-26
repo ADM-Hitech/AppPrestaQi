@@ -18,7 +18,7 @@ AppBar appBar({
         fontWeight: FontWeight.w600
       )) : SvgPicture.asset(
       'assets/icons/ico-logo.svg',
-      color: Colors.white,
+      colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
       width: 110,
     ),
     actions: title != '' ? [] : const [

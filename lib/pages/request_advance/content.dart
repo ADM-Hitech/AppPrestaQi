@@ -170,7 +170,7 @@ Widget requestAdvanceBody({
                                 alignment: Alignment.center,
                                 child: SvgPicture.asset(
                                   'assets/icons/ico-teclado.svg',
-                                  color: const Color.fromRGBO(202, 206, 230, 1),
+                                  colorFilter: ColorFilter.mode(const Color.fromRGBO(202, 206, 230, 1), BlendMode.srcIn),
                                   width: 40,
                                 )
                               ),

@@ -46,7 +46,7 @@ Widget loginBody({
                     left: 0,
                     child: SvgPicture.asset(
                       'assets/icons/ico-logo.svg',
-                      color: Colors.white,
+                      colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
                       width: width * .8,
                     ),
                   )
@@ -134,7 +134,10 @@ Widget loginBody({
                         SizedBox(
                           width: 18,
                           height: 18,
-                          child: SvgPicture.asset('assets/icons/ico-candado.svg', color: Colors.white)
+                          child: SvgPicture.asset(
+                            'assets/icons/ico-candado.svg',
+                            colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                          )
                         ),
                         const SizedBox(width: 15),
                         const Text('Recuperar contraseña', style: TextStyle(

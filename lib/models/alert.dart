@@ -16,7 +16,7 @@ class Alert {
   });
 
   factory Alert.fromJson(Map<String, dynamic> object) {
-    var data;
+    dynamic data;
     if (object['data'] != null && object['data']['Capital_Id'] != null &&  object['data']['Amount'] != null) {
       data = DataAdvanceCapitalNotificationModel(
         amount: object['data']['Amount'] as double,

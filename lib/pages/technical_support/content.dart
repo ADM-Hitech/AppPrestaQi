@@ -113,7 +113,7 @@ Widget technicalSupportBody({
                                     child: Align(
                                       child: SvgPicture.asset(
                                         'assets/icons/ico-soporte-whatsapp.svg',
-                                        color: Colors.white,
+                                        colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
                                         width: state.getSizeIcon(width),
                                       ),
                                     ),
@@ -193,7 +193,7 @@ Widget technicalSupportBody({
                                     child: Align(
                                       child: SvgPicture.asset(
                                         'assets/icons/ico-soporte-correo.svg',
-                                        color: Colors.white,
+                                        colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
                                         width: state.getSizeIcon(width)
                                       ),
                                     )

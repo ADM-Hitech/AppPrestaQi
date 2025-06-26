@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'package:prestaqi/models/advance.model.dart';
 import 'package:prestaqi/models/my_profile.model.dart';
 import 'package:prestaqi/models/register_advances.model.dart';
 import 'package:prestaqi/services/preference_user.service.dart';
@@ -37,7 +36,7 @@ class MyAdvancesService {
       }
     }
 
-    return throw const CustomErrorUtilsException('ocurrio un error');;
+    return throw const CustomErrorUtilsException('ocurrio un error');
   }
 
   Future<MyProfileModel> getMyProfile() async {

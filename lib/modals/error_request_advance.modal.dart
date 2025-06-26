@@ -13,7 +13,7 @@ class ErrorRequestAdvanceModal extends ModalRoute<void> {
   bool get barrierDismissible => false;
 
   @override
-  Color get barrierColor => Colors.black.withOpacity(0.4);
+  Color get barrierColor => Colors.black.withValues(alpha: 0.4);
 
   @override
   String? get barrierLabel => null;
@@ -89,7 +89,7 @@ class ErrorRequestAdvanceState extends State<ErrorRequestAdvance> {
             Center(
               child: SvgPicture.asset(
                 'assets/icons/ico-alerta.svg',
-                color: const Color.fromRGBO(255, 60, 60, 1),
+                colorFilter: ColorFilter.mode(const Color.fromRGBO(255, 60, 60, 1), BlendMode.srcIn),
                 width: 80,
               ),
             ),

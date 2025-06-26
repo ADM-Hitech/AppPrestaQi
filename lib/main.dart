@@ -35,7 +35,7 @@ void main() async {
 }
 
 class PrestaQiApp extends StatefulWidget {
-  const PrestaQiApp({ Key? key }) : super(key: key);
+  const PrestaQiApp({ super.key });
 
   @override
   PrestaQiAppState createState() => PrestaQiAppState();

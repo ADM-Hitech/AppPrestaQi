@@ -51,7 +51,12 @@ class SettingsDeleteAccountState extends State<SettingsDeleteAccountPage> {
           appService<AppService>().logout(),
           appService<NavigationService>().navigateTo('index-auth')
         }
-      }).catchError((onError) {});
+      // ignore: body_might_complete_normally_catch_error
+      }).catchError((onError) {
+        setState(() {
+          loading = false;
+        });
+      });
     }
   }
 

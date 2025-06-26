@@ -63,6 +63,7 @@ class RequestAdvanceState extends State<RequestAdvancePage> {
   }
 
   Future<void> requestActiveLocation() async {
+    // ignore: body_might_complete_normally_catch_error
     final statusLocation = await Geolocator.isLocationServiceEnabled().catchError((onError) {
 
     });

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prestaqi/pages/index_auth/content.dart';
 
 class IndexAuthPage extends StatefulWidget {
-  const IndexAuthPage({ Key? key }) : super(key: key);
+  const IndexAuthPage({ super.key });
 
   @override
   IndexAuthState createState() => IndexAuthState();

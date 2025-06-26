@@ -58,7 +58,7 @@ class ActionMenuAlertState extends State<ActionMenuAlert> with SingleTickerProvi
                 builder: (bc, child) {
                   return SvgPicture.asset(
                     'assets/icons/ico-notificaciones-nuevo.svg',
-                    color: offsetAnimation.value != 0 ? Colors.yellowAccent : Colors.white,
+                    colorFilter: ColorFilter.mode(offsetAnimation.value != 0 ? Colors.yellowAccent : Colors.white, BlendMode.srcIn),
                     width: 25 + offsetAnimation.value,
                   );
                 },

@@ -10,11 +10,11 @@ class AdvancesAfter extends StatelessWidget {
   final double sizeText;
 
   const AdvancesAfter({
-    Key? key,
+    super.key,
     required this.date,
     required this.total,
     this.sizeText = 23,
-  }): super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,7 @@ class AdvancesAfter extends StatelessWidget {
             margin: const EdgeInsets.only(right: 25),
             child: SvgPicture.asset(
               'assets/icons/ico-flecha-derecha.svg',
-              color: const Color.fromRGBO(142, 145, 162, 1),
+              colorFilter: ColorFilter.mode(const Color.fromRGBO(142, 145, 162, 1), BlendMode.srcIn),
               width: 15,
             ),
           )

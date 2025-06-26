@@ -4,7 +4,7 @@ import 'package:prestaqi/widgets/app_bar.widget.dart';
 import 'package:prestaqi/widgets/drawer_menu.widget.dart';
 
 class SettingsPage extends StatefulWidget {
-  const SettingsPage({ Key? key }): super(key: key);
+  const SettingsPage({ super.key });
 
   @override
   SettingsState createState() => SettingsState();

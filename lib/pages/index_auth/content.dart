@@ -37,7 +37,7 @@ Widget indexAuthBody({
                     left: 0,
                     child: SvgPicture.asset(
                       'assets/icons/ico-logo.svg',
-                      color: Colors.white,
+                      colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
                       width: width * .8,
                     ),
                   )

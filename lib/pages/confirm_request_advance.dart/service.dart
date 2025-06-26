@@ -75,7 +75,7 @@ class ConfirmRequestAdvanceService {
 
     Uri url = appService<AppSettings>().envProd ? Uri.https(apiUrl, '/api/Advances') : Uri.http(apiUrl, '/api/Advances');
 
-    final response = await http.post(url, body: "{'amount': $amount, 'latitude': $latitude, 'longitude': $longitude}", headers: {
+    final response = await http.post(url, body: "{'amount': $amount, 'latitud': $latitude, 'longitud': $longitude}", headers: {
       HttpHeaders.authorizationHeader: 'Bearer ${pref.token}',
       HttpHeaders.contentTypeHeader: 'application/json',
       HttpHeaders.acceptHeader: 'application/json',

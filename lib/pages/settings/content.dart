@@ -115,7 +115,7 @@ Widget settingsBody({
                               ),
                               SvgPicture.asset(
                                 'assets/icons/ico-flecha-derecha.svg',
-                                color: const Color.fromRGBO(142, 145, 162, 1),
+                                colorFilter: ColorFilter.mode(const Color.fromRGBO(142, 145, 162, 1), BlendMode.srcIn),
                                 width: 18,
                               )
                             ],
@@ -170,7 +170,7 @@ Widget settingsBody({
                               ),
                               SvgPicture.asset(
                                 'assets/icons/ico-flecha-derecha.svg',
-                                color: const Color.fromRGBO(142, 145, 162, 1),
+                                colorFilter: ColorFilter.mode(const Color.fromRGBO(142, 145, 162, 1), BlendMode.srcIn),
                                 width: 18,
                               )
                             ],
@@ -222,7 +222,7 @@ Widget settingsBody({
                               ),
                               SvgPicture.asset(
                                 'assets/icons/ico-flecha-derecha.svg',
-                                color: const Color.fromRGBO(142, 145, 162, 1),
+                                colorFilter: ColorFilter.mode(const Color.fromRGBO(142, 145, 162, 1), BlendMode.srcIn),
                                 width: 18,
                               )
                             ],
@@ -274,7 +274,7 @@ Widget settingsBody({
                               ),
                               SvgPicture.asset(
                                 'assets/icons/ico-flecha-derecha.svg',
-                                color: const Color.fromRGBO(142, 145, 162, 1),
+                                colorFilter: ColorFilter.mode(const Color.fromRGBO(142, 145, 162, 1), BlendMode.srcIn),
                                 width: 18,
                               )
                             ],

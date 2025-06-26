@@ -21,7 +21,7 @@ class CartaMandatoInversionistaModal extends ModalRoute<void> {
   bool get barrierDismissible => false;
 
   @override
-  Color get barrierColor => Colors.black.withOpacity(0.4);
+  Color get barrierColor => Colors.black.withValues(alpha: 0.4);
 
   @override
   String? get barrierLabel => null;
@@ -147,7 +147,7 @@ class CartaMandatoState extends State<CartaMandato> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('C. ${user == null ? '' : user.firstName + ' ' + this.user.lastName}',
+                          Text('C. ${user == null ? '' : '${user.firstName} ${user.lastName}'}',
                             textAlign: TextAlign.start,
                             style: const TextStyle(
                               color: Color.fromRGBO(0, 0, 102, 1),
